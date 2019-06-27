@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="custom_info_title">
+        <item>资料</item>
+        <item>动态</item>
+        <item>守护</item>
+    </string-array>
+    <string-array name="custom_more">
+        <item>分享</item>
+        <item>举报</item>
+        <item>加入黑名单</item>
+        <item>设置备注</item>
+    </string-array>
+    <string-array name="custom_more_black">
+        <item>分享</item>
+        <item>举报</item>
+        <item>取消黑名单</item>
+        <item>设置备注</item>
+    </string-array>
+    <string-array name="customer_menu">
+        <item>主页</item>
+        <item>关注</item>
+        <item>举报</item>
+        <item>拉黑</item>
+        <item>设置备注</item>
+    </string-array>
+    <string-array name="emotion">
+        <item>保密</item>
+        <item>单身</item>
+        <item>恋爱中</item>
+        <item>已婚</item>
+        <item>离异</item>
+        <item>同性</item>
+    </string-array>
+    <string-array name="item_name">
+        <item>分享赚钱</item>
+        <item>自拍认证</item>
+        <item>成为女神</item>
+        <item>领取奖励</item>
+        <item>谁看过我</item>
+        <item>收到礼物</item>
+    </string-array>
+    <string-array name="job">
+        <item>学生</item>
+        <item>自由职业</item>
+        <item>老板</item>
+        <item>上班族</item>
+    </string-array>
+    <string-array name="kefu_list">
+        <item>10011</item>
+        <item>10012</item>
+        <item>10013</item>
+        <item>10014</item>
+        <item>10015</item>
+        <item>10016</item>
+        <item>10017</item>
+        <item>10018</item>
+        <item>10019</item>
+        <item>10020</item>
+    </string-array>
+    <string-array name="letter_list">
+        <item>↑</item>
+        <item>\@</item>
+        <item>\#</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
+    <string-array name="publish_dynamic">
+        <item>发布图文动态</item>
+        <item>发布语音动态</item>
+    </string-array>
+    <string-array name="radio">
+        <item>删除照片</item>
+        <item>查看大图</item>
+    </string-array>
+    <string-array name="receive_date">
+        <item>是</item>
+        <item>否</item>
+    </string-array>
+    <string-array name="sobot_fileEndingAll">
+        <item>.mp3</item>
+        <item>.wav</item>
+        <item>.mp4</item>
+        <item>.rmvb</item>
+        <item>.avi</item>
+        <item>.flv</item>
+        <item>.txt</item>
+        <item>.doc</item>
+        <item>.docx</item>
+        <item>.xls</item>
+        <item>.xlsx</item>
+        <item>.ppt</item>
+        <item>.pptx</item>
+        <item>.pdf</item>
+        <item>.zip</item>
+        <item>.rar</item>
+        <item>.png</item>
+        <item>.gif</item>
+        <item>.jpg</item>
+        <item>.jpeg</item>
+        <item>.bmp</item>
+    </string-array>
+    <string-array name="sobot_fileEndingAudio">
+        <item>.mp3</item>
+        <item>.wav</item>
+    </string-array>
+    <string-array name="sobot_fileEndingExcel">
+        <item>.xls</item>
+        <item>.xlsx</item>
+    </string-array>
+    <string-array name="sobot_fileEndingImage">
+        <item>.png</item>
+        <item>.gif</item>
+        <item>.jpg</item>
+        <item>.jpeg</item>
+        <item>.bmp</item>
+    </string-array>
+    <string-array name="sobot_fileEndingPPT">
+        <item>.ppt</item>
+        <item>.pptx</item>
+    </string-array>
+    <string-array name="sobot_fileEndingPackage">
+        <item>.zip</item>
+        <item>.rar</item>
+    </string-array>
+    <string-array name="sobot_fileEndingPdf">
+        <item>.pdf</item>
+    </string-array>
+    <string-array name="sobot_fileEndingText">
+        <item>.txt</item>
+    </string-array>
+    <string-array name="sobot_fileEndingVideo">
+        <item>.mp4</item>
+        <item>.rmvb</item>
+        <item>.avi</item>
+        <item>.flv</item>
+    </string-array>
+    <string-array name="sobot_fileEndingWord">
+        <item>.doc</item>
+        <item>.docx</item>
+    </string-array>
+    <string-array name="star_tips">
+        <item>非常不满意</item>
+        <item>不满意</item>
+        <item>一般</item>
+        <item>满意</item>
+        <item>非常满意</item>
+    </string-array>
+    <string-array name="string_box_text">
+        <item>我的主页</item>
+        <item>我的动态</item>
+        <item>我的守护</item>
+        <item>谁看过我</item>
+        <item>申请女神</item>
+        <item>购买广告</item>
+        <item>我的会员</item>
+        <item>花开群发</item>
+        <item>实名认证</item>
+        <item>语音聊</item>
+        <item>未成年模式</item>
+        <item>视频心愿</item>
+        <item>美颜设置</item>
+    </string-array>
+    <string-array name="string_complain">
+        <item>不露脸</item>
+        <item>不说话</item>
+        <item>敷衍了事</item>
+        <item>照片非本人</item>
+        <item>色情暴露</item>
+        <item>诱导QQ微信</item>
+        <item>性别不符</item>
+        <item>多人聊天</item>
+        <item>频繁要礼物</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="string_complain_main">
+        <item>骚扰信息</item>
+        <item>色情相关</item>
+        <item>垃圾广告</item>
+        <item>敲诈骗钱</item>
+        <item>政治敏感</item>
+        <item>违法</item>
+        <item>性别作弊</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="string_evaluate_bad">
+        <item>不露脸</item>
+        <item>不出声</item>
+        <item>不断要礼物</item>
+        <item>提醒到其他平台</item>
+        <item>聊天不友好</item>
+        <item>画面不清楚</item>
+    </string-array>
+    <string-array name="string_evaluate_recv_bad">
+        <item>色情</item>
+        <item>语言暴力粗俗</item>
+        <item>要求过分</item>
+    </string-array>
+    <string-array name="string_promotion_text">
+        <item>推荐有奖</item>
+        <item>推广海报</item>
+        <item>推广语录</item>
+        <item>推广悬赏</item>
+    </string-array>
+    <string-array name="string_rec_complain">
+        <item>暴露</item>
+        <item>要求色情</item>
+        <item>侮辱</item>
+        <item>谩骂</item>
+        <item>诱导QQ微信</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="string_school_text">
+        <item>新手指南</item>
+        <item>常见问题</item>
+        <item>平台公约</item>
+        <item>意见反馈</item>
+        <item>我的客服</item>
+    </string-array>
+    <string-array name="tabRankTitle">
+        <item>消费榜</item>
+        <item>礼物榜</item>
+        <item>守护榜</item>
+        <item>财富榜</item>
+    </string-array>
+    <string-array name="findTabTitle">
+        <item>推荐</item>
+        <item>活跃</item>
+        <item>新人</item>
+        <item>关注</item>
+    </string-array>
+    <string-array name="homeTabTitle">
+        <item>同城动态</item>
+        <item>同城的人</item>
+    </string-array>
+    <string-array name="trend_tips">
+        <item>1. 禁止发布色情、性感暴露照片（包含但不限于：禁止上传睡衣/内衣/背心/抹胸/丝袜/露乳沟等暴露照片）；</item>
+        <item>2. 允许上传自己的生活照以及身边风景照（发布照片+有意义的文字，更容易通过哦）；</item>
+    </string-array>
+    <string-array name="url_list">
+        <item>api1/</item>
+        <item>api2/</item>
+        <item>api3/</item>
+        <item>http://192.168.0.131:11000/api/</item>
+        <item>http://192.168.0.188:11000/api/</item>
+        <item>http://192.168.0.168:11000/api/</item>
+        <item>http://192.168.0.166:11000/api/</item>
+        <item>http://192.168.0.103:11000/api/</item>
+        <item>http://192.168.0.155:11000/api/</item>
+        <item>http://192.168.0.170:11000/api/</item>
+    </string-array>
+</resources>
