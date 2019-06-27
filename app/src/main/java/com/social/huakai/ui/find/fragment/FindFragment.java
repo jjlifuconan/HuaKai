@@ -84,6 +84,7 @@ public class FindFragment extends BaseFragment<FragmentFindBinding> implements F
 
     @Override
     public void showLoadFailedView() {
+        //
 
     }
 }
