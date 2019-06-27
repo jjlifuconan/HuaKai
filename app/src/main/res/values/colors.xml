@@ -12,4 +12,5 @@
     <color name="main_text_color">#ff666666</color>
     <color name="main_text_green">#ff2dc01d</color>
     <color name="main_text_grey">#ff999999</color>
+    <color name="transparent_all">#00000000</color>
 </resources>
