@@ -17,6 +17,8 @@ import com.social.basecommon.R;
 import com.social.basecommon.util.PerfectClickListener;
 
 import me.yokeyword.fragmentation.SupportFragment;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * @author Administrator
@@ -35,6 +37,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends SupportFr
     private ConstraintLayout mRefresh;
     // 动画
     private AnimationDrawable mAnimationDrawable;
+    private CompositeSubscription mCompositeSubscription;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -143,6 +146,21 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends SupportFr
         }
         if (binding.getRoot().getVisibility() != View.GONE) {
             binding.getRoot().setVisibility(View.GONE);
+        }
+    }
+
+    public void addSubscription(Subscription s) {
+        if (this.mCompositeSubscription == null) {
+            this.mCompositeSubscription = new CompositeSubscription();
+        }
+        this.mCompositeSubscription.add(s);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (this.mCompositeSubscription != null && mCompositeSubscription.hasSubscriptions()) {
+            this.mCompositeSubscription.unsubscribe();
         }
     }
 }
