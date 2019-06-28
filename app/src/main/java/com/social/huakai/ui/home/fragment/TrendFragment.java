@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -60,9 +62,9 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
 
         trendAdapter = new TrendAdapter(activity);
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
-        DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
-        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        DividerItemDecoration divider = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(trendAdapter);
     }
