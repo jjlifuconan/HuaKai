@@ -1,4 +1,4 @@
-package com.social.huakai.ui.find.fragment;
+package com.social.huakai.ui.home.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,30 +11,28 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
-import com.social.huakai.databinding.FragmentFindBinding;
-import com.social.huakai.databinding.FragmentFindListBinding;
-import com.social.huakai.ui.find.adapter.FindAdapter;
-import com.social.huakai.ui.find.bean.GankIoDataBean;
-import com.social.huakai.ui.find.interfaces.FindNavigator;
-import com.social.huakai.ui.find.present.FindPresent;
+import com.social.huakai.ui.home.adapter.TrendAdapter;
+import com.social.huakai.ui.home.bean.NeteaseList;
+import com.social.huakai.ui.home.interfaces.TrendNavigator;
+import com.social.huakai.ui.home.present.TrendPresent;
 import com.social.huakai.widget.DividerGridItemDecoration;
 
 import rx.Subscription;
 
 /**
  * @author Administrator
- * @date 2019/6/26 0026
- * @description:发现页面
+ * @date 2019/6/28 0028
+ * @description:动态列表
  */
-public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> implements FindNavigator {
-    private FindAdapter findAdapter;
-    private FindPresent present;
+public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> implements TrendNavigator {
+    private TrendAdapter trendAdapter;
+    private TrendPresent present;
 
-    public static FindChildFragment newInstance() {
+    public static TrendFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        FindChildFragment fragment = new FindChildFragment();
+        TrendFragment fragment = new TrendFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -42,7 +40,7 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        present = new FindPresent(this);
+        present = new TrendPresent(this);
         present.loadFindData();
         binding.refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -61,17 +59,12 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
         });
 
 
-        findAdapter = new FindAdapter(activity);
+        trendAdapter = new TrendAdapter(activity);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
         binding.recyclerView.addItemDecoration(divider);
-        binding.recyclerView.setAdapter(findAdapter);
-    }
-
-    @Override
-    public int setContent() {
-        return R.layout.fragment_refresh_list;
+        binding.recyclerView.setAdapter(trendAdapter);
     }
 
     @Override
@@ -80,16 +73,16 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
     }
 
     @Override
-    public void showAdapterView(GankIoDataBean gankIoDataBean) {
+    public void showAdapterView(NeteaseList neteaseList) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {
-            findAdapter.getItems().clear();
+            trendAdapter.getItems().clear();
             binding.refreshLayout.finishRefresh();
         }else{
             binding.refreshLayout.finishLoadMore();
         }
-        findAdapter.getItems().addAll(gankIoDataBean.getResults());
+        trendAdapter.getItems().addAll(neteaseList.getData());
 
     }
 
@@ -101,7 +94,7 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
     @Override
     public void showLoadFailedView() {
         binding.refreshLayout.finishRefresh();
-        if (findAdapter.getItemCount() == 0) {
+        if (trendAdapter.getItemCount() == 0) {
             showError();
         }
     }
@@ -114,5 +107,10 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
     @Override
     protected void onRefresh() {
         present.loadFindData();
+    }
+
+    @Override
+    public int setContent() {
+        return R.layout.fragment_refresh_list;
     }
 }

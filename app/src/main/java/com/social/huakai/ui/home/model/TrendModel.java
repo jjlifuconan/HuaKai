@@ -1,8 +1,9 @@
-package com.social.huakai.ui.find.model;
+package com.social.huakai.ui.home.model;
 
 import com.social.huakai.http.HttpClient;
 import com.social.huakai.http.RequestImpl;
 import com.social.huakai.ui.find.bean.GankIoDataBean;
+import com.social.huakai.ui.home.bean.NeteaseList;
 
 import rx.Observer;
 import rx.Subscription;
@@ -14,21 +15,19 @@ import rx.schedulers.Schedulers;
  * @date 2019/6/27 0027
  * @description:
  */
-public class FindViewModel {
-    private String id;
+public class TrendModel {
     private int page;
     private int per_page;
 
-    public void setData(String id, int page, int per_page) {
-        this.id = id;
+    public void setData( int page, int per_page) {
         this.page = page;
         this.per_page = per_page;
     }
 
-    public void getGankIoData(final RequestImpl listener) {
-        Subscription subscription = HttpClient.Builder.getGankIOServer().getGankIoData(id, page, per_page)
+    public void getNeteaseData(final RequestImpl listener) {
+        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(page, per_page)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<GankIoDataBean>() {
+                .subscribe(new Observer<NeteaseList>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -40,12 +39,11 @@ public class FindViewModel {
                     }
 
                     @Override
-                    public void onNext(GankIoDataBean gankIoDataBean) {
+                    public void onNext(NeteaseList gankIoDataBean) {
                         listener.loadSuccess(gankIoDataBean);
 
                     }
                 });
         listener.addSubscription(subscription);
     }
-
 }
