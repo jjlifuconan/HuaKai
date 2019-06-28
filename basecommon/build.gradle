@@ -41,6 +41,5 @@ dependencies {
     api 'com.github.hackware1993:MagicIndicator:1.5.0'
     api 'jp.wasabeef:glide-transformations:2.0.1'
     api 'com.android.support:multidex:1.0.3'
-    api 'com.google.code.gson:gson:2.8.2'
-
+    api 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
 }

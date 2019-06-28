@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.gyf.immersionbar.ImmersionBar;
+
 import me.yokeyword.fragmentation.SupportActivity;
 
 /**
@@ -19,5 +21,10 @@ public class BaseActivity extends SupportActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

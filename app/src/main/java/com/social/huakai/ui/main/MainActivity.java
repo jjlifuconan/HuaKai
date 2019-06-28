@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityMainBinding;
@@ -34,7 +35,10 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        ImmersionBar.with(activity)
+                .statusBarDarkFont(true, 0.2f)
+                .init();
+        ImmersionBar.with(this).init();
         SupportFragment firstFragment = findFragment(HomeFragment.class);
         if (firstFragment == null) {
             mFragments[FIRST] = HomeFragment.newInstance();
@@ -70,6 +74,15 @@ public class MainActivity extends BaseActivity {
         binding.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
+                if(position == 0){
+                    ImmersionBar.with(activity)
+                            .statusBarDarkFont(true, 0.2f)
+                            .init();
+                }else{
+                    ImmersionBar.with(activity)
+                            .statusBarDarkFont(false)
+                            .init();
+                }
                 showHideFragment(mFragments[position], mFragments[prePosition]);
             }
 

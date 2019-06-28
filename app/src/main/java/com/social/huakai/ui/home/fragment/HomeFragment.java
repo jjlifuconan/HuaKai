@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
@@ -52,6 +53,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        ImmersionBar.setTitleBar(this, binding.titlebar);
         showContentView();
         final String[] titles = getResources().getStringArray(R.array.homeTabTitle);
 
@@ -127,5 +129,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
                 binding.indicator.onPageScrollStateChanged(state);
             }
         });
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+
     }
 }
