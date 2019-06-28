@@ -91,6 +91,8 @@ public class FindFragment extends BaseFragment<FragmentFindBinding> {
         });
         binding.indicator.setNavigator(commonNavigator);
 
+        binding.viewpager.setOffscreenPageLimit(4);
+
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -119,6 +121,7 @@ public class FindFragment extends BaseFragment<FragmentFindBinding> {
                 binding.indicator.onPageScrollStateChanged(state);
             }
         });
+
     }
 
     @Override
