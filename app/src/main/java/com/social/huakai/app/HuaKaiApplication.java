@@ -8,6 +8,7 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.util.NIMUtil;
 import com.social.basecommon.util.DebugUtil;
+import com.social.huakai.im.DemoCache;
 import com.social.huakai.im.NimSDKOptionConfig;
 
 
@@ -29,6 +30,7 @@ public class HuaKaiApplication extends MultiDexApplication {
         application = this;
         HttpUtils.getInstance().init(this, DebugUtil.DEBUG);
         // 初始化云信SDK
+        DemoCache.setContext(this);
         NIMClient.init(this, getLoginInfo(), NimSDKOptionConfig.getSDKOptions(this));
 
         // 以下逻辑只在主进程初始化时执行

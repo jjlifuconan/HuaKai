@@ -67,11 +67,11 @@ public class RxSaveImage {
                 // 获得Bitmap
                 Bitmap bitmap = null;
                 try {
-                    bitmap = Glide.with(context)
-                            .load(url)
-                            .asBitmap()
-                            .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                            .get();
+//                    bitmap = Glide.with(context)
+//                            .load(url)
+//                            .asBitmap()
+//                            .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+//                            .get();
 
                 } catch (Exception e) {
                     subscriber.onError(e);

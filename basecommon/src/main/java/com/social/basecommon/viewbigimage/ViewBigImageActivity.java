@@ -16,7 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.http.utils.CheckNetwork;
@@ -220,33 +219,33 @@ public class ViewBigImageActivity extends BaseActivity implements OnPageChangeLi
 
             spinner.setVisibility(View.VISIBLE);
             spinner.setClickable(false);
-            Glide.with(ViewBigImageActivity.this).load(imageUrl)
-                    .crossFade(700)
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            ToastUtil.show(activity,"资源加载异常");
-                            spinner.setVisibility(View.GONE);
-                            return false;
-                        }
-
-                        //这个用于监听图片是否加载完成
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            spinner.setVisibility(View.GONE);
-
-                            /**这里应该是加载成功后图片的高*/
-                            int height = zoomImageView.getHeight();
-
-                            int wHeight = getWindowManager().getDefaultDisplay().getHeight();
-                            if (height > wHeight) {
-                                zoomImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            } else {
-                                zoomImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            }
-                            return false;
-                        }
-                    }).into(zoomImageView);
+//            Glide.with(ViewBigImageActivity.this).load(imageUrl)
+//                    .crossFade(700)
+//                    .listener(new RequestListener<String, GlideDrawable>() {
+//                        @Override
+//                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+//                            ToastUtil.show(activity,"资源加载异常");
+//                            spinner.setVisibility(View.GONE);
+//                            return false;
+//                        }
+//
+//                        //这个用于监听图片是否加载完成
+//                        @Override
+//                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+//                            spinner.setVisibility(View.GONE);
+//
+//                            /**这里应该是加载成功后图片的高*/
+//                            int height = zoomImageView.getHeight();
+//
+//                            int wHeight = getWindowManager().getDefaultDisplay().getHeight();
+//                            if (height > wHeight) {
+//                                zoomImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                            } else {
+//                                zoomImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//                            }
+//                            return false;
+//                        }
+//                    }).into(zoomImageView);
 
             zoomImageView.setOnPhotoTapListener(ViewBigImageActivity.this);
             container.addView(view, 0);

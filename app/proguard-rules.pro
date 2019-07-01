@@ -19,3 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#`````网易IM start```````
+#-dontwarn com.netease.**
+#-keep class com.netease.** {*;}
+#如果你使用全文检索插件，需要加入
+#-dontwarn org.apache.lucene.**
+#-keep class org.apache.lucene.** {*;}
+#`````网易IM end```````
