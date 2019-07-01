@@ -3,6 +3,7 @@ package com.social.huakai.ui.message.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.netease.nim.uikit.business.recent.RecentContactsFragment;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
@@ -34,6 +35,7 @@ public class MessageFragment extends BaseFragment<FragmentMessageMainBinding> {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        ImmersionBar.setTitleBar(this, binding.titlebar);
         showContentView();
         addRecentContactsFragment();
     }
