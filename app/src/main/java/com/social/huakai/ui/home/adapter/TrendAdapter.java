@@ -16,7 +16,9 @@ import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.basecommon.adapter.BaseBindingViewHolder;
+import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ItemFindBinding;
 import com.social.huakai.databinding.ItemTrendBinding;
@@ -55,8 +57,12 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
         List<NeteaseList.DataBean.ImagesBean> imagesBeans = item.getImages();
         ArrayList strList = new ArrayList();
         if(imagesBeans!=null && !imagesBeans.isEmpty()){
-            for(int i=0;i<imagesBeans.size();i++){
-                strList.add(imagesBeans.get(i).getUrl());
+            if(imagesBeans.size() == 1){
+                strList.add("https://nimg.ws.126.net/?url="+imagesBeans.get(0).getUrl()+"&thumbnail="+ DensityUtil.getWidth(binding.getRoot().getContext())+"x2147483647&quality=75&type=webp");
+            }else{
+                for(int i=0;i<imagesBeans.size();i++){
+                    strList.add("https://nimg.ws.126.net/?url="+imagesBeans.get(i).getUrl()+"&thumbnail=480x2147483647&quality=75&type=webp");
+                }
             }
         }
         binding.nineimage.setImagesData(strList);
@@ -80,6 +86,7 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
             @Override
             protected void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
                 Toast.makeText(context, "image position is " + index, Toast.LENGTH_SHORT).show();
+                ViewBigImageActivity.startImageList(context, index, (ArrayList<String>) list, null);
             }
 
             @Override
