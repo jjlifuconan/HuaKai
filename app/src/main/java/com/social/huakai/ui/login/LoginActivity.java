@@ -5,11 +5,21 @@ import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.common.ToastHelper;
+import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
+import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nim.uikit.common.util.string.MD5;
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
+import com.social.huakai.im.DemoCache;
 import com.social.huakai.ui.main.MainActivity;
 
 /**
@@ -19,6 +29,7 @@ import com.social.huakai.ui.main.MainActivity;
  */
 public class LoginActivity extends BaseActivity {
     ActivityLoginBinding binding;
+    private AbortableFuture<LoginInfo> loginRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +43,45 @@ public class LoginActivity extends BaseActivity {
         binding.tomain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(activity, MainActivity.class));
-                finish();
+                loginRequest = NimUIKit.login(new LoginInfo("conanaiflj", MD5.getStringMD5("123456aa")), new RequestCallback<LoginInfo>() {
+                    @Override
+                    public void onSuccess(LoginInfo param) {
+                        Log.e("FLJ", "IM login success");
+                        onLoginDone();
+                        DemoCache.setAccount("conanaiflj");
+//                        saveLoginInfo(account, token);
+                        // 初始化消息提醒配置
+//                        initNotificationConfig();
+                        // 进入主界面
+//                        MainActivity.start(LoginActivity.this, null);
+                        startActivity(new Intent(activity, MainActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailed(int code) {
+                        onLoginDone();
+                        if (code == 302 || code == 404) {
+                            ToastHelper.showToast(LoginActivity.this, "帐号或密码错误");
+                        } else {
+                            ToastHelper.showToast(LoginActivity.this, "登录失败: " + code);
+                        }
+                    }
+
+                    @Override
+                    public void onException(Throwable exception) {
+                        ToastHelper.showToast(LoginActivity.this, "无效输入");
+                        onLoginDone();
+                    }
+                });
+
+
             }
         });
+    }
+
+    private void onLoginDone() {
+        loginRequest = null;
     }
 
     private void playVideo() {

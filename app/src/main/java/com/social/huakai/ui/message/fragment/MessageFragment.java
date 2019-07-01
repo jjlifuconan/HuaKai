@@ -1,9 +1,12 @@
 package com.social.huakai.ui.message.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
+import com.netease.nim.uikit.business.recent.RecentContactsFragment;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
+import com.social.huakai.databinding.FragmentMessageMainBinding;
 import com.social.huakai.databinding.FragmentTestBinding;
 
 /**
@@ -11,7 +14,9 @@ import com.social.huakai.databinding.FragmentTestBinding;
  * @date 2019/6/26 0026
  * @description:
  */
-public class MessageFragment extends BaseFragment<FragmentTestBinding> {
+public class MessageFragment extends BaseFragment<FragmentMessageMainBinding> {
+    private RecentContactsFragment fragment;
+
     public static MessageFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -23,6 +28,20 @@ public class MessageFragment extends BaseFragment<FragmentTestBinding> {
 
     @Override
     public int setContent() {
-        return R.layout.fragment_test;
+        return R.layout.fragment_message_main;
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        showContentView();
+        addRecentContactsFragment();
+    }
+
+
+    // 将最近联系人列表fragment动态集成进来。
+    private void addRecentContactsFragment() {
+        fragment = new RecentContactsFragment();
+        getChildFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
     }
 }
