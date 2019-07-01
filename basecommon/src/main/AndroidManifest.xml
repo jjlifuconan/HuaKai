@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.social.basecommon" />
+    package="com.social.basecommon" >
+
+    <application>
+        <activity
+            android:name=".viewbigimage.ViewBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ViewBigPicTheme" />
+    </application>
+
+</manifest>

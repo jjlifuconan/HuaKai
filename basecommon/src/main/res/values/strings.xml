@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BaseCommon</string>
+    <string name="picture_has_save_to">已保存至 %s</string>
 </resources>

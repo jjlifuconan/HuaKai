@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
 import com.social.huakai.databinding.FragmentFindBinding;
@@ -25,7 +26,7 @@ import rx.Subscription;
  * @date 2019/6/26 0026
  * @description:发现页面
  */
-public class FindChildFragment extends BaseFragment<FragmentFindListBinding> implements FindNavigator {
+public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> implements FindNavigator {
     private FindAdapter findAdapter;
     private FindPresent present;
 
@@ -70,7 +71,7 @@ public class FindChildFragment extends BaseFragment<FragmentFindListBinding> imp
 
     @Override
     public int setContent() {
-        return R.layout.fragment_find_list;
+        return R.layout.fragment_refresh_list;
     }
 
     @Override

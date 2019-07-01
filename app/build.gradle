@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.social.huakai"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -20,6 +20,11 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

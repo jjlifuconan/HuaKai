@@ -55,6 +55,8 @@ public class HttpUtils {
     private boolean debug;
     // gankio、豆瓣、（轮播图）
     public final static String API_GANKIO = "https://gank.io/api/";
+    // 网易
+    public final static String API_NETEASE = "https://c.m.163.com/";
     /**
      * 分页数据，每页的数量
      */

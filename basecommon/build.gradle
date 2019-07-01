@@ -26,10 +26,14 @@ android {
         enabled = true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(include: ['*.jar'], dir: 'libs')
     api project(':http')
     api 'com.android.support.constraint:constraint-layout:1.1.0'
     api 'com.android.support:appcompat-v7:26.1.0'
@@ -37,9 +41,12 @@ dependencies {
     api 'com.noober.background:core:1.5.1'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'
-    api 'me.yokeyword:fragmentation:1.3.6'//fragmentation
+    api 'me.yokeyword:fragmentation:1.3.6'
+    //fragmentation
     api 'com.github.hackware1993:MagicIndicator:1.5.0'
     api 'jp.wasabeef:glide-transformations:2.0.1'
     api 'com.android.support:multidex:1.0.3'
     api 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
+    api 'com.jaeger.ninegridimageview:library:1.1.1'
+    api 'com.github.chrisbanes:PhotoView:2.1.2'
 }

@@ -2,6 +2,7 @@ package com.social.basecommon.util;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -141,6 +142,7 @@ public class ImageLoadUtil {
      */
     @BindingAdapter({"android:displayFadeImage", "android:defaultPicType"})
     public static void displayFadeImage(ImageView imageView, String url, int defaultPicType) {
+        Log.e("FLJ","url-->"+url);
         displayEspImage(url, imageView, defaultPicType);
     }
 

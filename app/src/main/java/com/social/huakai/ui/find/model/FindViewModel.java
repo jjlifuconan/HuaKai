@@ -47,4 +47,5 @@ public class FindViewModel {
                 });
         listener.addSubscription(subscription);
     }
+
 }
