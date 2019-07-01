@@ -2,8 +2,10 @@ package com.social.basecommon.viewbigimage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.http.utils.CheckNetwork;
@@ -23,12 +27,14 @@ import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.social.basecommon.R;
 import com.social.basecommon.activity.BaseActivity;
+import com.social.basecommon.util.GlideApp;
 import com.social.basecommon.util.RxSaveImage;
 import com.social.basecommon.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 
 /**
@@ -219,33 +225,32 @@ public class ViewBigImageActivity extends BaseActivity implements OnPageChangeLi
 
             spinner.setVisibility(View.VISIBLE);
             spinner.setClickable(false);
-//            Glide.with(ViewBigImageActivity.this).load(imageUrl)
-//                    .crossFade(700)
-//                    .listener(new RequestListener<String, GlideDrawable>() {
-//                        @Override
-//                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-//                            ToastUtil.show(activity,"资源加载异常");
-//                            spinner.setVisibility(View.GONE);
-//                            return false;
-//                        }
-//
-//                        //这个用于监听图片是否加载完成
-//                        @Override
-//                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                            spinner.setVisibility(View.GONE);
-//
-//                            /**这里应该是加载成功后图片的高*/
-//                            int height = zoomImageView.getHeight();
-//
-//                            int wHeight = getWindowManager().getDefaultDisplay().getHeight();
-//                            if (height > wHeight) {
-//                                zoomImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                            } else {
-//                                zoomImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-//                            }
-//                            return false;
-//                        }
-//                    }).into(zoomImageView);
+            GlideApp.with(ViewBigImageActivity.this).load(imageUrl)
+                    .transition(withCrossFade(700))
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            ToastUtil.show(activity,"资源加载异常");
+                            spinner.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            spinner.setVisibility(View.GONE);
+
+                            /**这里应该是加载成功后图片的高*/
+                            int height = zoomImageView.getHeight();
+
+                            int wHeight = getWindowManager().getDefaultDisplay().getHeight();
+                            if (height > wHeight) {
+                                zoomImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            } else {
+                                zoomImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            }
+                            return false;
+                        }
+                    }).into(zoomImageView);
 
             zoomImageView.setOnPhotoTapListener(ViewBigImageActivity.this);
             container.addView(view, 0);
