@@ -70,7 +70,7 @@
             如果 SDKOptions 中提供了，取 SDKOptions 中的值。 -->
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="09fd4efd3e28e9bf1f449ecec7d34bfe" />
+            android:value="45c6af3c98409b18a84451215d0bdd6e" />
 
         <!-- 云信后台服务，请使用独立进程。 -->
         <service

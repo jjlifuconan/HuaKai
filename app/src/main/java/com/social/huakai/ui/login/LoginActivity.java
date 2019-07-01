@@ -19,6 +19,7 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
+import com.social.huakai.im.ContactHttpClient;
 import com.social.huakai.im.DemoCache;
 import com.social.huakai.ui.main.MainActivity;
 
@@ -36,6 +37,17 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         playVideo();
+        ContactHttpClient.getInstance().register("conanaiflj", "conanaiflj", "123456aa", new ContactHttpClient.ContactHttpCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                ToastHelper.showToast(LoginActivity.this, "注册成功");
+            }
+
+            @Override
+            public void onFailed(int code, String errorMsg) {
+                ToastHelper.showToast(LoginActivity.this, "注册失败");
+            }
+        });
         setListener();
     }
 
