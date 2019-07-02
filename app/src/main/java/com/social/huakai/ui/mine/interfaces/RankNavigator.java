@@ -3,6 +3,8 @@ package com.social.huakai.ui.mine.interfaces;
 
 import com.social.huakai.ui.mine.bean.RankListBean;
 
+import java.util.List;
+
 import rx.Subscription;
 
 /**
@@ -21,12 +23,12 @@ public interface RankNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(RankListBean listBean);
+    void showAdapterView(List<RankListBean.DataBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局
      */
-    void showListNoMoreLoading();
+    void showTop3Views(List<RankListBean.DataBean> dataBean);
 
     /**
      * 无数据或请求失败

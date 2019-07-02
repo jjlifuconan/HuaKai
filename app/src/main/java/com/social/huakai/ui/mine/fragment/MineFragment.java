@@ -14,6 +14,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
+import com.social.huakai.constant.Constant;
 import com.social.huakai.databinding.FragmentMineBinding;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 
@@ -94,7 +95,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return RankListFragment.newInstance();
+                return RankListFragment.newInstance(position==0? Constant.TabType.GIFT:Constant.TabType.MONEY);
             }
 
             @Override

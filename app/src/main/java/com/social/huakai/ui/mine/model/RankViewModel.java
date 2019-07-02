@@ -11,12 +11,12 @@ import com.social.huakai.ui.mine.bean.RankListBean;
  * @description:
  */
 public class RankViewModel {
-    private String id;
-    private String type;
+    private String tabType;
+    private String radioType;
 
-    public void setData(String id, String type) {
-        this.id = id;
-        this.type = type;
+    public void setData(String tabType, String radioType) {
+        this.tabType = tabType;
+        this.radioType = radioType;
     }
 
     public void getGankIoData(final RequestImpl listener) {

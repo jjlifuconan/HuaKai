@@ -1,5 +1,7 @@
 package com.social.huakai.ui.mine.present;
 
+import android.util.Log;
+
 import com.social.huakai.http.RequestImpl;
 import com.social.huakai.ui.mine.bean.RankListBean;
 import com.social.huakai.ui.mine.interfaces.RankNavigator;
@@ -21,15 +23,25 @@ public class RankPresent {
         mModel = new RankViewModel();
     }
 
-    public void loadRankData() {
-        mModel.setData("id", "type");
+    public void loadRankData(String tabType, String radioType) {
+        Log.e("FLJ","tabType-->"+tabType+",radioType-->"+radioType);
+        mModel.setData(tabType , radioType);
         mModel.getGankIoData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
                 navigator.showLoadSuccessView();
-
                 RankListBean rankListBean = (RankListBean) object;
-                navigator.showAdapterView(rankListBean);
+                if(rankListBean.getData()!=null && rankListBean.getData().size() > 0){
+                    if(rankListBean.getData().size() > 3){
+                        navigator.showTop3Views(rankListBean.getData().subList(0,3));
+                        rankListBean.getData().subList(0,3).clear();
+                        navigator.showAdapterView(rankListBean.getData());
+                    }else{
+                        navigator.showTop3Views(rankListBean.getData());
+                    }
+                }else{
+                    navigator.showLoadFailedView();
+                }
             }
 
             @Override
