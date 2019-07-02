@@ -106,8 +106,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             public Fragment getItem(int position) {
                 if(position == 0){
                     return TrendFragment.newInstance();
-                }else{
+                }else if(position == 1){
                     return MaleAskingForChatFragment.newInstance();
+                }else{
+                    return FemaleGrabChatFragment.newInstance();
                 }
             }
 

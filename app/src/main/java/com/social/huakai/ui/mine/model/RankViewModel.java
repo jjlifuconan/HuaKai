@@ -21,7 +21,7 @@ public class RankViewModel {
     }
 
     public void getGankIoData(final RequestImpl listener) {
-//        Subscription subscription = HttpClient.Builder.getGankIOServer().getGankIoData(id, page, per_page)
+//        Subscription subscription = HttpClient.Builder.getGankIOServer().getGrabData(id, page, per_page)
 //                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(new Observer<GankIoDataBean>() {
 //                    @Override

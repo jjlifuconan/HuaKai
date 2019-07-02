@@ -11,7 +11,8 @@
     <color name="main_text_black">#ff333333</color>
     <color name="main_text_color">#ff666666</color>
     <color name="main_text_green">#ff2dc01d</color>
-    <color name="main_text_grey">#ff999999</color>
+    <color name="main_text_grey">#ff999999</color>.
+    <color name="normal_txt_black">#ff666666</color>
     <color name="trend_title">#3A3A3A</color>
     <color name="trend_content">#2D2D2D</color>
     <color name="trend_toolbar">#686868</color>

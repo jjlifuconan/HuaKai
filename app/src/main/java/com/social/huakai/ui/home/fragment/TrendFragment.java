@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -17,7 +16,6 @@ import com.social.huakai.ui.home.adapter.TrendAdapter;
 import com.social.huakai.ui.home.bean.NeteaseList;
 import com.social.huakai.ui.home.interfaces.TrendNavigator;
 import com.social.huakai.ui.home.present.TrendPresent;
-import com.social.huakai.widget.DividerGridItemDecoration;
 
 import rx.Subscription;
 
@@ -49,13 +47,13 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
                 int page = present.getPage();
                 page++;
                 present.setPage(page);
-                present.loadFindData();
+                present.loadTrendData();
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 present.setPage(1);
-                present.loadFindData();
+                present.loadTrendData();
             }
         });
 
@@ -66,7 +64,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(trendAdapter);
-        present.loadFindData();
+        present.loadTrendData();
     }
 
     @Override
@@ -108,7 +106,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
     @Override
     protected void onRefresh() {
-        present.loadFindData();
+        present.loadTrendData();
     }
 
     @Override

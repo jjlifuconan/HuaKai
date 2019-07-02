@@ -1,12 +1,11 @@
 package com.social.huakai.ui.home.present;
 
+
 import com.example.http.HttpUtils;
 import com.social.huakai.http.RequestImpl;
-import com.social.huakai.ui.find.bean.GankIoDataBean;
-import com.social.huakai.ui.find.model.FindViewModel;
-import com.social.huakai.ui.home.bean.NeteaseList;
-import com.social.huakai.ui.home.interfaces.TrendNavigator;
-import com.social.huakai.ui.home.model.TrendModel;
+import com.social.huakai.ui.home.bean.GrabListBean;
+import com.social.huakai.ui.home.interfaces.GrabNavigator;
+import com.social.huakai.ui.home.model.GrabViewModel;
 
 import rx.Subscription;
 
@@ -15,36 +14,35 @@ import rx.Subscription;
  * @date 2019/6/27 0027
  * @description:
  */
-public class TrendPresent {
-    private TrendNavigator navigator;
-    private TrendModel mModel;
+public class GrabPresent {
+    private GrabNavigator navigator;
+    private GrabViewModel mModel;
     private int mPage = 1;
 
-    public TrendPresent(TrendNavigator navigator) {
+    public GrabPresent(GrabNavigator navigator) {
         this.navigator = navigator;
-        mModel = new TrendModel();
+        mModel = new GrabViewModel();
     }
 
-    public void loadTrendData() {
+    public void loadGrabData() {
         mModel.setData( mPage, HttpUtils.per_page_more);
-        mModel.getNeteaseData(new RequestImpl() {
+        mModel.getGrabData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
                 navigator.showLoadSuccessView();
-
-                NeteaseList neteaseList = (NeteaseList) object;
+                GrabListBean grabListBean = (GrabListBean) object;
                 if (mPage == 1) {
-                    if (neteaseList == null || neteaseList.getData() == null || neteaseList.getData().size() <= 0) {
+                    if (grabListBean == null || grabListBean.getData() == null || grabListBean.getData().size() <= 0) {
                         navigator.showLoadFailedView();
                         return;
                     }
                 } else {
-                    if (neteaseList == null || neteaseList.getData() == null || neteaseList.getData().size() <= 0) {
+                    if (grabListBean == null || grabListBean.getData() == null || grabListBean.getData().size() <= 0) {
                         navigator.showListNoMoreLoading();
                         return;
                     }
                 }
-                navigator.showAdapterView(neteaseList);
+                navigator.showAdapterView(grabListBean.getData());
             }
 
             @Override
@@ -62,7 +60,6 @@ public class TrendPresent {
         });
     }
 
-
     public int getPage() {
         return mPage;
     }
@@ -70,5 +67,6 @@ public class TrendPresent {
     public void setPage(int mPage) {
         this.mPage = mPage;
     }
+
 
 }
