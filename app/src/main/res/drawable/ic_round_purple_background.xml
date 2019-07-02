@@ -5,7 +5,7 @@
     <solid android:color="@color/rippleColor" />
 
     <size
-        android:width="@dimen/dp100"
+        android:width="@dimen/dp120"
 
-        android:height="@dimen/dp100" />
+        android:height="@dimen/dp120" />
 </shape>
