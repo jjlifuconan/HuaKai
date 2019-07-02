@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 
 android {
@@ -15,6 +17,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+
+                        // apk_渠道名-版本号-版本名称-编译时间.apk
+                        def fileName = "花开release${defaultConfig.versionName},{${releaseTime()}}.apk"
+                        outputFileName = fileName
+//                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
 
@@ -26,6 +40,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+def releaseTime() {
+    TimeZone tz = TimeZone.getTimeZone("Asia/Shanghai")
+    TimeZone.setDefault(tz)
+    SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日HH时mm分ss秒")
+    return sdf.format(new Date())
 }
 
 dependencies {
