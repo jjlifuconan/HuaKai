@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity {
         binding.bottomBar.addItem(new BottomBarTab(this, R.drawable.ic_bottom_trend, R.drawable.ic_bottom_trend_selected,"首页"))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottom_main, R.drawable.ic_bottom_main_selected,"发现"))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottom_message_normal, R.drawable.ic_bottom_message,"消息"))
-                .addItem(new BottomBarTab(this, R.drawable.ic_bottom_me_normal, R.drawable.ic_bottom_me,"我的"));
+                .addItem(new BottomBarTab(this, R.drawable.ic_bottom_rank_normal, R.drawable.ic_bottom_rank_selected,"榜单"));
 
         binding.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

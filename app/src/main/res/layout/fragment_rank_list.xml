@@ -115,8 +115,9 @@
                                 android:id="@+id/iv_top1_bg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_top1_bg_gif" />
+                                android:scaleType="center"
+                                android:layout_gravity="center" />
+
                         </FrameLayout>
 
                         <TextView

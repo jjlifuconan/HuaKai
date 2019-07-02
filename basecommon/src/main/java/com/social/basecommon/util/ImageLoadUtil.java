@@ -2,6 +2,8 @@ package com.social.basecommon.util;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.IdRes;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -78,6 +80,22 @@ public class ImageLoadUtil {
 //                .into(new GlideDrawableImageViewTarget(imageView, 1));
                 .into(imageView);
     }
+
+    /**
+     * 用于干货item，将gif图转换为静态图
+     */
+    public static void displayLocalGif(ImageView imageView, int resId) {
+        GlideApp.with(imageView.getContext()).asGif().load(resId)
+//                .asBitmap()
+//                .placeholder(R.drawable.img_one_bi_one)
+//                .error(R.drawable.img_one_bi_one)
+//                .skipMemoryCache(true) //跳过内存缓存
+//                .crossFade(1000)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)// 缓存图片源文件（解决加载gif内存溢出问题）
+//                .into(new GlideDrawableImageViewTarget(imageView, 1));
+                .into(imageView);
+    }
+
 
     /**
      * 书籍、妹子图、电影列表图

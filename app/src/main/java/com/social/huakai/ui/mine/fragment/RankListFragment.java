@@ -50,6 +50,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         tabType = getArguments().getString("tabType");
+        ImageLoadUtil.displayLocalGif(binding.ivTop1Bg, R.drawable.ic_top1_bg_gif);
         showContentView();
         present = new RankPresent(this);
         binding.groupRank.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

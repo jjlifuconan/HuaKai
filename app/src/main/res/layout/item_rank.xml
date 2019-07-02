@@ -67,7 +67,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="礼物总值:"
+            android:text="@{TextUtils.equals(bean.sex,`1`)?@string/rank_tab_money:@string/rank_tab_gift}"
             android:textColor="@color/main_text_grey"
             android:textSize="@dimen/sp10"
             app:layout_constraintEnd_toEndOf="parent"
