@@ -16,8 +16,12 @@
     <color name="trend_content">#2D2D2D</color>
     <color name="trend_toolbar">#686868</color>
     <color name="divider_line">#F9F9F9</color>
+    <color name="divider_color">#ffe3e3e3</color>
     <color name="transparent_all">#00000000</color>
     <color name="rank_top1_tv">#ffffca3c</color>
     <color name="rank_top2_tv">#ff98b1ca</color>
     <color name="rank_top3_tv">#ffff9524</color>
+
+    <color name="age_boy_tv">#ff5fa2f5</color>
+    <color name="age_girl_tv">#fffba3f4</color>
 </resources>
