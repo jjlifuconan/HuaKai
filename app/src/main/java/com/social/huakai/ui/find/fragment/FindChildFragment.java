@@ -43,7 +43,6 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         present = new FindPresent(this);
-        present.loadFindData();
         binding.refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -67,6 +66,7 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(findAdapter);
+        present.loadFindData();
     }
 
     @Override

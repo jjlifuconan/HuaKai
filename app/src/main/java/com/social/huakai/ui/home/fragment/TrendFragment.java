@@ -43,7 +43,6 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         present = new TrendPresent(this);
-        present.loadFindData();
         binding.refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -67,6 +66,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(trendAdapter);
+        present.loadFindData();
     }
 
     @Override

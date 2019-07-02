@@ -102,7 +102,11 @@ public class ImageLoadUtil {
                 return R.drawable.img_default_meizi;
             case 2:// 书籍
                 return R.drawable.img_default_book;
-            case 3:
+            case 3:// 男性
+                return R.drawable.ic_boy;
+            case 4:// 女性
+                return R.drawable.ic_girl;
+            case 5:
                 return R.drawable.shape_bg_loading;
             default:
                 break;
@@ -132,6 +136,19 @@ public class ImageLoadUtil {
                 .load(imageUrl)
                 .transition(withCrossFade(500))
                 .error(R.drawable.ic_avatar_default)
+//                .transform(new GlideCircleTransform(imageView.getContext()))
+                .into(imageView);
+    }
+
+    /**
+     * 加载圆角图,暂时用到显示头像
+     */
+    @BindingAdapter({"android:displayCircle", "android:defaultPicType"})
+    public static void displayCircle(ImageView imageView, String imageUrl, int defaultPicType) {
+        GlideApp.with(imageView.getContext())
+                .load(imageUrl)
+                .transition(withCrossFade(500))
+                .error(getDefaultPic(defaultPicType))
 //                .transform(new GlideCircleTransform(imageView.getContext()))
                 .into(imageView);
     }

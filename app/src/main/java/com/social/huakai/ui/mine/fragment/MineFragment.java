@@ -6,9 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
@@ -17,7 +15,6 @@ import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.FragmentMineBinding;
-import com.social.huakai.ui.find.fragment.FindChildFragment;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -97,7 +94,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return TrankListFragment.newInstance();
+                return RankListFragment.newInstance();
             }
 
             @Override

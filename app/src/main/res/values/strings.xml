@@ -3,5 +3,6 @@
     <string name="main_rank_day">日榜</string>
     <string name="main_rank_week">周榜</string>
     <string name="main_rank_month">月榜</string>
+    <string name="rankFormat">第%1$d名</string>
 
 </resources>
