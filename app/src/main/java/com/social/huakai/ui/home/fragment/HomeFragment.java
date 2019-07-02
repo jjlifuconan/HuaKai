@@ -104,7 +104,11 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return TrendFragment.newInstance();
+                if(position == 0){
+                    return TrendFragment.newInstance();
+                }else{
+                    return MaleAskingForChatFragment.newInstance();
+                }
             }
 
             @Override

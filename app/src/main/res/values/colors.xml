@@ -24,4 +24,6 @@
 
     <color name="age_boy_tv">#ff5fa2f5</color>
     <color name="age_girl_tv">#fffba3f4</color>
+    <color name="rippleColor">#fff05c5c</color><!--紫色#7200FF-->
+
 </resources>

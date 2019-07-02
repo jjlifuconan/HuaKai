@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.social.huakai.widget.RippleAnimationView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/layout_RippleAnimation"
+            android:layout_width="360dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/vp_hint"
+            app:ripple_anim_amount="5"
+            app:ripple_anim_color="@color/rippleColor"
+            app:ripple_anim_duration="2500"
+            app:ripple_anim_radius="@dimen/rippleRadius"
+            app:ripple_anim_scale="6"
+            app:ripple_anim_type="fillRipple">
+
+            <LinearLayout
+                android:id="@+id/vp_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_round_purple_background"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp45"
+                    android:layout_height="@dimen/dp45"
+                    android:src="@mipmap/heart_jump" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:text="一键匹配"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp14" />
+
+            </LinearLayout>
+
+
+        </com.social.huakai.widget.RippleAnimationView>
+
+        <LinearLayout
+            android:id="@+id/vp_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/dp88"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp12"
+                android:text="100云币/分钟"
+                android:textColor="@color/main_text_black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp12"
+                android:text="（VIP用户50云币/分钟）"
+                android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
