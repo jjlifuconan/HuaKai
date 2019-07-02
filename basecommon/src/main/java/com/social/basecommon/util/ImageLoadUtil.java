@@ -5,10 +5,8 @@ import android.databinding.BindingAdapter;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.social.basecommon.R;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
@@ -136,7 +134,7 @@ public class ImageLoadUtil {
                 .load(imageUrl)
                 .transition(withCrossFade(500))
                 .error(R.drawable.ic_avatar_default)
-//                .transform(new GlideCircleTransform(imageView.getContext()))
+                .transform(new GlideCircleTransform(imageView.getContext()))
                 .into(imageView);
     }
 
@@ -149,7 +147,7 @@ public class ImageLoadUtil {
                 .load(imageUrl)
                 .transition(withCrossFade(500))
                 .error(getDefaultPic(defaultPicType))
-//                .transform(new GlideCircleTransform(imageView.getContext()))
+                .transform(new GlideCircleTransform(imageView.getContext()))
                 .into(imageView);
     }
 
