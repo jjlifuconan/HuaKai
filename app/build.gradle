@@ -18,15 +18,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
-                variant.outputs.all { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                variant.outputs.each { output ->
+                    variant.packageApplicationProvider.get().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
 
-                        // apk_渠道名-版本号-版本名称-编译时间.apk
-                        def fileName = "花开release${defaultConfig.versionName},{${releaseTime()}}.apk"
-                        outputFileName = fileName
-//                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
+                    def fileName
+                    fileName = "花开release${defaultConfig.versionName},{${releaseTime()}}.apk"
+                    output.outputFileName = fileName
                 }
             }
         }
