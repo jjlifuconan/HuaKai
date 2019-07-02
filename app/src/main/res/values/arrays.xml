@@ -242,9 +242,7 @@
         <item>我的客服</item>
     </string-array>
     <string-array name="tabRankTitle">
-        <item>消费榜</item>
         <item>礼物榜</item>
-        <item>守护榜</item>
         <item>财富榜</item>
     </string-array>
     <string-array name="findTabTitle">

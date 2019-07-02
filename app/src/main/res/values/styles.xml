@@ -14,4 +14,26 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="RankTopTvStyle">
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="RankRadioButtonStyle">
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:textColor">@color/sl_rank_rb</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/sl_rank_list_rb</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+
 </resources>

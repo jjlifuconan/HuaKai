@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HuaKai</string>
-    <string name="appbar_scrolling_view_behavior">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="main_rank_day">日榜</string>
+    <string name="main_rank_week">周榜</string>
+    <string name="main_rank_month">月榜</string>
+
 </resources>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srlEnableFooterFollowWhenLoadFinished="true"
+        app:srlEnableHeaderTranslationContent="false"
+        app:srlEnableLoadMoreWhenContentNotFull="false"
+        app:srlEnablePreviewInEditMode="false">
+
+        <com.scwang.smartrefresh.header.MaterialHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/page_bg">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/page_bg">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp14"
+                    app:layout_scrollFlags="scroll">
+
+
+                    <RelativeLayout
+                        android:id="@+id/li_top2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/li_top1"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/li_top1"
+                        app:layout_constraintBottom_toBottomOf="@+id/li_top1">
+
+
+                        <FrameLayout
+                            android:id="@+id/vp_top2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <ImageView
+                                android:id="@+id/iv_top2"
+                                android:layout_width="@dimen/dp80"
+                                android:layout_height="@dimen/dp80"
+                                android:layout_gravity="center"
+                                android:scaleType="center" />
+
+                            <ImageView
+                                android:id="@+id/iv_top2_bg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_top2_bg" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_top2"
+                            style="@style/RankTopTvStyle"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/ic_pk_status_2"
+                            android:text="情敌三千"
+                            android:textColor="@color/rank_top2_tv" />
+
+                        <ImageView
+                            android:id="@+id/ic_pk_status_2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_do_challenge" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/li_top1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/li_top3"
+                        app:layout_constraintHorizontal_weight="1.2"
+                        app:layout_constraintStart_toEndOf="@+id/li_top2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <FrameLayout
+                            android:id="@+id/vp_top1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:id="@+id/iv_top1"
+                                android:layout_width="@dimen/dp90"
+                                android:layout_height="@dimen/dp90"
+                                android:layout_gravity="center"
+                                android:scaleType="center" />
+
+                            <ImageView
+                                android:id="@+id/iv_top1_bg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_top1_bg_gif" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_top1"
+                            style="@style/RankTopTvStyle"
+                            android:layout_gravity="center_horizontal"
+                            android:text="心安"
+                            android:textColor="@color/rank_top1_tv" />
+
+                        <ImageView
+                            android:id="@+id/ic_pk_status_1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_do_challenge" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/li_top3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/li_top1"
+                        app:layout_constraintTop_toTopOf="@+id/li_top1"
+                        app:layout_constraintBottom_toBottomOf="@+id/li_top1" >
+                        <FrameLayout
+                            android:id="@+id/vp_top3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <ImageView
+                                android:id="@+id/iv_top3"
+                                android:layout_width="@dimen/dp80"
+                                android:layout_height="@dimen/dp80"
+                                android:layout_gravity="center"
+                                android:scaleType="center" />
+
+                            <ImageView
+                                android:id="@+id/iv_top3_bg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_top3_bg" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_top3"
+                            style="@style/RankTopTvStyle"
+                            android:layout_centerHorizontal="true"
+                            android:layout_above="@+id/ic_pk_status_3"
+                            android:text="阿欢"
+                            android:textColor="@color/rank_top3_tv" />
+
+                        <ImageView
+                            android:id="@+id/ic_pk_status_3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_do_challenge" />
+                    </RelativeLayout>
+                </android.support.constraint.ConstraintLayout>
+
+
+                <RadioGroup
+                    android:id="@+id/group_rank"
+                    android:layout_width="fill_parent"
+                    android:layout_height="27.0dip"
+                    android:layout_marginLeft="@dimen/dp15"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_marginRight="@dimen/dp15"
+                    android:layout_marginBottom="@dimen/dp8"
+                    android:background="@drawable/sp_rank_title_white"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rank_rb_day"
+                        style="@style/RankRadioButtonStyle"
+                        android:checked="true"
+                        android:text="@string/main_rank_day" />
+
+                    <RadioButton
+                        android:id="@+id/rank_rb_week"
+                        style="@style/RankRadioButtonStyle"
+                        android:text="@string/main_rank_week" />
+
+                    <RadioButton
+                        android:id="@+id/rank_rb_month"
+                        style="@style/RankRadioButtonStyle"
+                        android:text="@string/main_rank_month" />
+                </RadioGroup>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="30.0dip"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp14"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的排名: "
+                            android:textColor="@color/main_text_black"
+                            android:textSize="@dimen/sp10" />
+
+                        <TextView
+                            android:id="@+id/rank_my_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="100名以后"
+                            android:textColor="@color/main_text_black"
+                            android:textSize="@dimen/sp10" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp14"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_rank_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="消费花瓣: "
+                            android:textColor="@color/main_text_grey"
+                            android:textSize="@dimen/sp10" />
+
+                        <TextView
+                            android:id="@+id/tv_my_coin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/main_text_black"
+                            android:text="0.00"
+                            android:textSize="@dimen/sp10" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+
+
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</layout>
