@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
+import com.social.basecommon.util.KeyboardUtils;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
 
@@ -39,6 +40,7 @@ public class LoginActivity extends BaseActivity {
         binding.vpClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                KeyboardUtils.hideSoftInput(activity);
                 finish();
             }
         });
@@ -47,6 +49,13 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(activity, RegisterActivity.class));
+            }
+        });
+
+        binding.tvForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(activity, ForgetPwdActivity.class));
             }
         });
 

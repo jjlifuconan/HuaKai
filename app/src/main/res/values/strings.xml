@@ -9,6 +9,7 @@
     <string name="mobile">手机号</string>
     <string name="password">密码</string>
     <string name="set_password">设置密码</string>
+    <string name="confirm_password">确认密码</string>
     <string name="yz_code">验证码</string>
 
 </resources>

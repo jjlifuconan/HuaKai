@@ -13,25 +13,21 @@ import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.huakai.R;
-import com.social.huakai.constant.Constant;
-import com.social.huakai.databinding.ActivityLoginBinding;
+import com.social.huakai.databinding.ActivityForgetPwdBinding;
 import com.social.huakai.databinding.ActivityRegisterBinding;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Administrator
  * @date 2019/7/3 0003
  * @description:
  */
-public class RegisterActivity extends BaseActivity {
-    ActivityRegisterBinding binding;
+public class ForgetPwdActivity extends BaseActivity {
+    ActivityForgetPwdBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_forget_pwd);
         ImmersionBar.with(activity)
                 .statusBarDarkFont(true, 0.2f)
                 .init();
