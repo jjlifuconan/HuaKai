@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_underline_selector"
                         android:hint="@string/mobile"
-                        android:inputType="phone"
+                        android:inputType="number"
                         android:lines="1"
                         android:maxLength="11"
                         android:paddingTop="@dimen/dp20"

@@ -12,8 +12,15 @@ import android.view.View;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
+import com.social.huakai.http.HttpClient;
+
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Administrator
@@ -59,10 +66,44 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
+        binding.login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(binding.edtPhone.getText().toString())||  !binding.edtPhone.getText().toString().startsWith("1")|| binding.edtPhone.getText().toString().length() < 11) {
+                    ToastUtil.showShort(activity, "手机号码格式不正确");
+                    return;
+                }
+                submitLogin();
+            }
+
+        });
+
         MyTextWatcher textWatcher = new MyTextWatcher();
 
         binding.edtPhone.addTextChangedListener(textWatcher);
         binding.edtPassword.addTextChangedListener(textWatcher);
+    }
+
+    /**
+     * 提交登录信息
+     */
+    private void submitLogin() {
+        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Object object) {
+                    }
+                });
+        addSubscription(subscription);
     }
 
     class MyTextWatcher implements TextWatcher {

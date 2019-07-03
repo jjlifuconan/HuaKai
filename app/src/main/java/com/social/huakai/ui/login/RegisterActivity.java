@@ -2,7 +2,9 @@ package com.social.huakai.ui.login;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,9 +18,15 @@ import com.social.huakai.R;
 import com.social.huakai.constant.Constant;
 import com.social.huakai.databinding.ActivityLoginBinding;
 import com.social.huakai.databinding.ActivityRegisterBinding;
+import com.social.huakai.http.HttpClient;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Administrator
@@ -66,15 +74,67 @@ public class RegisterActivity extends BaseActivity {
                 sendLoginCodeMessage();
             }
         });
+
+        binding.register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(binding.edtPhone.getText().toString())||  !binding.edtPhone.getText().toString().startsWith("1")|| binding.edtPhone.getText().toString().length() < 11) {
+                    ToastUtil.showShort(activity, "手机号码格式不正确");
+                    return;
+                }
+                submitRegister();
+            }
+        });
     }
+
+    /**
+     * 提交注册信息
+     */
+    private void submitRegister() {
+        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Object object) {
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+
 
     /**
      * 获取验证码
      */
     public void sendLoginCodeMessage() {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("phone", etAccount.getText().toString());
-//        new HttpBuilder(activity, Constant.RequestUrl.LOGINCODE).params(map).tag(this).callback(this).request(HttpBuilder.Method.GET, BaseBean.class);
+        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtil.showShort(activity,"验证码获取失败");
+                    }
+
+                    @Override
+                    public void onNext(Object object) {
+                        //验证码按钮倒计时1min
+//                        ToastUtil.showShort(activity,"验证码获取失败");
+                        timer.start();
+                    }
+                });
+        addSubscription(subscription);
     }
 
     private class MyTextWatcher implements TextWatcher {
@@ -97,5 +157,28 @@ public class RegisterActivity extends BaseActivity {
                 binding.register.setEnabled(false);
             }
         }
+    }
+
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            binding.tvGetCode.setEnabled(false);
+            binding.tvGetCode.setTextColor(ContextCompat.getColor(activity, R.color.color_bfbfbf));
+            binding.tvGetCode.setText(millisUntilFinished / 1000 + "S");
+        }
+
+        @Override
+        public void onFinish() {
+            binding.tvGetCode.setEnabled(true);
+            binding.tvGetCode.setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary));
+            binding.tvGetCode.setText("获取验证码");
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }

@@ -24,7 +24,7 @@
     <color name="rank_top1_tv">#ffffca3c</color>
     <color name="rank_top2_tv">#ff98b1ca</color>
     <color name="rank_top3_tv">#ffff9524</color>
-
+    <color name="color_bfbfbf">#bfbfbf</color>
     <color name="age_boy_tv">#ff5fa2f5</color>
     <color name="age_girl_tv">#fffba3f4</color>
     <color name="rippleColor">#fff05c5c</color><!--紫色#7200FF-->
