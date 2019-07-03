@@ -10,8 +10,6 @@ import android.view.View;
 
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.common.ToastHelper;
-import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
-import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.string.MD5;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -28,7 +26,7 @@ import com.social.huakai.ui.main.MainActivity;
  * @date 2019/6/26 0026
  * @description:
  */
-public class LoginActivity extends BaseActivity {
+public class WelcomeActivity extends BaseActivity {
     ActivityLoginBinding binding;
     private AbortableFuture<LoginInfo> loginRequest;
 
@@ -40,12 +38,12 @@ public class LoginActivity extends BaseActivity {
         ContactHttpClient.getInstance().register("conanaiflj", "conanaiflj", "123456aa", new ContactHttpClient.ContactHttpCallback<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                ToastHelper.showToast(LoginActivity.this, "注册成功");
+                ToastHelper.showToast(WelcomeActivity.this, "注册成功");
             }
 
             @Override
             public void onFailed(int code, String errorMsg) {
-                ToastHelper.showToast(LoginActivity.this, "注册失败");
+                ToastHelper.showToast(WelcomeActivity.this, "注册失败");
             }
         });
         setListener();
@@ -65,7 +63,7 @@ public class LoginActivity extends BaseActivity {
                         // 初始化消息提醒配置
 //                        initNotificationConfig();
                         // 进入主界面
-//                        MainActivity.start(LoginActivity.this, null);
+//                        MainActivity.start(WelcomeActivity.this, null);
                         startActivity(new Intent(activity, MainActivity.class));
                         finish();
                     }
@@ -74,15 +72,15 @@ public class LoginActivity extends BaseActivity {
                     public void onFailed(int code) {
                         onLoginDone();
                         if (code == 302 || code == 404) {
-                            ToastHelper.showToast(LoginActivity.this, "帐号或密码错误");
+                            ToastHelper.showToast(WelcomeActivity.this, "帐号或密码错误");
                         } else {
-                            ToastHelper.showToast(LoginActivity.this, "登录失败: " + code);
+                            ToastHelper.showToast(WelcomeActivity.this, "登录失败: " + code);
                         }
                     }
 
                     @Override
                     public void onException(Throwable exception) {
-                        ToastHelper.showToast(LoginActivity.this, "无效输入");
+                        ToastHelper.showToast(WelcomeActivity.this, "无效输入");
                         onLoginDone();
                     }
                 });
