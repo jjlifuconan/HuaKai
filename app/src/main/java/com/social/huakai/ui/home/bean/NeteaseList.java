@@ -44,7 +44,7 @@ public class NeteaseList implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * adtype : 0
          * clkNum : 0
@@ -469,7 +469,7 @@ public class NeteaseList implements Serializable {
             this.unlikeReason = unlikeReason;
         }
 
-        public static class MotifBean {
+        public static class MotifBean implements Serializable{
             /**
              * icon : http://mobilepics.ws.126.net/jyoa6V0VNSHaBuahMooGXlnxxQCWZqg1%3D%3DFUG5T0E2.jpg
              * id : HT1547198238697
@@ -545,7 +545,7 @@ public class NeteaseList implements Serializable {
             }
         }
 
-        public static class RecInfoBean {
+        public static class RecInfoBean implements Serializable{
             /**
              * commentCount : 0
              * criticismCount : 0
@@ -610,7 +610,7 @@ public class NeteaseList implements Serializable {
                 this.readAgent = readAgent;
             }
 
-            public static class ReadAgentBean {
+            public static class ReadAgentBean implements Serializable{
                 /**
                  * dyUserInfo : {"ename":"T1432040463619","tdesc":"明星都在看的原创娱乐新闻资讯","pushSwitch":0,"tid":"T1432040463619","onlineState":2}
                  * head : http://dingyue.ws.126.net/f8NxtJMg3UDraoBwFUnFBg4z2HsvnkAp0dE2rWqDneXYF1524798527910.png
@@ -715,7 +715,7 @@ public class NeteaseList implements Serializable {
                     this.incentiveInfoList = incentiveInfoList;
                 }
 
-                public static class DyUserInfoBean {
+                public static class DyUserInfoBean implements Serializable{
                     /**
                      * ename : T1432040463619
                      * tdesc : 明星都在看的原创娱乐新闻资讯
@@ -771,7 +771,7 @@ public class NeteaseList implements Serializable {
                     }
                 }
 
-                public static class IncentiveInfoListBean {
+                public static class IncentiveInfoListBean implements Serializable{
                     /**
                      * iconHref : https://wp.m.163.com/163/html/newsclient/verify/index.html
                      * iconType : 2
@@ -829,7 +829,7 @@ public class NeteaseList implements Serializable {
             }
         }
 
-        public static class HotCommentInfoBean {
+        public static class HotCommentInfoBean implements Serializable{
             /**
              * anonymous : true
              * avatar : http://cms-bucket.nosdn.127.net/2018/08/13/078ea9f65d954410b62a52ac773875a1.jpeg
@@ -915,7 +915,7 @@ public class NeteaseList implements Serializable {
             }
         }
 
-        public static class HotMotifInfosBean {
+        public static class HotMotifInfosBean implements Serializable{
             /**
              * favNum : 81089
              * icon : http://mobilepics.ws.126.net/z21wiBJWxEfeLuZoRvCnVxIkbvOqGInK%3D%3DFTJGIOBB.jpg
@@ -1001,7 +1001,7 @@ public class NeteaseList implements Serializable {
             }
         }
 
-        public static class ImagesBean {
+        public static class ImagesBean implements Serializable{
             /**
              * height : 1175
              * url : http://crawl.ws.126.net/4600917619cdd23d5804b0aef978ff09.jpg

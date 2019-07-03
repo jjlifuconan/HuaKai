@@ -31,5 +31,6 @@
     <color name="age_girl_tv">#fffba3f4</color>
     <color name="rippleColor">#fff05c5c</color><!--紫色#7200FF-->
     <color name="color_8A8A8A">#FF8A8A8A</color>
-
+    <color name="color_f9f9f9">#F9F9F9</color>
+    <color name="color_f0f0f0">#F0F0F0</color>
 </resources>

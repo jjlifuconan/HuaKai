@@ -256,6 +256,11 @@
         <item>求聊</item>
         <item>抢聊</item>
     </string-array>
+    <string-array name="trendDetailTabTitle">
+        <item>转发</item>
+        <item>评论</item>
+        <item>赞</item>
+    </string-array>
     <string-array name="trend_tips">
         <item>1. 禁止发布色情、性感暴露照片（包含但不限于：禁止上传睡衣/内衣/背心/抹胸/丝袜/露乳沟等暴露照片）；</item>
         <item>2. 允许上传自己的生活照以及身边风景照（发布照片+有意义的文字，更容易通过哦）；</item>

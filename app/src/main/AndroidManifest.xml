@@ -145,5 +145,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateVisible"/>
 
+        <activity
+            android:name=".ui.home.activity.TrendDetailActivity"
+            android:screenOrientation="portrait" />
+
+
     </application>
 </manifest>

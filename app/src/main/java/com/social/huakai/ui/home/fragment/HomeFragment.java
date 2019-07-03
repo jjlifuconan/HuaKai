@@ -100,6 +100,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             }
         });
         binding.indicator.setNavigator(commonNavigator);
+        binding.viewpager.setOffscreenPageLimit(titles.length);
 
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override

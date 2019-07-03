@@ -70,8 +70,8 @@
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp1"
-            android:background="@color/divider_line"
+            android:layout_height="@dimen/line"
+            android:background="@color/color_f0f0f0"
             android:layout_marginTop="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,8 @@
-package com.social.huakai.ui.find.fragment;
+package com.social.huakai.ui.home.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,11 +13,14 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.fragment.BaseFragment;
+import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
-import com.social.huakai.databinding.FragmentFindBinding;
-import com.social.huakai.ui.message.fragment.MessageFragment;
+import com.social.huakai.databinding.ActivityDetailTrendBinding;
+import com.social.huakai.ui.home.bean.NeteaseList;
+import com.social.huakai.ui.home.fragment.FemaleGrabChatFragment;
+import com.social.huakai.ui.home.fragment.MaleAskingForChatFragment;
+import com.social.huakai.ui.home.fragment.TrendFragment;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -25,28 +30,18 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
-/**
- * @author Administrator
- * @date 2019/6/26 0026
- * @description:发现页面
- */
-public class FindFragment extends BaseFragment<FragmentFindBinding> {
-
-    public static FindFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        FindFragment fragment = new FindFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class TrendDetailActivity extends BaseActivity {
+    ActivityDetailTrendBinding binding;
 
     @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_trend);
         ImmersionBar.setTitleBar(this, binding.titlebar);
-        showContentView();
-        final String[] titles = getResources().getStringArray(R.array.findTabTitle);
+
+        binding.setBean((NeteaseList.DataBean) getIntent().getSerializableExtra("bean"));
+
+        final String[] titles = getResources().getStringArray(R.array.trendDetailTabTitle);
 
         CommonNavigator commonNavigator = new CommonNavigator(activity);
         commonNavigator.setScrollPivotX(0.8f);
@@ -63,9 +58,9 @@ public class FindFragment extends BaseFragment<FragmentFindBinding> {
                 colorTransitionPagerTitleView.setText(titles[index]);
                 colorTransitionPagerTitleView.setTextSize(20.0f);
                 colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
-                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.white));
+                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.main_text_grey));
                 colorTransitionPagerTitleView.setSelectTypeBold(true);
-                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.white));
+                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.main_text_black));
 
                 colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -79,24 +74,29 @@ public class FindFragment extends BaseFragment<FragmentFindBinding> {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
+
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 indicator.setLineHeight((float) UIUtil.dip2px(context, 3.0d));
                 indicator.setLineWidth((float) UIUtil.dip2px(context, 10.0d));
                 indicator.setRoundRadius((float) UIUtil.dip2px(context, 3.0d));
                 indicator.setStartInterpolator(new AccelerateInterpolator());
                 indicator.setEndInterpolator(new DecelerateInterpolator(2.0f));
-                indicator.setColors(new Integer[]{Integer.valueOf(getResources().getColor(R.color.white))});
+                indicator.setColors(new Integer[]{Integer.valueOf(getResources().getColor(R.color.main_text_black))});
                 return indicator;
             }
         });
         binding.indicator.setNavigator(commonNavigator);
-
         binding.viewpager.setOffscreenPageLimit(titles.length);
-
-        binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+        binding.viewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return FindChildFragment.newInstance();
+                if(position == 0){
+                    return TrendFragment.newInstance();
+                }else if(position == 1){
+                    return MaleAskingForChatFragment.newInstance();
+                }else{
+                    return FemaleGrabChatFragment.newInstance();
+                }
             }
 
             @Override
@@ -124,9 +124,9 @@ public class FindFragment extends BaseFragment<FragmentFindBinding> {
 
     }
 
-    @Override
-    public int setContent() {
-        return R.layout.fragment_find;
+    public static void action(Context context, NeteaseList.DataBean bean){
+        Intent intent = new Intent(context, TrendDetailActivity.class);
+        intent.putExtra("bean",bean);
+        context.startActivity(intent);
     }
-
 }

@@ -9,9 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
+import com.social.huakai.ui.home.activity.TrendDetailActivity;
 import com.social.huakai.ui.home.adapter.TrendAdapter;
 import com.social.huakai.ui.home.bean.NeteaseList;
 import com.social.huakai.ui.home.interfaces.TrendNavigator;
@@ -59,6 +61,12 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
 
         trendAdapter = new TrendAdapter(activity);
+        trendAdapter.setOnItemClickListener(new OnItemClickListener<NeteaseList.DataBean>() {
+            @Override
+            public void onClick(NeteaseList.DataBean item) {
+                TrendDetailActivity.action(activity, item);
+            }
+        });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         DividerItemDecoration divider = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent));
