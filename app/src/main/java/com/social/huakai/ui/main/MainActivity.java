@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
+import com.social.basecommon.util.ToastUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityMainBinding;
 import com.social.huakai.ui.find.fragment.FindFragment;
@@ -30,6 +31,10 @@ public class MainActivity extends BaseActivity {
     public static final int FOURTH = 3;
 
     private SupportFragment[] mFragments = new SupportFragment[4];
+
+    // 再点一次退出程序时间设置
+    private static final long WAIT_TIME = 2000L;
+    private long TOUCH_TIME = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,5 +100,19 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            pop();
+        } else {
+            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                finish();
+            } else {
+                TOUCH_TIME = System.currentTimeMillis();
+                ToastUtil.showShort(activity, "再按一次程序退出");
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ import com.social.basecommon.util.ToastUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
 import com.social.huakai.http.HttpClient;
+import com.social.huakai.ui.main.MainActivity;
 
 import rx.Observer;
 import rx.Subscription;
@@ -101,6 +102,9 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Object object) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 });
         addSubscription(subscription);
@@ -120,7 +124,8 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString())){
+            if(!TextUtils.isEmpty(binding.edtPhone.getText().toString())
+                    && !TextUtils.isEmpty(binding.edtPassword.getText().toString()) && binding.edtPassword.getText().toString().length() >= 6){
                 binding.login.setEnabled(true);
             }else{
                 binding.login.setEnabled(false);

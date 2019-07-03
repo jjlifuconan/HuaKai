@@ -1,5 +1,6 @@
 package com.social.huakai.ui.login;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +20,7 @@ import com.social.huakai.databinding.ActivityForgetPwdBinding;
 import com.social.huakai.databinding.ActivityRegisterBinding;
 import com.social.huakai.http.HttpClient;
 import com.social.huakai.ui.home.bean.NeteaseList;
+import com.social.huakai.ui.main.MainActivity;
 
 import rx.Observer;
 import rx.Subscription;
@@ -106,6 +108,9 @@ public class ForgetPwdActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Object object) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 });
         addSubscription(subscription);
@@ -153,7 +158,8 @@ public class ForgetPwdActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable s) {
             if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtConfirmPassword.getText().toString())
-                    && !TextUtils.isEmpty(binding.edtPassword.getText().toString()) && !TextUtils.isEmpty(binding.edtYzCode.getText().toString())){
+                    && !TextUtils.isEmpty(binding.edtPassword.getText().toString()) && !TextUtils.isEmpty(binding.edtYzCode.getText().toString())
+                    && binding.edtPassword.getText().toString().length() >= 6 && binding.edtConfirmPassword.getText().toString().length() >= 6){
                 binding.submit.setEnabled(true);
             }else{
                 binding.submit.setEnabled(false);

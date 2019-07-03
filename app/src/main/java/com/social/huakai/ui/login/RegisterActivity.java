@@ -1,5 +1,6 @@
 package com.social.huakai.ui.login;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +20,7 @@ import com.social.huakai.constant.Constant;
 import com.social.huakai.databinding.ActivityLoginBinding;
 import com.social.huakai.databinding.ActivityRegisterBinding;
 import com.social.huakai.http.HttpClient;
+import com.social.huakai.ui.main.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +106,9 @@ public class RegisterActivity extends BaseActivity {
 
                     @Override
                     public void onNext(Object object) {
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
                 });
         addSubscription(subscription);
@@ -151,7 +156,8 @@ public class RegisterActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString()) && !TextUtils.isEmpty(binding.edtYzCode.getText().toString())){
+            if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString())
+                    && !TextUtils.isEmpty(binding.edtYzCode.getText().toString()) && binding.edtPassword.getText().toString().length() >= 6){
                 binding.register.setEnabled(true);
             }else{
                 binding.register.setEnabled(false);
