@@ -1,6 +1,5 @@
 package com.social.huakai.ui.login;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,19 +12,20 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
+import com.social.huakai.databinding.ActivityRegisterBinding;
 
 /**
  * @author Administrator
  * @date 2019/7/3 0003
  * @description:
  */
-public class LoginActivity extends BaseActivity {
-    ActivityLoginBinding binding;
+public class RegisterActivity extends BaseActivity {
+    ActivityRegisterBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
         ImmersionBar.with(activity)
                 .statusBarDarkFont(true, 0.2f)
                 .init();
@@ -43,17 +43,11 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        binding.tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(activity, RegisterActivity.class));
-            }
-        });
-
         MyTextWatcher textWatcher = new MyTextWatcher();
 
         binding.edtPhone.addTextChangedListener(textWatcher);
         binding.edtPassword.addTextChangedListener(textWatcher);
+        binding.edtYzCode.addTextChangedListener(textWatcher);
     }
 
     class MyTextWatcher implements TextWatcher {
@@ -70,10 +64,10 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString())){
-                binding.login.setEnabled(true);
+            if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString()) && !TextUtils.isEmpty(binding.edtYzCode.getText().toString())){
+                binding.register.setEnabled(true);
             }else{
-                binding.login.setEnabled(false);
+                binding.register.setEnabled(false);
             }
         }
     }

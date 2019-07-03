@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/page_bg">
+
+        <FrameLayout
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp44"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/vp_close"
+                android:layout_width="@dimen/dp44"
+                android:layout_height="@dimen/dp44">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/toolbar_close" />
+            </FrameLayout>
+
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp14"
+            android:layout_marginTop="@dimen/dp14"
+            android:text="手机号注册"
+            app:layout_constraintTop_toBottomOf="@+id/titlebar"
+            android:textColor="@color/main_text_black"
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"
+            />
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintBottom_toTopOf="@+id/li_hint">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/vp_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp14"
+                    android:layout_marginTop="@dimen/dp14"
+                    app:hintTextAppearance="@style/TextInputLayoutStyle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <EditText
+                        android:id="@+id/edt_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/et_underline_selector"
+                        android:hint="@string/mobile"
+                        android:inputType="phone"
+                        android:lines="1"
+                        android:maxLength="11"
+                        android:paddingTop="@dimen/dp20"
+                        android:paddingBottom="@dimen/dp10"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp16" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/vp_yz_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp14"
+                    android:layout_marginTop="@dimen/dp14"
+                    app:hintTextAppearance="@style/TextInputLayoutStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_mobile">
+
+                    <com.social.basecommon.widget.ClearEditText
+                        android:id="@+id/edt_yz_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/et_underline_selector"
+                        android:hint="@string/yz_code"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:maxLength="4"
+                        android:paddingTop="@dimen/dp20"
+                        android:paddingBottom="@dimen/dp10"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp16" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/vp_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp14"
+                    android:layout_marginTop="@dimen/dp14"
+                    app:hintTextAppearance="@style/TextInputLayoutStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_yz_code"
+                    app:passwordToggleDrawable="@drawable/sl_pwd_is_show"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/et_underline_selector"
+                        android:hint="@string/set_password"
+                        android:inputType="textPassword"
+                        android:lines="1"
+                        android:maxLength="20"
+                        android:paddingTop="@dimen/dp20"
+                        android:paddingBottom="@dimen/dp10"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp16" />
+
+
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dp14"
+                    android:layout_marginTop="@dimen/dp40"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="注册"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    app:bl_corners_radius="@dimen/dp30"
+                    app:bl_enabled_drawable="@color/colorPrimary"
+                    app:bl_ripple_color="@color/color_red_ccfa3c55"
+                    app:bl_ripple_enable="true"
+                    app:bl_unEnabled_drawable="@color/colorPrimaryUnable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_password" />
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+
+        <LinearLayout
+            android:id="@+id/li_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/dp18"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注册即代表同意"
+                android:textColor="#ff333333"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:id="@+id/tv_xieyi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《用户服务协议》"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="和"
+                android:textColor="#ff333333"
+                android:textSize="@dimen/sp12" />
+
+            <TextView
+                android:id="@+id/tv_yisi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="《隐私政策》"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp12" />
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

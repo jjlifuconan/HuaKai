@@ -16,6 +16,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
 import com.social.basecommon.R;
+import com.social.basecommon.util.DensityUtil;
 
 
 public class ClearEditText extends ExtendedEditText implements OnFocusChangeListener, TextWatcher
