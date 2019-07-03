@@ -19,8 +19,11 @@ import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityDetailTrendBinding;
 import com.social.huakai.ui.home.bean.NeteaseList;
 import com.social.huakai.ui.home.fragment.CommentDialogFragment;
+import com.social.huakai.ui.home.fragment.CommentListFragment;
 import com.social.huakai.ui.home.fragment.FemaleGrabChatFragment;
+import com.social.huakai.ui.home.fragment.GiftListFragment;
 import com.social.huakai.ui.home.fragment.MaleAskingForChatFragment;
+import com.social.huakai.ui.home.fragment.PraiseListFragment;
 import com.social.huakai.ui.home.fragment.TrendFragment;
 import com.social.huakai.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
@@ -118,11 +121,11 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
             @Override
             public Fragment getItem(int position) {
                 if(position == 0){
-                    return TrendFragment.newInstance();
+                    return CommentListFragment.newInstance();
                 }else if(position == 1){
-                    return MaleAskingForChatFragment.newInstance();
+                    return PraiseListFragment.newInstance();
                 }else{
-                    return FemaleGrabChatFragment.newInstance();
+                    return GiftListFragment.newInstance();
                 }
             }
 

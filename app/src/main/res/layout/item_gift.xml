@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.text.TextUtils" />
+        <variable
+            name="bean"
+            type="com.social.huakai.ui.home.bean.GiftListBean.DataBean"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/dp14">
+
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="@dimen/dp60"
+            android:layout_height="@dimen/dp60"
+            android:defaultPicType="@{TextUtils.equals(bean.sex,`1`)?4:3}"
+            android:displayCircle="@{bean.photo}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp14"
+            android:textColor="@color/main_text_black"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold"
+            android:text="@{bean.nickName}"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="@dimen/dp18"
+            android:layout_height="@dimen/dp18"
+            android:layout_marginTop="@dimen/dp5"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            android:src="@{TextUtils.equals(bean.sex,`1`)?@drawable/ic_mine_female:@drawable/ic_mine_male}" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp5"
+            android:text="@{bean.age+`岁`}"
+            android:textColor="@color/normal_txt_black"
+            android:textSize="@dimen/sp13"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:text="@{bean.signature}"
+            android:textColor="@color/normal_txt_black"
+            android:ellipsize="end"
+            android:maxEms="14"
+            android:singleLine="true"
+            android:textSize="@dimen/sp13"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:includeFontPadding="false"
+            android:paddingHorizontal="@dimen/dp14"
+            android:paddingVertical="@dimen/dp7"
+            android:text="@{TextUtils.equals(bean.sex,`1`)?`抢她`:`抢他`}"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp13"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
