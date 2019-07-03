@@ -69,6 +69,7 @@
         </android.support.design.widget.CoordinatorLayout>
 
         <include
+            android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_detail_bottom_trend"

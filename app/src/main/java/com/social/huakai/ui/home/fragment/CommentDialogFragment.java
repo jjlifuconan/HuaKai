@@ -42,7 +42,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
 
     @Override
     public void onAttach(Context context) {
-        if (!(getParentFragment() instanceof DialogFragmentDataCallback)) {
+        if (!(getActivity() instanceof DialogFragmentDataCallback)) {
             throw new IllegalStateException("DialogFragment 所在的 activity 必须实现 DialogFragmentDataCallback 接口");
         }
         super.onAttach(context);
@@ -105,7 +105,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
     }
 
     private void fillEditText() {
-        dataCallback = (DialogFragmentDataCallback) getParentFragment();
+        dataCallback = (DialogFragmentDataCallback) getActivity();
         if(!TextUtils.isEmpty(dataCallback.getCommentToWhichUserid())){
             if(TextUtils.equals(dataCallback.getCommentToWhichUserid(), getArguments().getString("userId"))){
                 commentEditText.setText(dataCallback.getCommentText());

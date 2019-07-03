@@ -18,9 +18,11 @@ import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityDetailTrendBinding;
 import com.social.huakai.ui.home.bean.NeteaseList;
+import com.social.huakai.ui.home.fragment.CommentDialogFragment;
 import com.social.huakai.ui.home.fragment.FemaleGrabChatFragment;
 import com.social.huakai.ui.home.fragment.MaleAskingForChatFragment;
 import com.social.huakai.ui.home.fragment.TrendFragment;
+import com.social.huakai.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -30,8 +32,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
-public class TrendDetailActivity extends BaseActivity {
+import java.util.Map;
+
+public class TrendDetailActivity extends BaseActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
+    NeteaseList.DataBean bean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,8 +44,24 @@ public class TrendDetailActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_trend);
         ImmersionBar.setTitleBar(this, binding.titlebar);
 
-        binding.setBean((NeteaseList.DataBean) getIntent().getSerializableExtra("bean"));
+        bean = (NeteaseList.DataBean) getIntent().getSerializableExtra("bean");
+        binding.setBean(bean);
+        initView();
+        setListener();
 
+
+    }
+
+    private void setListener() {
+        binding.layoutBottom.tvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initCommentDialog();
+            }
+        });
+    }
+
+    private void initView(){
         final String[] titles = getResources().getStringArray(R.array.trendDetailTabTitle);
 
         CommonNavigator commonNavigator = new CommonNavigator(activity);
@@ -55,7 +76,13 @@ public class TrendDetailActivity extends BaseActivity {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ScaleTransitionPagerTitleView colorTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setText(titles[index]);
+                if(index == 0){
+                    colorTransitionPagerTitleView.setText(titles[index]+"12");
+                }else if(index == 1){
+                    colorTransitionPagerTitleView.setText(titles[index]+"14");
+                }else if(index == 2){
+                    colorTransitionPagerTitleView.setText(titles[index]+"27");
+                }
                 colorTransitionPagerTitleView.setTextSize(20.0f);
                 colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
                 colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.main_text_grey));
@@ -121,12 +148,82 @@ public class TrendDetailActivity extends BaseActivity {
                 binding.indicator.onPageScrollStateChanged(state);
             }
         });
+    }
 
+    /**
+     * 回复帖子的评论
+     */
+    private void initCommentDialog() {
+        CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", "当前用户id");
+        commentDialogFragment.setArguments(bundle);
+        commentDialogFragment.setCancelable(true);
+        commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
+    }
+
+    /**
+     * 回复评论的评论
+     */
+    private void initCommentDialog(Map commentItem) {
+        CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", "当前用户id");
+        bundle.putString("commentId", "评论的那条id");
+        bundle.putString("nickname", "对谁评论");
+        commentDialogFragment.setArguments(bundle);
+        commentDialogFragment.setCancelable(true);
+        commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
     }
 
     public static void action(Context context, NeteaseList.DataBean bean){
         Intent intent = new Intent(context, TrendDetailActivity.class);
         intent.putExtra("bean",bean);
         context.startActivity(intent);
+    }
+
+    @Override
+    public String getCommentText() {
+        return "";
+    }
+
+    @Override
+    public void setCommentText(String commentTextTemp) {
+
+    }
+
+    @Override
+    public void setCommentToWhichUserid(String userId) {
+
+    }
+
+    @Override
+    public String getCommentToWhichUserid() {
+        return null;
+    }
+
+    @Override
+    public String getCommentId() {
+        return null;
+    }
+
+    @Override
+    public void setCommentId(String commentId) {
+
+    }
+
+    @Override
+    public void submitCommentToPost(String commentTextTemp) {
+
+    }
+
+    @Override
+    public void submitCommentToSb(String commentTextTemp, String commentId) {
+
+    }
+
+    @Override
+    public void alertCommentSbDialog(Map item) {
+
     }
 }
