@@ -1,9 +1,9 @@
-package com.social.huakai.ui.mine.model;
+package com.social.huakai.ui.rank.model;
 
 import com.google.gson.GsonBuilder;
 import com.social.huakai.constant.Constant;
 import com.social.huakai.http.RequestImpl;
-import com.social.huakai.ui.mine.bean.RankListBean;
+import com.social.huakai.ui.rank.bean.RankListBean;
 
 
 /**

@@ -10,9 +10,7 @@ import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ItemGrabBinding;
-import com.social.huakai.databinding.ItemRankBinding;
 import com.social.huakai.ui.home.bean.GrabListBean;
-import com.social.huakai.ui.mine.bean.RankListBean;
 
 /**
  * @author Administrator

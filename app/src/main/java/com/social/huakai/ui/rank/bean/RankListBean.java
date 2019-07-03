@@ -1,4 +1,4 @@
-package com.social.huakai.ui.mine.bean;
+package com.social.huakai.ui.rank.bean;
 
 import java.io.Serializable;
 import java.util.List;

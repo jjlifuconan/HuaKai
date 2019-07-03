@@ -1,7 +1,7 @@
-package com.social.huakai.ui.mine.interfaces;
+package com.social.huakai.ui.rank.interfaces;
 
 
-import com.social.huakai.ui.mine.bean.RankListBean;
+import com.social.huakai.ui.rank.bean.RankListBean;
 
 import java.util.List;
 

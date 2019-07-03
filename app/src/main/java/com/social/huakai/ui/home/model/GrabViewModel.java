@@ -1,10 +1,8 @@
 package com.social.huakai.ui.home.model;
 
 import com.google.gson.GsonBuilder;
-import com.social.huakai.constant.Constant;
 import com.social.huakai.http.RequestImpl;
 import com.social.huakai.ui.home.bean.GrabListBean;
-import com.social.huakai.ui.mine.bean.RankListBean;
 
 
 /**

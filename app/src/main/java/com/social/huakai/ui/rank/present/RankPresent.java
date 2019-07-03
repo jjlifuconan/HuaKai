@@ -1,11 +1,11 @@
-package com.social.huakai.ui.mine.present;
+package com.social.huakai.ui.rank.present;
 
 import android.util.Log;
 
 import com.social.huakai.http.RequestImpl;
-import com.social.huakai.ui.mine.bean.RankListBean;
-import com.social.huakai.ui.mine.interfaces.RankNavigator;
-import com.social.huakai.ui.mine.model.RankViewModel;
+import com.social.huakai.ui.rank.bean.RankListBean;
+import com.social.huakai.ui.rank.interfaces.RankNavigator;
+import com.social.huakai.ui.rank.model.RankViewModel;
 
 import rx.Subscription;
 

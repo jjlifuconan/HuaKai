@@ -13,6 +13,7 @@ import com.social.huakai.ui.find.fragment.FindFragment;
 import com.social.huakai.ui.home.fragment.HomeFragment;
 import com.social.huakai.ui.message.fragment.MessageFragment;
 import com.social.huakai.ui.mine.fragment.MineFragment;
+import com.social.huakai.ui.rank.fragment.RankFragment;
 import com.social.huakai.widget.bottombarTitle.BottomBar;
 import com.social.huakai.widget.bottombarTitle.BottomBarTab;
 
@@ -29,8 +30,9 @@ public class MainActivity extends BaseActivity {
     public static final int SECOND = 1;
     public static final int THIRD = 2;
     public static final int FOURTH = 3;
+    public static final int FITTH = 4;
 
-    private SupportFragment[] mFragments = new SupportFragment[4];
+    private SupportFragment[] mFragments = new SupportFragment[5];
 
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
@@ -48,13 +50,14 @@ public class MainActivity extends BaseActivity {
             mFragments[FIRST] = HomeFragment.newInstance();
             mFragments[SECOND] = FindFragment.newInstance();
             mFragments[THIRD] = MessageFragment.newInstance();
-            mFragments[FOURTH] = MineFragment.newInstance();
-
+            mFragments[FOURTH] = RankFragment.newInstance();
+            mFragments[FITTH] = MineFragment.newInstance();
             loadMultipleRootFragment(R.id.fl_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD],
-                    mFragments[FOURTH]);
+                    mFragments[FOURTH],
+                    mFragments[FITTH]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity {
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findFragment(FindFragment.class);
             mFragments[THIRD] = findFragment(MessageFragment.class);
+            mFragments[FOURTH] = findFragment(RankFragment.class);
             mFragments[FOURTH] = findFragment(MineFragment.class);
         }
 
@@ -73,7 +77,8 @@ public class MainActivity extends BaseActivity {
         binding.bottomBar.addItem(new BottomBarTab(this, R.drawable.ic_bottom_trend, R.drawable.ic_bottom_trend_selected,"首页"))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottom_main, R.drawable.ic_bottom_main_selected,"发现"))
                 .addItem(new BottomBarTab(this, R.drawable.ic_bottom_message_normal, R.drawable.ic_bottom_message,"消息"))
-                .addItem(new BottomBarTab(this, R.drawable.ic_bottom_rank_normal, R.drawable.ic_bottom_rank_selected,"榜单"));
+                .addItem(new BottomBarTab(this, R.drawable.ic_bottom_rank_normal, R.drawable.ic_bottom_rank_selected,"榜单"))
+                .addItem(new BottomBarTab(this, R.drawable.ic_bottom_me_normal, R.drawable.ic_bottom_me,"我"));
 
         binding.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

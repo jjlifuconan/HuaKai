@@ -1,11 +1,11 @@
-package com.social.huakai.ui.mine.adapter;
+package com.social.huakai.ui.rank.adapter;
 
 import android.content.Context;
 
 import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ItemRankBinding;
-import com.social.huakai.ui.mine.bean.RankListBean;
+import com.social.huakai.ui.rank.bean.RankListBean;
 
 /**
  * @author Administrator

@@ -1,10 +1,8 @@
-package com.social.huakai.ui.mine.fragment;
+package com.social.huakai.ui.rank.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.widget.RadioGroup;
@@ -16,10 +14,10 @@ import com.social.basecommon.util.ImageLoadUtil;
 import com.social.huakai.R;
 import com.social.huakai.constant.Constant;
 import com.social.huakai.databinding.FragmentRankListBinding;
-import com.social.huakai.ui.mine.adapter.RankAdapter;
-import com.social.huakai.ui.mine.bean.RankListBean;
-import com.social.huakai.ui.mine.interfaces.RankNavigator;
-import com.social.huakai.ui.mine.present.RankPresent;
+import com.social.huakai.ui.rank.adapter.RankAdapter;
+import com.social.huakai.ui.rank.bean.RankListBean;
+import com.social.huakai.ui.rank.interfaces.RankNavigator;
+import com.social.huakai.ui.rank.present.RankPresent;
 
 import java.util.List;
 
