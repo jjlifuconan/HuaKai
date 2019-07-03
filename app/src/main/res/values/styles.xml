@@ -36,4 +36,10 @@
     </style>
 
 
+    <style name="TextInputLayoutStyle">
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/main_text_color</item>
+    </style>
+
 </resources>

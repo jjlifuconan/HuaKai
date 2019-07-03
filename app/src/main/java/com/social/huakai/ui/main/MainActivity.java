@@ -38,7 +38,6 @@ public class MainActivity extends BaseActivity {
         ImmersionBar.with(activity)
                 .statusBarDarkFont(true, 0.2f)
                 .init();
-        ImmersionBar.with(this).init();
         SupportFragment firstFragment = findFragment(HomeFragment.class);
         if (firstFragment == null) {
             mFragments[FIRST] = HomeFragment.newInstance();

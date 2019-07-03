@@ -6,5 +6,8 @@
     <string name="rankFormat">第%1$d名</string>
     <string name="rank_tab_gift">礼物总值:</string>
     <string name="rank_tab_money">花瓣总额:</string>
+    <string name="mobile">手机号</string>
+    <string name="password">密码</string>
+    <string name="yz_code">验证码</string>
 
 </resources>

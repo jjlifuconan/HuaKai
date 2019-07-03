@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#fff05c5c</color>
     <color name="colorPrimaryDark">#fff05c5c</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimaryUnable">#4cf05c5c</color>
+    <color name="colorAccent">#fff05c5c</color>
     <color name="white">#ffffff</color>
     <color name="green">#ff62b900</color>
     <color name="tab_unselect">#ff999999</color>
@@ -10,6 +11,7 @@
     <color name="page_bg">#ffeeeeee</color>
     <color name="main_text_black">#ff333333</color>
     <color name="main_text_color">#ff666666</color>
+    <color name="color_dddddd">#DDDDDD</color>
     <color name="main_text_green">#ff2dc01d</color>
     <color name="main_text_grey">#ff999999</color>.
     <color name="normal_txt_black">#ff666666</color>

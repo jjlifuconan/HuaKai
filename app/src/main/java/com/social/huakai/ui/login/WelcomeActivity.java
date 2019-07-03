@@ -17,6 +17,7 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityLoginBinding;
+import com.social.huakai.databinding.ActivityWelcomeBinding;
 import com.social.huakai.im.ContactHttpClient;
 import com.social.huakai.im.DemoCache;
 import com.social.huakai.ui.main.MainActivity;
@@ -27,13 +28,13 @@ import com.social.huakai.ui.main.MainActivity;
  * @description:
  */
 public class WelcomeActivity extends BaseActivity {
-    ActivityLoginBinding binding;
+    ActivityWelcomeBinding binding;
     private AbortableFuture<LoginInfo> loginRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
         playVideo();
         ContactHttpClient.getInstance().register("conanaiflj", "conanaiflj", "123456aa", new ContactHttpClient.ContactHttpCallback<Void>() {
             @Override
@@ -64,7 +65,7 @@ public class WelcomeActivity extends BaseActivity {
 //                        initNotificationConfig();
                         // 进入主界面
 //                        MainActivity.start(WelcomeActivity.this, null);
-                        startActivity(new Intent(activity, MainActivity.class));
+                        startActivity(new Intent(activity, LoginActivity.class));
                         finish();
                     }
 
