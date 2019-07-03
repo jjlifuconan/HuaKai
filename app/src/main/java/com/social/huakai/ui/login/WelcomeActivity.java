@@ -66,7 +66,6 @@ public class WelcomeActivity extends BaseActivity {
                         // 进入主界面
 //                        MainActivity.start(WelcomeActivity.this, null);
                         startActivity(new Intent(activity, LoginActivity.class));
-                        finish();
                     }
 
                     @Override

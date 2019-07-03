@@ -14,6 +14,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <FrameLayout
+                android:id="@+id/vp_close"
                 android:layout_width="@dimen/dp44"
                 android:layout_height="@dimen/dp44">
 
@@ -25,6 +26,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
@@ -63,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/title">
 
             <EditText
+                android:id="@+id/edt_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/et_underline_selector"
@@ -91,6 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/vp_mobile">
 
             <EditText
+                android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/et_underline_selector"
@@ -107,6 +111,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp14"
@@ -118,7 +123,7 @@
             android:textSize="@dimen/sp16"
             app:bl_corners_radius="@dimen/dp30"
             app:bl_enabled_drawable="@color/colorPrimary"
-            app:bl_ripple_color="#71C671"
+            app:bl_ripple_color="@color/color_red_ccfa3c55"
             app:bl_ripple_enable="true"
             app:bl_unEnabled_drawable="@color/colorPrimaryUnable"
             app:layout_constraintEnd_toEndOf="parent"
