@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -54,6 +55,13 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
     @Override
     protected void onBindItem(ItemTrendBinding binding, NeteaseList.DataBean item) {
         binding.setBean(item);
+        binding.praise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.ivPraise.startAnimation(AnimationUtils.loadAnimation(
+                        context, R.anim.dianzan_anim));
+            }
+        });
         List<NeteaseList.DataBean.ImagesBean> imagesBeans = item.getImages();
         ArrayList strList = new ArrayList();
         if(imagesBeans!=null && !imagesBeans.isEmpty()){
