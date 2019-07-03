@@ -80,7 +80,7 @@ public class ForgetPwdActivity extends BaseActivity {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;
                 }
-                if (!TextUtils.equals(binding.edtPassword.getText().toString(),binding.edtConfirmPassword.getText().toString()) {
+                if (!TextUtils.equals(binding.edtPassword.getText().toString(),binding.edtConfirmPassword.getText().toString())) {
                     ToastUtil.showShort(activity, "两次输入的密码不一致");
                     return;
                 }
