@@ -57,9 +57,6 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
 
         CommentAdapter = new CommentAdapter(activity);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        DividerItemDecoration divider = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent2));
-        binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(CommentAdapter);
         present.loadCommentData();
     }

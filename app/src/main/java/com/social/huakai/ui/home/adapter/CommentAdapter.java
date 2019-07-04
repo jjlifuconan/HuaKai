@@ -31,16 +31,5 @@ public class CommentAdapter extends BaseBindingAdapter<CommentListBean.DataBean,
     @Override
     protected void onBindItem(ItemCommentBinding binding, CommentListBean.DataBean item) {
         binding.setBean(item);
-        if(TextUtils.equals("1",item.getSex())){
-            Drawable drawable4 = new DrawableCreator.Builder().setCornersRadius(DensityUtil.dip2px(context,3))
-                    .setSolidColor(ContextCompat.getColor(context,R.color.age_girl_tv))
-                    .build();
-            binding.contact.setBackground(drawable4);
-        }else{
-            Drawable drawable4 = new DrawableCreator.Builder().setCornersRadius(DensityUtil.dip2px(context,3))
-                    .setSolidColor(ContextCompat.getColor(context,R.color.age_boy_tv))
-                    .build();
-            binding.contact.setBackground(drawable4);
-        }
     }
 }
