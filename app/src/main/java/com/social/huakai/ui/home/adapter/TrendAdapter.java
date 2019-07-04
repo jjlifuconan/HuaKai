@@ -25,6 +25,7 @@ import com.social.huakai.R;
 import com.social.huakai.databinding.ItemFindBinding;
 import com.social.huakai.databinding.ItemTrendBinding;
 import com.social.huakai.ui.find.bean.GankIoDataBean;
+import com.social.huakai.ui.home.activity.GiftShopActivity;
 import com.social.huakai.ui.home.bean.NeteaseList;
 import com.social.huakai.widget.TouchImageView;
 
@@ -62,6 +63,13 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
             public void onClick(View view) {
                 binding.ivPraise.startAnimation(AnimationUtils.loadAnimation(
                         context, R.anim.dianzan_anim));
+            }
+        });
+
+        binding.vpGift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GiftShopActivity.action(view.getContext());
             }
         });
         List<NeteaseList.DataBean.ImagesBean> imagesBeans = item.getImages();

@@ -1,8 +1,7 @@
 package com.social.huakai.ui.home.interfaces;
 
 
-import com.social.huakai.ui.home.bean.GiftListBean;
-import com.social.huakai.ui.home.bean.GrabListBean;
+import com.social.huakai.ui.home.bean.GiftRecordBean;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import rx.Subscription;
  * @Description
  */
 
-public interface GiftNavigator {
+public interface GiftRecordNavigator {
 
     /**
      * 请求成功
@@ -24,7 +23,7 @@ public interface GiftNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<GiftListBean.DataBean> dataBean);
+    void showAdapterView(List<GiftRecordBean.DataBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局

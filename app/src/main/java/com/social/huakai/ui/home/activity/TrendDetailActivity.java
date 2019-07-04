@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
@@ -28,11 +27,8 @@ import com.social.huakai.databinding.ActivityDetailTrendBinding;
 import com.social.huakai.ui.home.bean.NeteaseList;
 import com.social.huakai.ui.home.fragment.CommentDialogFragment;
 import com.social.huakai.ui.home.fragment.CommentListFragment;
-import com.social.huakai.ui.home.fragment.FemaleGrabChatFragment;
-import com.social.huakai.ui.home.fragment.GiftListFragment;
-import com.social.huakai.ui.home.fragment.MaleAskingForChatFragment;
+import com.social.huakai.ui.home.fragment.GiftRecordListFragment;
 import com.social.huakai.ui.home.fragment.PraiseListFragment;
-import com.social.huakai.ui.home.fragment.TrendFragment;
 import com.social.huakai.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 import com.social.huakai.widget.TouchImageView;
@@ -200,7 +196,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
                 }else if(position == 1){
                     return PraiseListFragment.newInstance();
                 }else{
-                    return GiftListFragment.newInstance();
+                    return GiftRecordListFragment.newInstance();
                 }
             }
 

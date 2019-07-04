@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2019/7/2 0002
  * @description:
  */
-public class GiftListBean implements Serializable {
+public class GiftRecordBean implements Serializable {
 
     /**
      * code : 200

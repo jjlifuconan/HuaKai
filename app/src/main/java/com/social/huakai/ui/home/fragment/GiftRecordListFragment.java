@@ -3,19 +3,16 @@ package com.social.huakai.ui.home.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
-import com.social.huakai.ui.home.adapter.GiftAdapter;
-import com.social.huakai.ui.home.bean.GiftListBean;
-import com.social.huakai.ui.home.interfaces.GiftNavigator;
+import com.social.huakai.ui.home.adapter.GiftRecordAdapter;
+import com.social.huakai.ui.home.bean.GiftRecordBean;
+import com.social.huakai.ui.home.interfaces.GiftRecordNavigator;
 import com.social.huakai.ui.home.present.GiftPresent;
 
 import java.util.List;
@@ -27,15 +24,15 @@ import rx.Subscription;
  * @date 2019/7/2 0002
  * @description:礼物列表
  */
-public class GiftListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftNavigator {
-    private GiftAdapter GiftAdapter;
+public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftRecordNavigator {
+    private GiftRecordAdapter GiftAdapter;
     private GiftPresent present;
 
-    public static GiftListFragment newInstance() {
+    public static GiftRecordListFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        GiftListFragment fragment = new GiftListFragment();
+        GiftRecordListFragment fragment = new GiftRecordListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,7 +52,7 @@ public class GiftListFragment extends BaseFragment<FragmentRefreshListBinding> i
             }
         });
 
-        GiftAdapter = new GiftAdapter(activity);
+        GiftAdapter = new GiftRecordAdapter(activity);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         binding.recyclerView.setAdapter(GiftAdapter);
         present.loadGiftData();
@@ -67,7 +64,7 @@ public class GiftListFragment extends BaseFragment<FragmentRefreshListBinding> i
     }
 
     @Override
-    public void showAdapterView(List<GiftListBean.DataBean> dataBeans) {
+    public void showAdapterView(List<GiftRecordBean.DataBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

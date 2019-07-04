@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
             app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintEnd_toStartOf="@+id/textView8"
+            app:layout_constraintEnd_toStartOf="@+id/vp_gift"
             app:layout_constraintTop_toBottomOf="@+id/textView4" >
 
             <LinearLayout
@@ -138,7 +138,7 @@
 
 
         <FrameLayout
-            android:id="@+id/textView8"
+            android:id="@+id/vp_gift"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp10"
