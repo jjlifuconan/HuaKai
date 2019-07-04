@@ -16,6 +16,13 @@
             android:layout_height="@dimen/dp44"
             android:background="@color/colorPrimary">
 
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp44"
+                android:paddingHorizontal="@dimen/dp14"
+                android:src="@mipmap/return_white"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,14 +46,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/page_bg"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:elevation="0dp">
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
                 <include
+                    android:id="@+id/layout_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/layout_detail_header_trend"
+                    android:background="@color/white"
                     app:layout_scrollFlags="scroll"
                     app:bean="@{bean}"
                     />

@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.jaeger.ninegridimageview.GridImageView;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
 import com.jaeger.ninegridimageview.ItemImageLongClickListener;
 import com.jaeger.ninegridimageview.NineGridImageView;
@@ -25,6 +26,7 @@ import com.social.huakai.databinding.ItemFindBinding;
 import com.social.huakai.databinding.ItemTrendBinding;
 import com.social.huakai.ui.find.bean.GankIoDataBean;
 import com.social.huakai.ui.home.bean.NeteaseList;
+import com.social.huakai.widget.TouchImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,18 +90,20 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
 
             @Override
             protected ImageView generateImageView(Context context) {
-                return super.generateImageView(context);
+                TouchImageView imageView = new TouchImageView(context);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                return imageView;
             }
 
             @Override
             protected void onItemImageClick(Context context, ImageView imageView, int index, List<String> list) {
-                Toast.makeText(context, "image position is " + index, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "image position is " + index, Toast.LENGTH_SHORT).show();
                 ViewBigImageActivity.startImageList(context, index, (ArrayList<String>) list, null);
             }
 
             @Override
             protected boolean onItemImageLongClick(Context context, ImageView imageView, int index, List<String> list) {
-                Toast.makeText(context, "image long click position is " + index, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "image long click position is " + index, Toast.LENGTH_SHORT).show();
                 return true;
             }
         };

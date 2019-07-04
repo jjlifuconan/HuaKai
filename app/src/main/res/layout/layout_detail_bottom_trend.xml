@@ -12,7 +12,7 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="@dimen/line"
-            android:background="@color/color_f0f0f0" />
+            android:background="@color/color_e6e6e6" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:id="@+id/tv_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp10"
+                android:paddingVertical="@dimen/dp12"
                 android:layout_weight="1">
 
                 <com.social.basecommon.widget.TextImageView
@@ -45,7 +45,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp10"
+                android:paddingVertical="@dimen/dp12"
                 android:layout_weight="1" >
 
                 <LinearLayout
@@ -76,7 +76,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/dp10"
+                android:paddingVertical="@dimen/dp12"
                 android:layout_weight="1"  >
 
                 <com.social.basecommon.widget.TextImageView

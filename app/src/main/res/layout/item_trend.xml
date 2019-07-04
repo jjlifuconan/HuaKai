@@ -49,6 +49,7 @@
             android:layout_marginTop="@dimen/dp16"
             android:textSize="@dimen/sp15"
             android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/default_text_black"
             tools:text="碍事法师法师碍事法师法师法碍事法师法师碍事法师法师法发顺丰碍事法师法师法发顺丰碍事法师法师法发顺丰法发顺丰碍事法师法师碍事法师法师法发顺丰碍事法师法师法发顺丰碍事法师法师法发顺丰法发顺丰发顺丰碍事法师法师法发顺丰碍事法师法师法发顺丰法发顺丰"
             android:text="@{bean.title}"
             app:layout_constraintEnd_toEndOf="parent"

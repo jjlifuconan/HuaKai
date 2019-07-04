@@ -10,9 +10,11 @@
     <color name="tab_unselect">#ff999999</color>
     <color name="tab_select">#fff05c5c</color>
     <color name="page_bg">#ffeeeeee</color>
+    <color name="child_tab_yellow">#F79F00</color>
     <color name="main_text_black">#ff333333</color>
     <color name="main_text_color">#ff666666</color>
     <color name="color_dddddd">#DDDDDD</color>
+    <color name="default_text_black">#8A000000</color>
     <color name="main_text_green">#ff2dc01d</color>
     <color name="main_text_grey">#ff999999</color>.
     <color name="normal_txt_black">#ff666666</color>
@@ -33,4 +35,5 @@
     <color name="color_8A8A8A">#FF8A8A8A</color>
     <color name="color_f9f9f9">#F9F9F9</color>
     <color name="color_f0f0f0">#F0F0F0</color>
+    <color name="color_e6e6e6">#E6E6E6</color>
 </resources>
