@@ -57,9 +57,6 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
 
         PraiseAdapter = new PraiseAdapter(activity);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
-        DividerItemDecoration divider = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent2));
-        binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(PraiseAdapter);
         present.loadPraiseData();
     }
