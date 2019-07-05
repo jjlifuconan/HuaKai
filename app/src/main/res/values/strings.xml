@@ -20,8 +20,11 @@
     <string name="user_info_account">账号信息</string>
     <string name="user_info_personal">个人信息</string>
     <string name="user_info_tag">标签</string>
-    <string name="user_info_receive">收到的礼物</string>
-    <string name="user_info_send">送出的礼物</string>
+    <string name="user_info_receive">收到的礼物  %1$s</string>
+    <string name="user_info_send">送出的礼物  %1$s</string>
+    <string name="visitor_of_his">谁看过他</string>
+    <string name="visitor_of_her">谁看过她</string>
+
 
     <string name="social_id">社交号：%1$s</string>
     <string name="registerTime">注册日期：%1$s</string>

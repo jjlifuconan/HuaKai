@@ -41,8 +41,11 @@ public class UserDetailBean implements Serializable {
     public static class DataBean implements Serializable{
         private List<String> images;//banner
         private List<String> tags;
-        private List<GiftBean> sendList;
-        private List<GiftBean> receiveList;
+        private List<String> sendList;
+        private List<String> receiveList;
+        private List<String> visitorList;
+        private String receiveNum;
+        private String sendNum;
         private String nickName;
         private String photo;
         private String signature;
@@ -54,6 +57,30 @@ public class UserDetailBean implements Serializable {
         private String constellation;//星座
         private String homeTown;
         private String emotion;//情感状态
+
+        public List<String> getVisitorList() {
+            return visitorList;
+        }
+
+        public void setVisitorList(List<String> visitorList) {
+            this.visitorList = visitorList;
+        }
+
+        public String getReceiveNum() {
+            return receiveNum;
+        }
+
+        public void setReceiveNum(String receiveNum) {
+            this.receiveNum = receiveNum;
+        }
+
+        public String getSendNum() {
+            return sendNum;
+        }
+
+        public void setSendNum(String sendNum) {
+            this.sendNum = sendNum;
+        }
 
         public String getSocialId() {
             return socialId;
@@ -79,19 +106,19 @@ public class UserDetailBean implements Serializable {
             this.tags = tags;
         }
 
-        public List<GiftBean> getSendList() {
+        public List<String> getSendList() {
             return sendList;
         }
 
-        public void setSendList(List<GiftBean> sendList) {
+        public void setSendList(List<String> sendList) {
             this.sendList = sendList;
         }
 
-        public List<GiftBean> getReceiveList() {
+        public List<String> getReceiveList() {
             return receiveList;
         }
 
-        public void setReceiveList(List<GiftBean> receiveList) {
+        public void setReceiveList(List<String> receiveList) {
             this.receiveList = receiveList;
         }
 
@@ -175,26 +202,6 @@ public class UserDetailBean implements Serializable {
             this.emotion = emotion;
         }
 
-        public static class GiftBean implements Serializable {
-            private String giftName;
-            private int giftNum;
-
-            public String getGiftName() {
-                return giftName;
-            }
-
-            public void setGiftName(String giftName) {
-                this.giftName = giftName;
-            }
-
-            public int getGiftNum() {
-                return giftNum;
-            }
-
-            public void setGiftNum(int giftNum) {
-                this.giftNum = giftNum;
-            }
-        }
     }
 
 }

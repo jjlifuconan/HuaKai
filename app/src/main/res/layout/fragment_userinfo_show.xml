@@ -1,61 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+        <import type="android.text.TextUtils" />
         <variable
             name="bean"
-            type="com.social.huakai.ui.home.bean.UserDetailBean.DataBean"/>
+            type="com.social.huakai.ui.home.bean.UserDetailBean.DataBean" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/dp14">
+        android:background="@color/white">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp14">
 
 
-        <TextView
-            style="@style/userClassifyStyle"
-            android:text="@string/user_info_account" />
+            <TextView
+                style="@style/userClassifyStyle"
+                android:text="@string/user_info_account" />
 
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/social_id(bean.socialId)}" />
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/social_id(bean.socialId)}" />
 
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/registerTime(bean.registerTime)}" />
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/registerTime(bean.registerTime)}" />
 
-        <TextView
-            style="@style/userClassifyStyle"
-            android:text="@string/user_info_personal" />
+            <TextView
+                style="@style/userClassifyStyle"
+                android:text="@string/user_info_personal" />
 
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/homeTown(bean.homeTown)}" />
-
-
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/emotion(bean.emotion)}" />
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/homeTown(bean.homeTown)}" />
 
 
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/constellation(bean.constellation)}" />
-
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/job(bean.job)}" />
-
-        <TextView
-            style="@style/userContentStyle"
-            android:text="@{@string/signature(bean.signature)}" />
-
-        <TextView
-            style="@style/userClassifyStyle"
-            android:text="@string/user_info_tag" />
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/emotion(bean.emotion)}" />
 
 
-    </LinearLayout>
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/constellation(bean.constellation)}" />
+
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/job(bean.job)}" />
+
+            <TextView
+                style="@style/userContentStyle"
+                android:text="@{@string/signature(bean.signature)}" />
+
+            <TextView
+                style="@style/userClassifyStyle"
+                android:text="@string/user_info_tag" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp8"
+                android:background="#fff"
+                app:alignContent="flex_start"
+                app:alignItems="flex_start"
+                app:dividerDrawable="@drawable/divider_flexbox_transparent2"
+                app:flexWrap="wrap"
+                app:showDivider="middle"/>
+
+            <TextView
+                style="@style/userClassifyStyle"
+                android:text="@{@string/user_info_receive(bean.receiveNum)}" />
+
+            <LinearLayout
+                android:id="@+id/li_receive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:divider="@drawable/divider_flexbox_transparent2"
+                android:showDividers="middle"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+
+            <TextView
+                style="@style/userClassifyStyle"
+                android:text="@{@string/user_info_send(bean.sendNum)}" />
+
+            <LinearLayout
+                android:id="@+id/li_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:divider="@drawable/divider_flexbox_transparent2"
+                android:showDividers="middle"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/userClassifyStyle"
+                android:text="@{TextUtils.equals(bean.sex,`1`)?@string/visitor_of_her:@string/visitor_of_his}" />
+
+            <LinearLayout
+                android:id="@+id/li_visitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp100"
+                android:divider="@drawable/divider_flexbox_transparent2"
+                android:showDividers="middle"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 </layout>
