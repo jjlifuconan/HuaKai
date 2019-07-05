@@ -15,7 +15,7 @@ import com.social.huakai.ui.home.bean.UserDetailBean;
  */
 public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBinding> {
 
-    public static UserInfoShowFragment newInstance(UserDetailBean bean) {
+    public static UserInfoShowFragment newInstance(UserDetailBean.DataBean bean) {
 
         Bundle args = new Bundle();
         args.putSerializable("bean",bean);
