@@ -21,11 +21,15 @@
                 app:elevation="0dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <!--<android.support.design.widget.CollapsingToolbarLayout-->
-                    <!--android:id="@+id/mCollapsingToolbarLayout"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--app:layout_scrollFlags="exitUntilCollapsed|scroll">-->
+                <android.support.design.widget.CollapsingToolbarLayout
+                    android:id="@+id/mCollapsingToolbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentScrim="@color/colorAccent"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:collapsedTitleGravity="left"
+                    app:expandedTitleGravity="center"
+                    >
 
 
                     <!--<ImageView-->
@@ -35,18 +39,50 @@
                         <!--android:paddingHorizontal="@dimen/dp14"-->
                         <!--android:src="@mipmap/return_white"/>-->
 
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="300dp"-->
+                        <!--android:scaleType="centerCrop"-->
+                        <!--android:background="@color/green"-->
+                        <!--app:layout_collapseMode="parallax" />-->
 
-                <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+                    <include
+                        android:id="@+id/layout_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        layout="@layout/layout_detail_header_user"
+                        android:background="@color/white"
+                        />
 
 
-                <include
-                    android:id="@+id/layout_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    layout="@layout/layout_detail_header_user"
-                    android:background="@color/white"
-                    app:layout_scrollFlags="scroll"
-                    />
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp44"
+                        app:layout_collapseMode="pin">
+
+                        <ImageView
+                            android:id="@+id/back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp44"
+                            android:paddingHorizontal="@dimen/dp14"
+                            android:src="@mipmap/return_white"/>
+
+                    </android.support.v7.widget.Toolbar>
+
+
+                </android.support.design.widget.CollapsingToolbarLayout>
+
+
+                <!--<include-->
+                    <!--android:id="@+id/layout_header"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--layout="@layout/layout_detail_header_user"-->
+                    <!--android:background="@color/white"-->
+                    <!--app:layout_scrollFlags="scroll"-->
+                    <!--/>-->
 
                 <net.lucode.hackware.magicindicator.MagicIndicator
                     android:id="@+id/indicator"

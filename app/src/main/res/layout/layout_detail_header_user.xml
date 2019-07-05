@@ -29,10 +29,10 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp14"
+            android:layout_marginTop="@dimen/dp18"
             android:layout_marginHorizontal="@dimen/dp14"
             android:textColor="@color/main_text_black"
-            android:textSize="@dimen/sp16"
+            android:textSize="@dimen/sp18"
             android:text="@{bean.nickName}"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/banner"/>
@@ -53,7 +53,7 @@
             android:layout_marginLeft="@dimen/dp5"
             android:text="@{bean.age+`岁`}"
             android:textColor="@color/normal_txt_black"
-            android:textSize="@dimen/sp13"
+            android:textSize="@dimen/sp14"
             app:layout_constraintBottom_toBottomOf="@+id/sex"
             app:layout_constraintStart_toEndOf="@+id/sex"
             app:layout_constraintTop_toTopOf="@+id/sex" />
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="@dimen/line"
-            android:layout_marginTop="@dimen/dp14"
+            android:layout_marginTop="@dimen/dp18"
             android:layout_marginHorizontal="@dimen/dp14"
             android:background="@color/color_e6e6e6"
             app:layout_constraintEnd_toEndOf="parent"

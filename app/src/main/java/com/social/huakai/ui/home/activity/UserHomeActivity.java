@@ -63,7 +63,7 @@ public class UserHomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_home);
         ImmersionBar.with(this).init();
-//        ImmersionBar.setTitleBar(this, binding.titlebar);
+        ImmersionBar.setTitleBar(this, binding.toolbar);
         initView();
         setListener();
         getUserData();
