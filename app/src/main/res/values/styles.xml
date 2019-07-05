@@ -33,6 +33,25 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="userClassifyStyle">
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/userinfo_classify_title</item>
+        <item name="android:layout_marginTop">@dimen/dp20</item>
+    </style>
+
+    <style name="userContentStyle">
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/userinfo_content</item>
+        <item name="android:layout_marginTop">@dimen/dp14</item>
+    </style>
+
+
+
     <style name="RankRadioButtonStyle">
         <item name="android:textSize">@dimen/sp15</item>
         <item name="android:textColor">@color/sl_rank_rb</item>

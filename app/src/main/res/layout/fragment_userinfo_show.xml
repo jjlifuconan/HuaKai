@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="bean"
+            type="com.social.huakai.ui.home.bean.UserDetailBean.DataBean"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dp14">
+
+
+        <TextView
+            style="@style/userClassifyStyle"
+            android:text="@string/user_info_account" />
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/social_id(bean.socialId)}" />
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/registerTime(bean.registerTime)}" />
+
+        <TextView
+            style="@style/userClassifyStyle"
+            android:text="@string/user_info_personal" />
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/homeTown(bean.homeTown)}" />
+
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/emotion(bean.emotion)}" />
+
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/constellation(bean.constellation)}" />
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/job(bean.job)}" />
+
+        <TextView
+            style="@style/userContentStyle"
+            android:text="@{@string/signature(bean.signature)}" />
+
+        <TextView
+            style="@style/userClassifyStyle"
+            android:text="@string/user_info_tag" />
+
+
+    </LinearLayout>
+
+</layout>

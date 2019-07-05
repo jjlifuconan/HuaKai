@@ -4,6 +4,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <android.support.design.widget.CoordinatorLayout
@@ -17,7 +18,6 @@
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/page_bg"
                 app:elevation="0dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 

@@ -38,7 +38,7 @@ public class UserDetailBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         private List<String> images;//banner
         private List<String> tags;
         private List<GiftBean> sendList;
@@ -48,11 +48,20 @@ public class UserDetailBean implements Serializable {
         private String signature;
         private String sex;
         private String age;
+        private String socialId;
         private String job;
         private String registerTime;
         private String constellation;//星座
         private String homeTown;
         private String emotion;//情感状态
+
+        public String getSocialId() {
+            return socialId;
+        }
+
+        public void setSocialId(String socialId) {
+            this.socialId = socialId;
+        }
 
         public List<String> getImages() {
             return images;
