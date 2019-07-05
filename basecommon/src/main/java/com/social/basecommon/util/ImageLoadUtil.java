@@ -191,7 +191,6 @@ public class ImageLoadUtil {
         GlideApp.with(imageView.getContext())
                 .load(url)
                 .centerCrop()
-                .transition(withCrossFade(500))
                 .placeholder(getDefaultPic(defaultPicType))
                 .error(getDefaultPic(defaultPicType))
                 .into(imageView);

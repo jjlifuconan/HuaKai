@@ -52,5 +52,6 @@ dependencies {
     api 'com.gyf.immersionbar:immersionbar:3.0.0-beta05'
     api 'com.jaeger.ninegridimageview:library:1.1.1'
     api 'com.github.chrisbanes:PhotoView:2.1.2'
+    api 'com.afollestad.material-dialogs:core:0.9.6.0'
 //    api 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 }

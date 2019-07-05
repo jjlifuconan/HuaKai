@@ -1,5 +1,6 @@
 package com.social.huakai.ui.home.fragment;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,14 +9,23 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
+import com.social.huakai.databinding.DialogGiftSendBinding;
 import com.social.huakai.ui.home.adapter.GiftShopAdapter;
 import com.social.huakai.ui.home.bean.GiftRecordBean;
 import com.social.huakai.ui.home.bean.GiftShopBean;
@@ -48,6 +58,8 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        int dp14 = (int) getResources().getDimension(R.dimen.dp14);
+        binding.recyclerView.setPadding(dp14,dp14,dp14,dp14);
         present = new GiftShopPresent(this);
         binding.refreshLayout.setEnableRefresh(false);
         binding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -66,7 +78,42 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(GiftAdapter);
+        GiftAdapter.setOnItemClickListener(new OnItemClickListener<GiftShopBean.DataBean>() {
+            @Override
+            public void onClick(GiftShopBean.DataBean item) {
+                DialogGiftSendBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_gift_send, null,false);
+                binding.setBean(item);
+
+                MaterialDialog dialog = new MaterialDialog.Builder(activity).build();
+                Window window = dialog.getWindow();
+                WindowManager.LayoutParams layoutParams;
+                if (window != null) {
+                    layoutParams = window.getAttributes();
+                    layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                    layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                    window.setAttributes(layoutParams);
+                }
+                dialog.getBuilder().customView(binding.getRoot(),false)
+                        .show();
+                binding.vpClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
         present.loadGiftData();
+    }
+
+    private void setDialogListener(DialogGiftSendBinding binding){
+        binding.vpClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     @Override
@@ -111,13 +158,6 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
         present.loadGiftData();
     }
 
-    @Override
-    protected void modifyParms(ConstraintLayout.LayoutParams params) {
-//        params.leftMargin = DensityUtil.dip2px(activity, R.dimen.dp14);
-//        params.rightMargin = DensityUtil.dip2px(activity, R.dimen.dp14);
-//        params.topMargin = DensityUtil.dip2px(activity, R.dimen.dp14);
-//        params.bottomMargin = DensityUtil.dip2px(activity, R.dimen.dp14);
-    }
 
     @Override
     public int setContent() {

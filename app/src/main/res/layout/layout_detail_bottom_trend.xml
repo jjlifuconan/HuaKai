@@ -73,7 +73,7 @@
 
 
             <FrameLayout
-                android:id="@+id/textView8"
+                android:id="@+id/vp_gift"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/dp12"
