@@ -9,7 +9,7 @@
     <color name="green">#ff62b900</color>
     <color name="tab_unselect">#ff999999</color>
     <color name="tab_select">#fff05c5c</color>
-    <color name="page_bg">#ffeeeeee</color>
+    <color name="page_bg">#F3F3F3</color>
     <color name="child_tab_yellow">#F79F00</color>
     <color name="main_text_black">#ff333333</color>
     <color name="main_text_color">#ff666666</color>

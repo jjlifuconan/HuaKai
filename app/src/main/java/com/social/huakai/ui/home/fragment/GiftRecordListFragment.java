@@ -13,7 +13,7 @@ import com.social.huakai.R;
 import com.social.huakai.ui.home.adapter.GiftRecordAdapter;
 import com.social.huakai.ui.home.bean.GiftRecordBean;
 import com.social.huakai.ui.home.interfaces.GiftRecordNavigator;
-import com.social.huakai.ui.home.present.GiftPresent;
+import com.social.huakai.ui.home.present.GiftRecordPresent;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import rx.Subscription;
  */
 public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftRecordNavigator {
     private GiftRecordAdapter GiftAdapter;
-    private GiftPresent present;
+    private GiftRecordPresent present;
 
     public static GiftRecordListFragment newInstance() {
 
@@ -40,7 +40,7 @@ public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBind
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        present = new GiftPresent(this);
+        present = new GiftRecordPresent(this);
         binding.refreshLayout.setEnableRefresh(false);
         binding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override

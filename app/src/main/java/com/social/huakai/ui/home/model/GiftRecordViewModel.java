@@ -10,7 +10,7 @@ import com.social.huakai.ui.home.bean.GiftRecordBean;
  * @date 2019/6/27 0027
  * @description:
  */
-public class GiftViewModel {
+public class GiftRecordViewModel {
     private int page;
     private int per_page;
 

@@ -117,7 +117,7 @@ public class ImageLoadUtil {
             case 1:// 妹子
                 return R.drawable.img_default_meizi;
             case 2:// 书籍
-                return R.drawable.img_default_book;
+                return R.drawable.img_default_gift;
             case 3:// 男性
                 return R.drawable.ic_boy;
             case 4:// 女性
@@ -178,6 +178,23 @@ public class ImageLoadUtil {
     public static void displayFadeImage(ImageView imageView, String url, int defaultPicType) {
         Log.e("FLJ","url-->"+url);
         displayEspImage(url, imageView, defaultPicType);
+    }
+
+    /**
+     * 妹子，电影列表图
+     *
+     * @param defaultPicType 电影：0；妹子：1； 书籍：2
+     */
+    @BindingAdapter({"android:displayWrapImage", "android:defaultPicType"})
+    public static void displayWrapImage(ImageView imageView, String url, int defaultPicType) {
+        Log.e("FLJ","url-->"+url);
+        GlideApp.with(imageView.getContext())
+                .load(url)
+                .centerCrop()
+                .transition(withCrossFade(500))
+                .placeholder(getDefaultPic(defaultPicType))
+                .error(getDefaultPic(defaultPicType))
+                .into(imageView);
     }
 
     /**

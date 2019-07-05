@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="bean"
+            type="com.social.huakai.ui.home.bean.GiftShopBean.DataBean" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:bl_corners_radius="@dimen/dp8"
+        app:bl_solid_color="@color/white"
+        android:padding="@dimen/dp14">
+
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="@dimen/dp44"
+            android:layout_height="@dimen/dp44"
+            android:adjustViewBounds="true"
+            android:defaultPicType="@{2}"
+            android:displayWrapImage="@{bean.photo}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp14"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="@{bean.giftName}"
+            android:textColor="@color/comment_title"
+            android:textSize="@dimen/sp14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            tools:text="啊实打实大" />
+
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            android:ellipsize="end"
+            android:maxEms="14"
+            android:singleLine="true"
+            android:text="@{bean.price+`花瓣`}"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp13"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="啊实打实大" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

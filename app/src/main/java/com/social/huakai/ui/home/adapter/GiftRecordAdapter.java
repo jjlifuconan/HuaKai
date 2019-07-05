@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.huakai.R;
-import com.social.huakai.databinding.ItemGiftBinding;
+import com.social.huakai.databinding.ItemGiftRecordBinding;
 import com.social.huakai.ui.home.bean.GiftRecordBean;
 
 /**
@@ -12,7 +12,7 @@ import com.social.huakai.ui.home.bean.GiftRecordBean;
  * @date 2019/6/27 0027
  * @description:
  */
-public class GiftRecordAdapter extends BaseBindingAdapter<GiftRecordBean.DataBean, ItemGiftBinding> {
+public class GiftRecordAdapter extends BaseBindingAdapter<GiftRecordBean.DataBean, ItemGiftRecordBinding> {
 
     public GiftRecordAdapter(Context context) {
         super(context);
@@ -20,11 +20,11 @@ public class GiftRecordAdapter extends BaseBindingAdapter<GiftRecordBean.DataBea
 
     @Override
     protected int getLayoutResId(int viewType) {
-        return R.layout.item_gift;
+        return R.layout.item_gift_record;
     }
 
     @Override
-    protected void onBindItem(ItemGiftBinding binding, GiftRecordBean.DataBean item) {
+    protected void onBindItem(ItemGiftRecordBinding binding, GiftRecordBean.DataBean item) {
         binding.setBean(item);
     }
 }

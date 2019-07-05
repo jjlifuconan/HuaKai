@@ -12,6 +12,7 @@ import com.social.basecommon.activity.BaseActivity;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityGiftShopBinding;
 import com.social.huakai.ui.home.fragment.GiftRecordListFragment;
+import com.social.huakai.ui.home.fragment.GiftShopListFragment;
 import com.social.huakai.ui.rank.fragment.RankListFragment;
 
 
@@ -30,7 +31,7 @@ public class GiftShopActivity extends BaseActivity {
                 finish();
             }
         });
-        loadRootFragment(R.id.content, new GiftRecordListFragment());
+        loadRootFragment(R.id.content, new GiftShopListFragment());
     }
 
     public static void action(Context context){

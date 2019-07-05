@@ -52,6 +52,7 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends SupportFr
         binding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), setContent(), null, false);
         mContainer = root.findViewById(R.id.container);
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        modifyParms(params);
         mContainer.addView(binding.getRoot(), params);
         return root;
     }
@@ -111,6 +112,13 @@ public abstract class BaseFragment<VB extends ViewDataBinding> extends SupportFr
      * 加载失败后点击后的操作
      */
     protected void onRefresh() {
+
+    }
+
+    /**
+     * 修改默认布局参数
+     */
+    protected void modifyParms(ConstraintLayout.LayoutParams params) {
 
     }
 

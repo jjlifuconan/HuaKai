@@ -3,9 +3,9 @@ package com.social.huakai.ui.home.present;
 
 import com.example.http.HttpUtils;
 import com.social.huakai.http.RequestImpl;
-import com.social.huakai.ui.home.bean.GiftRecordBean;
-import com.social.huakai.ui.home.interfaces.GiftRecordNavigator;
-import com.social.huakai.ui.home.model.GiftViewModel;
+import com.social.huakai.ui.home.bean.GiftShopBean;
+import com.social.huakai.ui.home.interfaces.GiftShopNavigator;
+import com.social.huakai.ui.home.model.GiftShopViewModel;
 
 import rx.Subscription;
 
@@ -14,14 +14,14 @@ import rx.Subscription;
  * @date 2019/6/27 0027
  * @description:
  */
-public class GiftPresent {
-    private GiftRecordNavigator navigator;
-    private GiftViewModel mModel;
+public class GiftShopPresent {
+    private GiftShopNavigator navigator;
+    private GiftShopViewModel mModel;
     private int mPage = 1;
 
-    public GiftPresent(GiftRecordNavigator navigator) {
+    public GiftShopPresent(GiftShopNavigator navigator) {
         this.navigator = navigator;
-        mModel = new GiftViewModel();
+        mModel = new GiftShopViewModel();
     }
 
     public void loadGiftData() {
@@ -30,7 +30,7 @@ public class GiftPresent {
             @Override
             public void loadSuccess(Object object) {
                 navigator.showLoadSuccessView();
-                GiftRecordBean GiftListBean = (GiftRecordBean) object;
+                GiftShopBean GiftListBean = (GiftShopBean) object;
                 if (mPage == 1) {
                     if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
                         navigator.showLoadFailedView();
