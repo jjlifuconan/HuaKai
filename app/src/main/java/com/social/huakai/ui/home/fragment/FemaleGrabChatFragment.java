@@ -9,9 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.huakai.R;
+import com.social.huakai.ui.home.activity.UserHomeActivity;
 import com.social.huakai.ui.home.adapter.GrabAdapter;
 import com.social.huakai.ui.home.bean.GrabListBean;
 import com.social.huakai.ui.home.interfaces.GrabNavigator;
@@ -61,6 +63,12 @@ public class FemaleGrabChatFragment extends BaseFragment<FragmentRefreshListBind
 
 
         grabAdapter = new GrabAdapter(activity);
+        grabAdapter.setOnItemClickListener(new OnItemClickListener<GrabListBean.DataBean>() {
+            @Override
+            public void onClick(GrabListBean.DataBean item) {
+                UserHomeActivity.action(activity,"asd");
+            }
+        });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         DividerItemDecoration divider = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent2));
