@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp14"
+            android:layout_marginHorizontal="@dimen/dp14"
+            android:textColor="@color/main_text_black"
+            android:textSize="@dimen/sp16"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/banner"/>
+
+        <ImageView
+            android:id="@+id/sex"
+            android:layout_width="@dimen/dp18"
+            android:layout_height="@dimen/dp18"
+            android:layout_marginTop="@dimen/dp5"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp5"
+            android:textColor="@color/normal_txt_black"
+            android:textSize="@dimen/sp13"
+            app:layout_constraintBottom_toBottomOf="@+id/sex"
+            app:layout_constraintStart_toEndOf="@+id/sex"
+            app:layout_constraintTop_toTopOf="@+id/sex" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/line"
+            android:layout_marginTop="@dimen/dp14"
+            android:layout_marginHorizontal="@dimen/dp14"
+            android:background="@color/color_e6e6e6"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sex" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>

@@ -106,16 +106,6 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
         present.loadGiftData();
     }
 
-    private void setDialogListener(DialogGiftSendBinding binding){
-        binding.vpClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-    }
-
     @Override
     public void showLoadSuccessView() {
         showContentView();
