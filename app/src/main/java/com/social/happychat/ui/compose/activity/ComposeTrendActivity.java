@@ -7,6 +7,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,6 +26,7 @@ import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
 import com.social.happychat.ui.compose.gifsize.GifSizeFilter;
 import com.social.happychat.ui.compose.gifsize.GlideEngine;
 import com.social.happychat.ui.main.MainActivity;
+import com.social.happychat.widget.DividerGridItemDecoration;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
@@ -83,9 +86,9 @@ public class ComposeTrendActivity extends BaseActivity {
             }
         });
         binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
-//        DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
-//        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
-//        binding.recyclerView.addItemDecoration(divider);
+        DividerItemDecoration divider = new DividerItemDecoration(activity,DividerItemDecoration.HORIZONTAL);
+        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
+        binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(adapter);
     }
 

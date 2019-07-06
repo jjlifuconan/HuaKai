@@ -18,6 +18,7 @@
 
 
         <ImageView
+            android:id="@+id/img_pic"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
@@ -36,6 +37,12 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@mipmap/compose_photo_close"/>
 
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_pic"/>
 
     </android.support.constraint.ConstraintLayout>
 
