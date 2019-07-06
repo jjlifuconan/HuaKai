@@ -6,12 +6,16 @@ import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
@@ -19,10 +23,10 @@ import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityComposeTrendBinding;
 import com.social.huakai.ui.compose.adapter.ComposePicAdapter;
 import com.social.huakai.ui.compose.gifsize.GifSizeFilter;
+import com.social.huakai.ui.compose.gifsize.GlideEngine;
 import com.social.huakai.widget.DividerGridItemDecoration;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.filter.Filter;
 
 import java.util.List;
@@ -34,8 +38,7 @@ import java.util.List;
  */
 public class ComposeTrendActivity extends BaseActivity {
     ActivityComposeTrendBinding binding;
-    private ComposePicAdapter GiftAdapter;
-    List<Uri> mSelected;
+    private ComposePicAdapter adapter;
     private static final int REQUEST_CODE_CHOOSE = 23;
 
     @Override
@@ -51,14 +54,14 @@ public class ComposeTrendActivity extends BaseActivity {
     }
 
     private void initView() {
-        GiftAdapter = new ComposePicAdapter(activity);
-        GiftAdapter.setOnAddPicListener(new ComposePicAdapter.onAddPicListener() {
+        adapter = new ComposePicAdapter(activity);
+        adapter.setOnAddPicListener(new ComposePicAdapter.onAddPicListener() {
             @Override
             public void chooseImage() {
                 Matisse.from(activity)
                         .choose(MimeType.ofImage())
                         .countable(true)
-                        .maxSelectable(9)
+                        .maxSelectable(9 - adapter.getItems().size())
                         .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                         .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                         .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
@@ -68,10 +71,10 @@ public class ComposeTrendActivity extends BaseActivity {
             }
         });
         binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
-        DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
-        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
-        binding.recyclerView.addItemDecoration(divider);
-        binding.recyclerView.setAdapter(GiftAdapter);
+//        DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
+//        divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
+//        binding.recyclerView.addItemDecoration(divider);
+        binding.recyclerView.setAdapter(adapter);
     }
 
     private void setListener() {
@@ -79,7 +82,22 @@ public class ComposeTrendActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 KeyboardUtils.hideSoftInput(activity);
-                finish();
+                if(!TextUtils.isEmpty(binding.edtContent.getText().toString()) || adapter.getItems().size()!=0){
+                    new MaterialDialog.Builder(activity).positiveText("确定").negativeText("取消")
+                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                @Override
+                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                    finish();
+                                }
+                            }).onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        }
+                    }).title("提示").content("要放弃发布动态吗？")
+                            .show();
+                }else{
+                    finish();
+                }
             }
         });
 
@@ -95,8 +113,9 @@ public class ComposeTrendActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-            mSelected = Matisse.obtainResult(data);
-            Log.d("Matisse", "mSelected: " + mSelected);
+            List<String> mSelected = Matisse.obtainPathResult(data);
+            adapter.getItems().addAll(mSelected);
+            adapter.notifyDataSetChanged();
         }
     }
 

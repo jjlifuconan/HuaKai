@@ -14,23 +14,27 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:bl_corners_radius="@dimen/dp8"
-        app:bl_solid_color="@color/white"
-        android:padding="@dimen/dp14">
+        android:layout_height="wrap_content">
 
 
         <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="@dimen/dp44"
-            android:layout_height="@dimen/dp44"
-            android:adjustViewBounds="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="W,1:1"
             android:defaultPicType="@{2}"
             android:displayWrapImage="@{path}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/del_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@mipmap/compose_photo_close"/>
 
 
     </android.support.constraint.ConstraintLayout>

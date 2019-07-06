@@ -44,6 +44,12 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
     @Override
     protected void onBindItem(ItemComposePicBinding binding, String item) {
         binding.setPath(item);
+        binding.delImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getItems().remove(getItems().indexOf(item));
+            }
+        });
     }
 
 
@@ -98,7 +104,7 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
     @Override
     public int getItemCount() {
         if(getItems().size() < 9){
-            return super.getItemCount() + 1;
+            return getItems().size() + 1;
         }else{
             return 9;
         }
