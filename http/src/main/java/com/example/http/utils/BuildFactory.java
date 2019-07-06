@@ -4,6 +4,7 @@ import com.example.http.HttpUtils;
 
 import static com.example.http.HttpUtils.API_GANKIO;
 import static com.example.http.HttpUtils.API_NETEASE;
+import static com.example.http.HttpUtils.API_REAL;
 
 /**
  * @author jingbin
@@ -16,6 +17,7 @@ public class BuildFactory {
     private static BuildFactory instance;
     private Object gankHttps;
     private Object neteaseHttps;
+    private Object realHttps;
 
     public static BuildFactory getInstance() {
         if (instance == null) {
@@ -49,6 +51,15 @@ public class BuildFactory {
                     }
                 }
                 return (T) neteaseHttps;
+            case API_REAL:
+                if (realHttps == null) {
+                    synchronized (BuildFactory.class) {
+                        if (realHttps == null) {
+                            realHttps = HttpUtils.getInstance().getBuilder(type).build().create(a);
+                        }
+                    }
+                }
+                return (T) realHttps;
             default:
                 if (gankHttps == null) {
                     synchronized (BuildFactory.class) {

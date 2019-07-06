@@ -84,7 +84,19 @@ public class RegisterActivity extends BaseActivity {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;
                 }
-                submitRegister();
+                if (TextUtils.isEmpty(binding.edtYzCode.getText().toString())) {
+                    ToastUtil.showShort(activity, "请输入验证码");
+                    return;
+                }
+                if (TextUtils.isEmpty(binding.edtPassword.getText().toString())) {
+                    ToastUtil.showShort(activity, "请输入密码");
+                    return;
+                }
+                if (binding.edtPassword.getText().toString().length() < 6) {
+                    ToastUtil.showShort(activity, "密码至少6位数");
+                    return;
+                }
+                submitRegister(binding.edtPhone.getText().toString(), binding.edtPassword.getText().toString(), binding.edtYzCode.getText().toString());
             }
         });
     }
@@ -92,8 +104,8 @@ public class RegisterActivity extends BaseActivity {
     /**
      * 提交注册信息
      */
-    private void submitRegister() {
-        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+    private void submitRegister(String loginName, String password, String verificationCode) {
+        Subscription subscription = HttpClient.Builder.getRealServer().register(loginName, "1",password, verificationCode)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
                     @Override
@@ -102,6 +114,7 @@ public class RegisterActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        int i = 0;
                     }
 
                     @Override

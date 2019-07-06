@@ -26,6 +26,9 @@ public interface HttpClient {
         public static HttpClient getNeteaseServer() {
             return BuildFactory.getInstance().create(HttpClient.class, HttpUtils.API_NETEASE);
         }
+        public static HttpClient getRealServer() {
+            return BuildFactory.getInstance().create(HttpClient.class, HttpUtils.API_REAL);
+        }
     }
 
 
@@ -48,5 +51,11 @@ public interface HttpClient {
             "channel=T1534831577502&subtab=RA_RECOM&fn=3&passport=&devId=cboONcMHVZDeIk" +
             "rlwhpANg%3D%3D&lat=9qRvioR8fQD9fP1NUn6U%2FA%3D%3D&version=57.3")
     Observable<NeteaseList> getNeteaseList(@Query("offset") int page, @Query("size") int size);
+
+    /**
+     * 注册
+     */
+    @GET("/regist/regist.do")
+    Observable<Object> register(@Query("loginName") String loginName, @Query("loginType") String loginType, @Query("password") String password, @Query("verificationCode") String verificationCode);
 
 }

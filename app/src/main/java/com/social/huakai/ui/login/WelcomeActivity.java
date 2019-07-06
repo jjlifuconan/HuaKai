@@ -65,7 +65,7 @@ public class WelcomeActivity extends BaseActivity {
 //                        initNotificationConfig();
                         // 进入主界面
 //                        MainActivity.start(WelcomeActivity.this, null);
-                        startActivity(new Intent(activity, MainActivity.class));
+                        startActivity(new Intent(activity, LoginActivity.class));
                     }
 
                     @Override

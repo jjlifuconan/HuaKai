@@ -57,6 +57,8 @@ public class HttpUtils {
     public final static String API_GANKIO = "https://gank.io/api/";
     // 网易
     public final static String API_NETEASE = "https://c.m.163.com/";
+    // 测试swagger
+    public final static String API_REAL = "http://47.92.39.125:8080/happy-chat/";
     /**
      * 分页数据，每页的数量
      */
