@@ -89,7 +89,7 @@ public class ComposeTrendActivity extends BaseActivity {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         }
-                    }).title("提示").content("要放弃发布动态吗？")
+                    }).content("要放弃发布动态吗？")
                             .show();
                 }else{
                     finish();

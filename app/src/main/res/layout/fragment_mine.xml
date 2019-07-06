@@ -333,7 +333,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp20"
-                android:text="设置中心"
+                android:text="检查更新"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp15" />
 
@@ -344,6 +344,28 @@
             android:layout_height="@dimen/line"
             android:layout_marginHorizontal="@dimen/dp14"
             android:background="@color/divider_line2" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dp38"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/logout"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/dp28"
+                android:text="退出登录"
+                android:textColor="@color/white"
+                android:paddingVertical="@dimen/dp12"
+                app:bl_corners_radius="@dimen/dp30"
+                app:bl_solid_color="@color/colorPrimary"
+                app:bl_ripple_color="@color/ripple"
+                app:bl_ripple_enable="true"
+                android:textSize="@dimen/sp16"/>
+        </FrameLayout>
 
 
     </LinearLayout>

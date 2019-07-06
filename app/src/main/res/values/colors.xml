@@ -4,6 +4,7 @@
     <color name="colorPrimary2">#B2f05c5c</color>
     <color name="colorPrimaryDark">#fff05c5c</color>
     <color name="colorPrimaryUnable">#4cf05c5c</color>
+    <color name="ripple">#42ffffff</color>
     <color name="colorAccent">#fff05c5c</color>
     <color name="white">#ffffff</color>
     <color name="green">#ff62b900</color>

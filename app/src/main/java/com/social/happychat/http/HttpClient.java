@@ -74,6 +74,12 @@ public interface HttpClient {
     Observable<Object> login(@Body JSONObject parmas);
 
     /**
+     * 退出
+     */
+    @POST("/login/private/logout.do")
+    Observable<Object> loginout(@Body JSONObject parmas);
+
+    /**
      * 修改密码
      */
     @POST("user/forgetPwd.do")

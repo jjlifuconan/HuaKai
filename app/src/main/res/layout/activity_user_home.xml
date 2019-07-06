@@ -94,6 +94,8 @@
                 app:bl_gradient_angle="90"
                 app:bl_gradient_endColor="#E677EBE8"
                 app:bl_gradient_startColor="#E63CD6FA"
+                app:bl_ripple_color="@color/ripple"
+                app:bl_ripple_enable="true"
                 >
 
                 <com.social.basecommon.widget.TextImageView
@@ -124,6 +126,8 @@
                 app:bl_gradient_angle="90"
                 app:bl_gradient_endColor="#E6FED322"
                 app:bl_gradient_startColor="#E6FEB81A"
+                app:bl_ripple_color="@color/ripple"
+                app:bl_ripple_enable="true"
                 >
 
                 <com.social.basecommon.widget.TextImageView
