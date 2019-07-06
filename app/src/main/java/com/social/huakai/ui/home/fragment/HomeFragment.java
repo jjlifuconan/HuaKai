@@ -1,25 +1,28 @@
 package com.social.huakai.ui.home.fragment;
 
+import android.Manifest;
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.FragmentHomeBinding;
-import com.social.huakai.ui.home.activity.ComposeTrendActivity;
-import com.social.huakai.ui.message.fragment.MessageFragment;
+import com.social.huakai.ui.compose.activity.ComposeTrendActivity;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -29,11 +32,20 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
+
+
 /**
  * @author Administrator
  * @date 2019/6/26 0026
  * @description:
  */
+@RuntimePermissions
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     public static HomeFragment newInstance() {
@@ -59,7 +71,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         binding.compose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ComposeTrendActivity.action(activity);
+                HomeFragmentPermissionsDispatcher.toComposeActivityWithPermissionCheck(HomeFragment.this);
             }
         });
         final String[] titles = getResources().getStringArray(R.array.homeTabTitle);
@@ -150,4 +162,54 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         super.onSupportVisible();
 
     }
+
+
+
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void toComposeActivity() {
+        ComposeTrendActivity.action(activity);
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        HomeFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @OnShowRationale({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void showRationaleForCamera(PermissionRequest request) {
+        showRationaleDialog(R.string.permission_camera_rationale, request);
+    }
+
+    @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void onCameraDenied() {
+        Toast.makeText(activity, R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
+    }
+
+    @OnNeverAskAgain({Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    public void onCameraNeverAskAgain() {
+//        Toast.makeText(activity, R.string.permission_camera_never_askagain, Toast.LENGTH_SHORT).show()
+    }
+
+
+    private void showRationaleDialog(@StringRes int messageResId, final PermissionRequest request) {
+        new MaterialDialog.Builder(activity).positiveText("允许").negativeText("拒绝")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        request.proceed();
+                    }
+                }).onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                request.cancel();
+            }
+        }).content(messageResId)
+                .show();
+    }
+
+
+
 }

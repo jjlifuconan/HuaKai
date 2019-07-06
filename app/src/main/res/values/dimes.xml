@@ -2,4 +2,5 @@
 <resources>
     <dimen name="rippleStrokeWidth">2dp</dimen>
     <dimen name="rippleRadius">32dp</dimen>
+    <dimen name="grid_expected_size">120dp</dimen>
 </resources>

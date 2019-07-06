@@ -1,5 +1,6 @@
 package com.social.huakai.ui.main;
 
+import android.Manifest;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.ToastUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.ActivityMainBinding;
+import com.social.huakai.ui.compose.activity.ComposeTrendActivity;
 import com.social.huakai.ui.find.fragment.FindFragment;
 import com.social.huakai.ui.home.fragment.HomeFragment;
 import com.social.huakai.ui.message.fragment.MessageFragment;
@@ -18,6 +20,8 @@ import com.social.huakai.widget.bottombarTitle.BottomBar;
 import com.social.huakai.widget.bottombarTitle.BottomBarTab;
 
 import me.yokeyword.fragmentation.SupportFragment;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * @author Administrator
@@ -120,4 +124,5 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
 }
