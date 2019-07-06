@@ -58,7 +58,7 @@
                 android:drawablePadding="@dimen/dp10"
                 android:gravity="center"
                 android:paddingVertical="@dimen/dp14"
-                android:text="直接进入"
+                android:text="微信登录"
                 android:textColor="@color/green"
                 android:textSize="@dimen/sp14" />
 

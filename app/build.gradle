@@ -5,8 +5,28 @@ apply from: '../MobSDK.gradle'
 
 android {
     compileSdkVersion 28
+    signingConfigs {
+        config {
+            keyAlias 'demokey.keystore'
+            keyPassword '123456'
+            storeFile file('../demokey.keystore')
+            storePassword '123456'
+        }
+        release {
+            keyAlias 'demokey.keystore'
+            keyPassword '123456'
+            storeFile file('../demokey.keystore')
+            storePassword '123456'
+        }
+        debug {
+            keyAlias 'demokey.keystore'
+            keyPassword '123456'
+            storeFile file('../demokey.keystore')
+            storePassword '123456'
+        }
+    }
     defaultConfig {
-        applicationId "com.social.happychat"
+        applicationId "cn.sharesdk.demo"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -32,6 +52,12 @@ android {
 //                    output.outputFileName = fileName
 //                }
 //            }
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
