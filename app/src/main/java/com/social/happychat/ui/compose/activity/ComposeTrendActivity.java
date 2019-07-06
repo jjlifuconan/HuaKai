@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -33,7 +36,12 @@ import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -42,6 +50,10 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
+import top.zibin.luban.OnRenameListener;
 
 /**
  * @author Administrator
@@ -52,6 +64,7 @@ public class ComposeTrendActivity extends BaseActivity {
     ActivityComposeTrendBinding binding;
     private ComposePicAdapter adapter;
     private static final int REQUEST_CODE_CHOOSE = 23;
+    private List<String> mImageList = new ArrayList<>();//准备上传的一压缩过的图片
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -124,13 +137,24 @@ public class ComposeTrendActivity extends BaseActivity {
         });
     }
 
+
+//    List<File> originPhotos = new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<String> mSelected = Matisse.obtainPathResult(data);
+
+//            for(int i = 0;i<mSelected.size();i++){
+//                originPhotos.add(new File(mSelected.get(i)));
+//            }
+
+
+            withLs(mSelected);
             adapter.getItems().addAll(mSelected);
             adapter.notifyDataSetChanged();
+
+
             String path = mSelected.get(0);
             File file = new File(path);
             RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
@@ -158,5 +182,78 @@ public class ComposeTrendActivity extends BaseActivity {
     public static void action(Context context){
         Intent intent = new Intent(context, ComposeTrendActivity.class);
         context.startActivity(intent);
+    }
+
+    private <T> void withLs(final List<T> photos) {
+        Luban.with(this)
+                .load(photos)
+                .ignoreBy(100)
+                .setTargetDir(getPath())
+                .setFocusAlpha(false)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setRenameListener(new OnRenameListener() {
+                    @Override
+                    public String rename(String filePath) {
+                        try {
+                            MessageDigest md = MessageDigest.getInstance("MD5");
+                            md.update(filePath.getBytes());
+                            return new BigInteger(1, md.digest()).toString(32);
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+                        return "";
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() { }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        mImageList.add(file.getAbsolutePath());
+                        Log.i("FLJ", file.getAbsolutePath() + ",all size->"+mImageList.size());
+//                        showResult(originPhotos, file);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) { }
+                }).launch();
+    }
+
+//    private void showResult(List<File> photos, File file) {
+//        int[] originSize = computeSize(photos.get(photos.size()-1));
+//        int[] thumbSize = computeSize(file);
+//        String originArg = String.format(Locale.CHINA, "原图参数：%d*%d, %dk", originSize[0], originSize[1], photos.get(photos.size()-1).length() >> 10);
+//        String thumbArg = String.format(Locale.CHINA, "压缩后参数：%d*%d, %dk", thumbSize[0], thumbSize[1], file.length() >> 10);
+//        Log.i("FLJ", originArg);
+//        Log.e("FLJ", thumbArg);
+//    }
+
+    private int[] computeSize(File srcImg) {
+        int[] size = new int[2];
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inSampleSize = 1;
+
+        BitmapFactory.decodeFile(srcImg.getAbsolutePath(), options);
+        size[0] = options.outWidth;
+        size[1] = options.outHeight;
+
+        return size;
+    }
+
+    private String getPath() {
+        String path = Environment.getExternalStorageDirectory() + "/Luban/image/";
+        File file = new File(path);
+        if (file.mkdirs()) {
+            return path;
+        }
+        return path;
     }
 }
