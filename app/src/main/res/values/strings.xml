@@ -37,8 +37,8 @@
     <string name="compose_hint">这一刻，想和大家分享点什么？</string>
 
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
-    <string name="permission_camera_rationale">Camera permission is needed to show the camera preview.</string>
+    <string name="permission_camera_rationale">发布功能需要开启相关权限</string>
     <string name="permission_contacts_rationale">Contacts permissions are needed to demonstrate access to the contacts database.</string>
-    <string name="permission_camera_denied">Camera permission was denied. Please consider granting it in order to access the camera!</string>
+    <string name="permission_camera_denied">相关权限被拒绝，请到设置中开启</string>
     <string name="permission_camera_never_ask_again">Camera permission was denied with never ask again.</string>
 </resources>

@@ -683,7 +683,7 @@ public abstract class BaseFetchLoadAdapter<T, K extends BaseViewHolder> extends 
     }
 
     /**
-     * @param layoutResId ID for an XML layout resource to load
+     * @param layoutResId ID for an xml layout resource to load
      * @param parent      Optional view to be the parent of the generated hierarchy or else simply an object that
      *                    provides a set of LayoutParams values for root of the returned
      *                    hierarchy

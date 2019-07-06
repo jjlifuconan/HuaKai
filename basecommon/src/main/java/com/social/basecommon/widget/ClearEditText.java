@@ -64,7 +64,7 @@ public class ClearEditText extends ExtendedEditText implements OnFocusChangeList
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null)
         {
-            // throw new NullPointerException("You can add drawableRight attribute in XML");
+            // throw new NullPointerException("You can add drawableRight attribute in xml");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mClearDrawable = ContextCompat.getDrawable(context, R.drawable.delete);

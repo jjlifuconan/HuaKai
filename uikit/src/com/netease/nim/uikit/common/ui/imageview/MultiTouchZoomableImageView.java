@@ -43,7 +43,7 @@ public class MultiTouchZoomableImageView extends BaseZoomableImageView {
         initMultiTouchZoomableImageView(context);
     }
 
-    // XML entry point
+    // xml entry point
     public MultiTouchZoomableImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initMultiTouchZoomableImageView(context);

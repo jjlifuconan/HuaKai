@@ -57,7 +57,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         showContentView();
         WechatUserBean wechatUserBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.WECHAT_USER_INFO, WechatUserBean.class);
         if(wechatUserBean != null){
-//            GlideApp.with(activity).load(R.mipmap.asd).into(binding.ivHead);
+//            GlideApp.with(activity).load(R.mipmap.file_paths_public).into(binding.ivHead);
             ImageLoadUtil.displayCircle(binding.ivHead, wechatUserBean.getHeadimgurl());
             binding.tvNickname.setText(wechatUserBean.getNickname());
         }

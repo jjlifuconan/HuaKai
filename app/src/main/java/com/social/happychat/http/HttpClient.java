@@ -7,11 +7,18 @@ import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
 
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -84,5 +91,19 @@ public interface HttpClient {
      */
     @POST("user/forgetPwd.do")
     Observable<Object> forgetPwd(@Body JSONObject parmas);
+
+    /**
+     * 单个文件上传
+     */
+    @Multipart
+    @POST("/user/private/file/saveFile.do")
+    Observable<Object> uploadOneFile(@Part MultipartBody.Part body);
+
+    /**
+     * 多个文件上传
+     */
+    @Multipart
+    @POST("/user/private/file/saveFile.do")
+    Observable<Object> uploadFiles(@PartMap Map<String, RequestBody> map);
 
 }

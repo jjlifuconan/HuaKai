@@ -37,7 +37,7 @@ public class CropImageView extends MultiTouchZoomableImageView {
         initCropImageView(context);
     }
 
-    // XML entry point
+    // xml entry point
     public CropImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initCropImageView(context);

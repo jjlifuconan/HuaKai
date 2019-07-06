@@ -119,7 +119,7 @@ public abstract class BaseZoomableImageView extends View {
         initBaseZoomableImageView(context);
     }
 
-    // XML entry point
+    // xml entry point
     public BaseZoomableImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initBaseZoomableImageView(context);

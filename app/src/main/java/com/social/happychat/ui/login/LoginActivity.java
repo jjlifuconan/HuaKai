@@ -12,6 +12,7 @@ import android.view.View;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityLoginBinding;
@@ -49,31 +50,31 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setListener() {
-        binding.vpClose.setOnClickListener(new View.OnClickListener() {
+        binding.vpClose.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 KeyboardUtils.hideSoftInput(activity);
                 finish();
             }
         });
 
-        binding.tvRegister.setOnClickListener(new View.OnClickListener() {
+        binding.tvRegister.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 startActivity(new Intent(activity, RegisterActivity.class));
             }
         });
 
-        binding.tvForget.setOnClickListener(new View.OnClickListener() {
+        binding.tvForget.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 startActivity(new Intent(activity, ForgetPwdActivity.class));
             }
         });
 
-        binding.login.setOnClickListener(new View.OnClickListener() {
+        binding.login.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 if (TextUtils.isEmpty(binding.edtPhone.getText().toString())||  !binding.edtPhone.getText().toString().startsWith("1")|| binding.edtPhone.getText().toString().length() < 11) {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;

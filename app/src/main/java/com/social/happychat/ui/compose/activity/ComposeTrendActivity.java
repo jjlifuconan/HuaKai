@@ -16,16 +16,29 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
+import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
 import com.social.happychat.ui.compose.gifsize.GifSizeFilter;
 import com.social.happychat.ui.compose.gifsize.GlideEngine;
+import com.social.happychat.ui.main.MainActivity;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
+import java.io.File;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Administrator
@@ -56,6 +69,9 @@ public class ComposeTrendActivity extends BaseActivity {
             public void chooseImage() {
                 Matisse.from(activity)
                         .choose(MimeType.ofImage())
+                        .capture(true)
+                        .captureStrategy(
+                                new CaptureStrategy(true, "com.zhihu.matisse.sample.fileprovider","test"))
                         .countable(true)
                         .maxSelectable(9 - adapter.getItems().size())
                         .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
@@ -74,9 +90,9 @@ public class ComposeTrendActivity extends BaseActivity {
     }
 
     private void setListener() {
-        binding.vpClose.setOnClickListener(new View.OnClickListener() {
+        binding.vpClose.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onNoDoubleClick(View view) {
                 KeyboardUtils.hideSoftInput(activity);
                 if(!TextUtils.isEmpty(binding.edtContent.getText().toString()) || adapter.getItems().size()!=0){
                     new MaterialDialog.Builder(activity).positiveText("确定").negativeText("取消")
@@ -97,9 +113,9 @@ public class ComposeTrendActivity extends BaseActivity {
             }
         });
 
-        binding.compose.setOnClickListener(new View.OnClickListener() {
+        binding.compose.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onNoDoubleClick(View view) {
 
             }
         });
@@ -112,6 +128,27 @@ public class ComposeTrendActivity extends BaseActivity {
             List<String> mSelected = Matisse.obtainPathResult(data);
             adapter.getItems().addAll(mSelected);
             adapter.notifyDataSetChanged();
+            String path = mSelected.get(0);
+            File file = new File(path);
+            RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part part =  MultipartBody.Part.createFormData("picture", file.getName(), fileRQ);
+            Subscription subscription = HttpClient.Builder.getRealServer().uploadOneFile(part)
+                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Object>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                        }
+
+                        @Override
+                        public void onNext(Object object) {
+                            int i = 0;
+                        }
+                    });
+            addSubscription(subscription);
         }
     }
 
