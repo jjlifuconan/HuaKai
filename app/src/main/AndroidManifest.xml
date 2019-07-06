@@ -157,6 +157,11 @@
             android:name=".ui.home.activity.GiftShopActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.home.activity.ComposeTrendActivity"
+            android:screenOrientation="portrait" />
+
+
 
     </application>
 </manifest>

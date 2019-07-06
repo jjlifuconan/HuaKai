@@ -18,6 +18,7 @@ import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
 import com.social.huakai.R;
 import com.social.huakai.databinding.FragmentHomeBinding;
+import com.social.huakai.ui.home.activity.ComposeTrendActivity;
 import com.social.huakai.ui.message.fragment.MessageFragment;
 import com.social.huakai.widget.ScaleTransitionPagerTitleView;
 
@@ -55,6 +56,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         super.onLazyInitView(savedInstanceState);
         ImmersionBar.setTitleBar(this, binding.titlebar);
         showContentView();
+        binding.compose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ComposeTrendActivity.action(activity);
+            }
+        });
         final String[] titles = getResources().getStringArray(R.array.homeTabTitle);
 
         CommonNavigator commonNavigator = new CommonNavigator(activity);

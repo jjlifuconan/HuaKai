@@ -19,6 +19,7 @@
                 android:layout_height="match_parent" />
 
             <ImageView
+                android:id="@+id/compose"
                 android:layout_width="@dimen/dp28"
                 android:layout_height="@dimen/dp28"
                 android:layout_gravity="right|center_vertical"

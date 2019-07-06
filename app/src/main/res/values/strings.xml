@@ -34,4 +34,7 @@
     <string name="job">职业：%1$s</string>
     <string name="signature">个人签名：%1$s</string>
 
+    <string name="compose_hint">这一刻，想和大家分享点什么？</string>
+
+
 </resources>
