@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.basecommon.adapter.BaseBindingViewHolder;
 import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ItemComposeAddBinding;
 import com.social.happychat.databinding.ItemComposePicBinding;
+
+import java.util.ArrayList;
 
 /**
  * @author Administrator
@@ -41,6 +44,12 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
     @Override
     protected void onBindItem(ItemComposePicBinding binding, String item) {
         binding.setPath(item);
+        binding.imgPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewBigImageActivity.startImageList(view.getContext(), getItems().indexOf(item), getItems(), null);
+            }
+        });
         binding.delImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

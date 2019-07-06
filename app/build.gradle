@@ -84,9 +84,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':basecommon')
     implementation project(':uikit')
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api('com.github.hotchemi:permissionsdispatcher:3.1.0')
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
 }
