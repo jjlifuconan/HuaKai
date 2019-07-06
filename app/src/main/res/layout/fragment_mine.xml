@@ -31,22 +31,21 @@
                         android:src="@drawable/ic_girl"
                         app:layout_constraintBottom_toBottomOf="@+id/textView17"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView15" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_nickname" />
 
                     <com.social.basecommon.widget.CircleImageView
                         android:id="@+id/iv_head"
                         android:layout_width="@dimen/dp60"
                         android:layout_height="@dimen/dp60"
-                        android:src="@drawable/ic_girl"
                         app:layout_constraintBottom_toBottomOf="@+id/textView17"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView15"
+                        app:layout_constraintTop_toTopOf="@+id/tv_nickname"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="@dimen/dp2" />
 
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/tv_nickname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp14"
@@ -62,8 +61,8 @@
                         android:layout_width="@dimen/dp18"
                         android:layout_height="@dimen/dp18"
                         android:layout_marginTop="@dimen/dp5"
-                        app:layout_constraintStart_toStartOf="@+id/textView15"
-                        app:layout_constraintTop_toBottomOf="@+id/textView15"
+                        app:layout_constraintStart_toStartOf="@+id/tv_nickname"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
                         android:src="@drawable/ic_mine_female" />
 
                     <TextView
@@ -89,7 +88,7 @@
                         android:maxEms="14"
                         android:singleLine="true"
                         android:textSize="@dimen/sp13"
-                        app:layout_constraintStart_toStartOf="@+id/textView15"
+                        app:layout_constraintStart_toStartOf="@+id/tv_nickname"
                         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
 

@@ -4,9 +4,14 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.social.basecommon.R;
 
 
@@ -152,6 +157,17 @@ public class ImageLoadUtil {
                 .load(imageUrl)
                 .transition(withCrossFade(500))
                 .error(R.drawable.ic_avatar_default)
+//                .listener(new RequestListener<Drawable>() {
+//                    @Override
+//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                        return false;
+//                    }
+//                })
                 .transform(new GlideCircleTransform(imageView.getContext()))
                 .into(imageView);
     }

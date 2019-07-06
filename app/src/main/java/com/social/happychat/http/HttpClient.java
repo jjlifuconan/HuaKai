@@ -1,17 +1,22 @@
 package com.social.happychat.http;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.http.HttpUtils;
 import com.example.http.utils.BuildFactory;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
 
+
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
 /**
- * @author jingbin
  * @date 16/11/21
  * 网络请求类（一个接口一个方法）
  */
@@ -51,9 +56,27 @@ public interface HttpClient {
     Observable<NeteaseList> getNeteaseList(@Query("offset") int page, @Query("size") int size);
 
     /**
+     * 获取验证码
+     */
+    @POST("user/getValidateCode.do")
+    Observable<Object> getValidateCode(@Body JSONObject parmas);
+
+    /**
      * 注册
      */
-    @GET("/regist/regist.do")
-    Observable<Object> register(@Query("loginName") String loginName, @Query("loginType") String loginType, @Query("password") String password, @Query("verificationCode") String verificationCode);
+    @POST("regist/regist.do")
+    Observable<Object> register(@Body JSONObject parmas);
+
+    /**
+     * 登录
+     */
+    @POST("login/login.do")
+    Observable<Object> login(@Body JSONObject parmas);
+
+    /**
+     * 修改密码
+     */
+    @POST("user/forgetPwd.do")
+    Observable<Object> forgetPwd(@Body JSONObject parmas);
 
 }

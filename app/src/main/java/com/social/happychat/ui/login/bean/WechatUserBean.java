@@ -9,6 +9,7 @@ import java.util.HashMap;
  * @description:
  */
 public class WechatUserBean implements Serializable {
+    private static final long serialVersionUID = -4208506896102557720L;
     private String country;
     private String unionid;
     private String province;
@@ -21,14 +22,15 @@ public class WechatUserBean implements Serializable {
 
     public WechatUserBean(HashMap map){
         if(map != null && !map.isEmpty()){
-            country = (String) map.get("country");
-            unionid = (String) map.get("unionid");
-            province = (String) map.get("province");
-            city = (String) map.get("city");
-            openid = (String) map.get("openid");
-            sex = (String) map.get("sex");
-            headimgurl = (String) map.get("headimgurl");
-            userTags = (String) map.get("userTags");
+            country = map.get("country") + "";
+            unionid = map.get("unionid") + "";
+            province = map.get("province") + "";
+            city =  map.get("city") + "";
+            openid = map.get("openid") + "";
+            sex =  map.get("sex") + "";
+            nickname =  map.get("nickname") + "";
+            headimgurl = map.get("headimgurl") + "";
+            userTags = map.get("userTags") + "";
         }
     }
 

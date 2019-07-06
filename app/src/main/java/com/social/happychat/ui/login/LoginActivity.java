@@ -17,6 +17,10 @@ import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityLoginBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.main.MainActivity;
+import com.social.happychat.util.RequestBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Observer;
 import rx.Subscription;
@@ -74,7 +78,15 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;
                 }
-                submitLogin();
+                if (binding.edtPassword.getText().toString().length() < 6) {
+                    ToastUtil.showShort(activity, "密码至少6位数");
+                    return;
+                }
+                Map map = new HashMap();
+                map.put("loginName",binding.edtPhone.getText().toString());
+                map.put("loginType","1");
+                map.put("password",binding.edtPassword.getText().toString());
+                submitLogin(map);
             }
 
         });
@@ -88,8 +100,8 @@ public class LoginActivity extends BaseActivity {
     /**
      * 提交登录信息
      */
-    private void submitLogin() {
-        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+    private void submitLogin(Map params) {
+        Subscription subscription = HttpClient.Builder.getRealServer().login(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
                     @Override

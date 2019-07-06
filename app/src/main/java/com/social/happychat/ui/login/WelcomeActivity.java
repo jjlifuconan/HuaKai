@@ -16,7 +16,10 @@ import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
+import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityWelcomeBinding;
 import com.social.happychat.im.ContactHttpClient;
 import com.social.happychat.im.DemoCache;
@@ -59,9 +62,9 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void setListener() {
-        binding.imgPhone.setOnClickListener(new View.OnClickListener() {
+        binding.imgPhone.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onNoDoubleClick(View view) {
                 loginRequest = NimUIKit.login(new LoginInfo("conanaiflj", MD5.getStringMD5("123456aa")), new RequestCallback<LoginInfo>() {
                     @Override
                     public void onSuccess(LoginInfo param) {
@@ -73,7 +76,7 @@ public class WelcomeActivity extends BaseActivity {
 //                        initNotificationConfig();
                         // 进入主界面
 //                        MainActivity.start(WelcomeActivity.this, null);
-                        startActivity(new Intent(activity, MainActivity.class));
+                        startActivity(new Intent(activity, LoginActivity.class));
                     }
 
                     @Override
@@ -94,20 +97,27 @@ public class WelcomeActivity extends BaseActivity {
                 });
             }
         });
-        binding.tomain.setOnClickListener(new View.OnClickListener() {
+        binding.tomain.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 Platform plat = ShareSDK.getPlatform(Wechat.NAME);
-                if (plat.isAuthValid()) {
-                    plat.removeAccount(true);
-                    return;
-                }
+//                if (plat.isAuthValid()) {
+//                    plat.removeAccount(true);
+//                    return;
+//                }
 //                plat.removeAccount(true); //移除授权状态和本地缓存，下次授权会重新授权
 //                plat.SSOSetting(false); //SSO授权，传false默认是客户端授权，没有客户端授权或者不支持客户端授权会跳web授权
                 plat.setPlatformActionListener(new PlatformActionListener() {
                     @Override
                     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                        WechatUserBean wechatUserBean = new WechatUserBean(hashMap);
+                        binding.tomain.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                WechatUserBean wechatUserBean = new WechatUserBean(hashMap);
+                                SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.WECHAT_USER_INFO, wechatUserBean);
+                                startActivity(new Intent(activity, MainActivity.class));
+                            }
+                        });
                     }
 
                     @Override

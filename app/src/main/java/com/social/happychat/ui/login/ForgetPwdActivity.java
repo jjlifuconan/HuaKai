@@ -19,6 +19,10 @@ import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityForgetPwdBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.main.MainActivity;
+import com.social.happychat.util.RequestBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Observer;
 import rx.Subscription;
@@ -80,11 +84,20 @@ public class ForgetPwdActivity extends BaseActivity {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;
                 }
+                if (binding.edtPassword.getText().toString().length() < 6) {
+                    ToastUtil.showShort(activity, "密码至少6位数");
+                    return;
+                }
                 if (!TextUtils.equals(binding.edtPassword.getText().toString(),binding.edtConfirmPassword.getText().toString())) {
                     ToastUtil.showShort(activity, "两次输入的密码不一致");
                     return;
                 }
-                submitModify();
+                Map map = new HashMap();
+                map.put("loginName",binding.edtPhone.getText().toString());
+                map.put("loginType","1");
+                map.put("password",binding.edtPassword.getText().toString());
+                map.put("verificationCode",binding.edtYzCode.getText().toString());
+                submitModify(map);
             }
         });
     }
@@ -92,8 +105,8 @@ public class ForgetPwdActivity extends BaseActivity {
     /**
      * 提交修改信息
      */
-    private void submitModify() {
-        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+    private void submitModify(Map params) {
+        Subscription subscription = HttpClient.Builder.getRealServer().forgetPwd(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
                     @Override

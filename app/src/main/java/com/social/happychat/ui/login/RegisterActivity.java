@@ -19,6 +19,11 @@ import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityRegisterBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.main.MainActivity;
+import com.social.happychat.util.RequestBody;
+
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Observer;
 import rx.Subscription;
@@ -68,7 +73,10 @@ public class RegisterActivity extends BaseActivity {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;
                 }
-                sendLoginCodeMessage();
+                Map map = new HashMap();
+                map.put("mobile",binding.edtPhone.getText().toString());
+                map.put("type","1");
+                sendLoginCodeMessage(map);
             }
         });
 
@@ -79,19 +87,16 @@ public class RegisterActivity extends BaseActivity {
                     ToastUtil.showShort(activity, "手机号码格式不正确");
                     return;
                 }
-                if (TextUtils.isEmpty(binding.edtYzCode.getText().toString())) {
-                    ToastUtil.showShort(activity, "请输入验证码");
-                    return;
-                }
-                if (TextUtils.isEmpty(binding.edtPassword.getText().toString())) {
-                    ToastUtil.showShort(activity, "请输入密码");
-                    return;
-                }
                 if (binding.edtPassword.getText().toString().length() < 6) {
                     ToastUtil.showShort(activity, "密码至少6位数");
                     return;
                 }
-                submitRegister(binding.edtPhone.getText().toString(), binding.edtPassword.getText().toString(), binding.edtYzCode.getText().toString());
+                Map map = new HashMap();
+                map.put("loginName",binding.edtPhone.getText().toString());
+                map.put("loginType","1");
+                map.put("password",binding.edtPassword.getText().toString());
+                map.put("verificationCode",binding.edtYzCode.getText().toString());
+                submitRegister(map);
             }
         });
     }
@@ -99,8 +104,8 @@ public class RegisterActivity extends BaseActivity {
     /**
      * 提交注册信息
      */
-    private void submitRegister(String loginName, String password, String verificationCode) {
-        Subscription subscription = HttpClient.Builder.getRealServer().register(loginName, "1",password, verificationCode)
+    private void submitRegister(Map params) {
+        Subscription subscription = HttpClient.Builder.getRealServer().register(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
                     @Override
@@ -127,8 +132,8 @@ public class RegisterActivity extends BaseActivity {
     /**
      * 获取验证码
      */
-    public void sendLoginCodeMessage() {
-        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+    public void sendLoginCodeMessage(Map params) {
+        Subscription subscription = HttpClient.Builder.getRealServer().getValidateCode(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Object>() {
                     @Override
