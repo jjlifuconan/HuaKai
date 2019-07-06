@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.social.huakai">
+    package="com.social.happychat">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -37,13 +37,13 @@
     <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
     <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
     <permission
-        android:name="com.social.huakai.permission.RECEIVE_MSG"
+        android:name="com.social.happychat.permission.RECEIVE_MSG"
         android:protectionLevel="signature"/>
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="com.social.huakai.permission.RECEIVE_MSG"/>
+    <uses-permission android:name="com.social.happychat.permission.RECEIVE_MSG"/>
 
     <application
-        android:name=".app.HuaKaiApplication"
+        android:name=".app.HappyChatApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -109,7 +109,7 @@
         <!-- android:authorities="{包名}.ipc.provider", 请将com.netease.nim.demo替换为自己的包名 -->
         <provider
             android:name="com.netease.nimlib.ipc.NIMContentProvider"
-            android:authorities="com.social.huakai.ipc.provider"
+            android:authorities="com.social.happychat.ipc.provider"
             android:exported="false"
             android:process=":core" />
         <!--=网易IM config end-->

@@ -12,7 +12,7 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/dp48" />
 
-        <com.social.huakai.widget.bottombarTitle.BottomBar
+        <com.social.happychat.widget.bottombarTitle.BottomBar
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp48"

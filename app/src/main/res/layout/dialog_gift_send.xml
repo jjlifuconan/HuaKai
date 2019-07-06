@@ -9,7 +9,7 @@
 
         <variable
             name="bean"
-            type="com.social.huakai.ui.home.bean.GiftShopBean.DataBean" />
+            type="com.social.happychat.ui.home.bean.GiftShopBean.DataBean" />
     </data>
 
     <android.support.constraint.ConstraintLayout

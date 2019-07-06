@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.social.huakai.widget.RippleAnimationView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.social.happychat.widget.RippleAnimationView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/layout_RippleAnimation"
             android:layout_width="360dp"
             android:layout_height="match_parent"
@@ -46,7 +46,7 @@
             </LinearLayout>
 
 
-        </com.social.huakai.widget.RippleAnimationView>
+        </com.social.happychat.widget.RippleAnimationView>
 
         <LinearLayout
             android:id="@+id/vp_hint"

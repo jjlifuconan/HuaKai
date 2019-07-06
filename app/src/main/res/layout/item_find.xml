@@ -4,7 +4,7 @@
     <data>
         <variable
             name="bean"
-            type="com.social.huakai.ui.find.bean.GankIoDataBean.ResultBean"/>
+            type="com.social.happychat.ui.find.bean.GankIoDataBean.ResultBean"/>
     </data>
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"

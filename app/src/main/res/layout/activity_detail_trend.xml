@@ -3,7 +3,7 @@
     <data>
         <variable
             name="bean"
-            type="com.social.huakai.ui.home.bean.NeteaseList.DataBean"/>
+            type="com.social.happychat.ui.home.bean.NeteaseList.DataBean"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

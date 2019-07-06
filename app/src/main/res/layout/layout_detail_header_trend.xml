@@ -6,7 +6,7 @@
     <data>
         <variable
             name="bean"
-            type="com.social.huakai.ui.home.bean.NeteaseList.DataBean"/>
+            type="com.social.happychat.ui.home.bean.NeteaseList.DataBean"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
