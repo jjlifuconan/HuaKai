@@ -144,12 +144,9 @@ public class ComposeTrendActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<String> mSelected = Matisse.obtainPathResult(data);
-
 //            for(int i = 0;i<mSelected.size();i++){
 //                originPhotos.add(new File(mSelected.get(i)));
 //            }
-
-
             withLs(mSelected);
             adapter.getItems().addAll(mSelected);
             adapter.notifyDataSetChanged();

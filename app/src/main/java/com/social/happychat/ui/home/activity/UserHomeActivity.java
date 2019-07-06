@@ -18,6 +18,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityUserHomeBinding;
@@ -243,6 +244,13 @@ public class UserHomeActivity extends BaseActivity {
             @Override
             public void OnBannerClick(int position) {
                 ViewBigImageActivity.startImageList(activity, position, (ArrayList<String>) bean.getData().getImages(), null);
+            }
+        });
+
+        binding.vpSendGift.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                GiftShopActivity.action(v.getContext());
             }
         });
     }
