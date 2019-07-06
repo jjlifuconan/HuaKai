@@ -3,6 +3,7 @@ package com.social.huakai.app;
 import android.support.multidex.MultiDexApplication;
 
 import com.example.http.HttpUtils;
+import com.mob.MobSDK;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.LoginInfo;
@@ -28,6 +29,8 @@ public class HuaKaiApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         application = this;
+        //sharesdk
+        MobSDK.init(this);
         HttpUtils.getInstance().init(this, DebugUtil.DEBUG);
         // 初始化云信SDK
         DemoCache.setContext(this);

@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat
 
 apply plugin: 'com.android.application'
+apply from: '../MobSDK.gradle'
 
 android {
     compileSdkVersion 28
