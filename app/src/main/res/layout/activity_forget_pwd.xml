@@ -95,7 +95,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/vp_mobile">
 
-                        <com.social.basecommon.widget.ClearEditText
+                        <EditText
                             android:id="@+id/edt_yz_code"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

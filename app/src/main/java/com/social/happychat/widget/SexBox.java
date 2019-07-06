@@ -20,6 +20,7 @@ public class SexBox extends LinearLayout {
     private boolean woman_selected=false;
     ImageView manicon,womanicon;
     TextView mantext,womantext;
+    private OnChooseListener listener;
     public SexBox(Context context, AttributeSet attrs)
     {
         super(context,attrs);
@@ -71,6 +72,9 @@ public class SexBox extends LinearLayout {
         womantext.setTextColor(Color.rgb(68,68,68));
         man_selected=false;
         woman_selected=true;
+        if(listener != null){
+            listener.onChoose();
+        }
     }
     public void turnToMan()
     {
@@ -80,6 +84,9 @@ public class SexBox extends LinearLayout {
         womantext.setTextColor(Color.rgb(195,195,195));
         man_selected=true;
         woman_selected=false;
+        if(listener != null){
+            listener.onChoose();
+        }
     }
     //返回当前选择状态
     public int getstatu()
@@ -101,5 +108,13 @@ public class SexBox extends LinearLayout {
         {
             return -1;
         }
+    }
+
+    public void setListener(OnChooseListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnChooseListener{
+        void onChoose();
     }
 }

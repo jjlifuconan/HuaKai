@@ -20,6 +20,7 @@ import com.social.happychat.databinding.ActivityRegisterBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
+import com.social.happychat.widget.SexBox;
 
 
 import java.util.HashMap;
@@ -60,6 +61,19 @@ public class RegisterActivity extends BaseActivity {
             }
         });
 
+        binding.sex.setListener(new SexBox.OnChooseListener() {
+            @Override
+            public void onChoose() {
+                if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString())
+                        && !TextUtils.isEmpty(binding.edtYzCode.getText().toString()) && binding.edtPassword.getText().toString().length() >= 6
+                        && binding.sex.getstatu() != 0){
+                    binding.register.setEnabled(true);
+                }else{
+                    binding.register.setEnabled(false);
+                }
+            }
+        });
+
         MyTextWatcher textWatcher = new MyTextWatcher();
 
         binding.edtPhone.addTextChangedListener(textWatcher);
@@ -94,6 +108,7 @@ public class RegisterActivity extends BaseActivity {
                 Map map = new HashMap();
                 map.put("loginName",binding.edtPhone.getText().toString());
                 map.put("loginType","1");
+                map.put("userSex",binding.sex.getstatu());
                 map.put("password",binding.edtPassword.getText().toString());
                 map.put("verificationCode",binding.edtYzCode.getText().toString());
                 submitRegister(map);
@@ -170,7 +185,8 @@ public class RegisterActivity extends BaseActivity {
         @Override
         public void afterTextChanged(Editable s) {
             if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString())
-                    && !TextUtils.isEmpty(binding.edtYzCode.getText().toString()) && binding.edtPassword.getText().toString().length() >= 6){
+                    && !TextUtils.isEmpty(binding.edtYzCode.getText().toString()) && binding.edtPassword.getText().toString().length() >= 6
+                    && binding.sex.getstatu() != 0){
                 binding.register.setEnabled(true);
             }else{
                 binding.register.setEnabled(false);

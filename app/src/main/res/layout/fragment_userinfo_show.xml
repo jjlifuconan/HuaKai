@@ -78,48 +78,83 @@
                 style="@style/userClassifyStyle"
                 android:text="@{@string/user_info_receive(bean.receiveNum)}" />
 
-            <LinearLayout
-                android:id="@+id/li_receive"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
-                android:divider="@drawable/divider_flexbox_transparent2"
-                android:showDividers="middle"
-                android:orientation="horizontal">
+                >
+                <LinearLayout
+                    android:id="@+id/li_receive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/divider_flexbox_transparent2"
+                    android:showDividers="middle"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/right_going"/>
+            </FrameLayout>
 
 
             <TextView
                 style="@style/userClassifyStyle"
                 android:text="@{@string/user_info_send(bean.sendNum)}" />
 
-            <LinearLayout
-                android:id="@+id/li_send"
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
-                android:divider="@drawable/divider_flexbox_transparent2"
-                android:showDividers="middle"
-                android:orientation="horizontal">
+                >
+                <LinearLayout
+                    android:id="@+id/li_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/divider_flexbox_transparent2"
+                    android:showDividers="middle"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/right_going"/>
+            </FrameLayout>
 
             <TextView
                 style="@style/userClassifyStyle"
                 android:text="@{TextUtils.equals(bean.sex,`1`)?@string/visitor_of_her:@string/visitor_of_his}" />
 
-            <LinearLayout
-                android:id="@+id/li_visitor"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp100"
-                android:divider="@drawable/divider_flexbox_transparent2"
-                android:showDividers="middle"
-                android:orientation="horizontal">
+                >
+                <LinearLayout
+                    android:id="@+id/li_visitor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/divider_flexbox_transparent2"
+                    android:showDividers="middle"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/right_going"/>
+            </FrameLayout>
+
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
