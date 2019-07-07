@@ -17,13 +17,21 @@ public class ImageBean extends BaseBean<ImageBean> {
      * fileUrl : http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/32129fe20e164639a1afabd9c1f8295b.jpg?Expires=1877854580&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=5PVq6ylECsEO497hUm0gTEdYLrs%3D
      * userId : 22
      */
-
+    private String localCompressFileName;//客户端新增自用字段，判断该回调保存地址对应本地哪个图片的上传,压缩过的地址
     private String fileFormart;
     private String fileId;
     private String fileName;
     private int fileSize;
     private String fileUrl;
     private int userId;
+
+    public String getLocalCompressFileName() {
+        return localCompressFileName;
+    }
+
+    public void setLocalCompressFileName(String localCompressFileName) {
+        this.localCompressFileName = localCompressFileName;
+    }
 
     public String getFileFormart() {
         return fileFormart;

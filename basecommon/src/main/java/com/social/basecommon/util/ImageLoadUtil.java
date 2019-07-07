@@ -192,7 +192,7 @@ public class ImageLoadUtil {
      */
     @BindingAdapter({"android:displayFadeImage", "android:defaultPicType"})
     public static void displayFadeImage(ImageView imageView, String url, int defaultPicType) {
-        Log.e("FLJ","url-->"+url);
+//        Log.e("FLJ","url-->"+url);
         displayEspImage(url, imageView, defaultPicType);
     }
 
@@ -203,7 +203,7 @@ public class ImageLoadUtil {
      */
     @BindingAdapter({"android:displayWrapImage", "android:defaultPicType"})
     public static void displayWrapImage(ImageView imageView, String url, int defaultPicType) {
-        Log.e("FLJ","url-->"+url);
+//        Log.e("FLJ","url-->"+url);
         GlideApp.with(imageView.getContext())
                 .load(url)
                 .centerCrop()

@@ -30,8 +30,8 @@ public class TrendModel {
 
     public void getTrendList(final RequestImpl listener) {
         Map map = new HashMap();
-        map.put("publishLocation ","南京");
-        map.put("page ",page);
+        map.put("publishLocation","南京");
+        map.put("pageNumber ",page);
         Subscription subscription = HttpClient.Builder.getRealServer().dynamicList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<TrendListBean>() {

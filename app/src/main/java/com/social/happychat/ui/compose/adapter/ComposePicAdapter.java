@@ -15,6 +15,7 @@ import com.social.happychat.R;
 import com.social.happychat.databinding.ItemComposeAddBinding;
 import com.social.happychat.databinding.ItemComposePicBinding;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -54,7 +55,7 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
             @Override
             public void onClick(View view) {
                 if(listener != null){
-                    listener.deleteImage();
+                    listener.deleteImage(new File(item).getName());
                 }
                 getItems().remove(getItems().indexOf(item));
             }
@@ -83,6 +84,15 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
             this.onBindItem(binding, this.items.get(position));
             this.onBindItem(binding, this.items.get(position), position);
             setupItemViewClickListener(holder, this.items.get(position), position);
+//            binding.delImg.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if(listener != null){
+//                        listener.deleteImage(position);
+//                    }
+//                    getItems().remove(position);
+//                }
+//            });
         }else{
             ItemComposeAddBinding binding = DataBindingUtil.getBinding(holder.itemView);
             holder.itemView.setOnClickListener(new PerfectClickListener() {
@@ -126,6 +136,11 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
 
     public interface onAddPicListener{
         void chooseImage();
-        void deleteImage();
+
+        /**
+         *
+         * @param path  此处应该是path  position删除了会变化
+         */
+        void deleteImage(String path);
     }
 }

@@ -1,5 +1,6 @@
 package com.social.happychat.ui.compose.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -24,33 +25,24 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
-import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
 import com.social.happychat.bean.BaseBean;
-import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.compose.gifsize.GifSizeFilter;
 import com.social.happychat.ui.compose.gifsize.GlideEngine;
-import com.social.happychat.ui.login.bean.UserBean;
-import com.social.happychat.ui.main.MainActivity;
-import com.social.happychat.widget.DividerGridItemDecoration;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -63,12 +55,14 @@ import rx.schedulers.Schedulers;
 import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
-import top.zibin.luban.OnRenameListener;
 
 /**
  * @author Administrator
  * @date 2019/7/6
  * @description:
+ * compressToOrigin映射是必须的，如果上传2张同样的图片，本地地址都一抹一样。删除的时候删哪张？
+ * 要保证加载的图片和删除的图片资源一样，就要压缩好了加载到上传ui九宫格内
+ * 还要保证的加载的路径每个cell都不一样，这样才知道删除哪一个
  */
 public class ComposeTrendActivity extends BaseActivity {
     ActivityComposeTrendBinding binding;
@@ -76,6 +70,13 @@ public class ComposeTrendActivity extends BaseActivity {
     private static final int REQUEST_CODE_CHOOSE = 23;
 //    private List<String> mImageList = new ArrayList<>();//准备上传的一压缩过的图片
     private List<ImageBean> imageBeans = new ArrayList<>();//准备上传的一压缩过的图片
+
+    private ProgressDialog uploadDialog;
+    private int countReadyToUpload = 0;
+//    private Map<String, Integer> compressToOrigin = new HashMap<>();//压缩->原图的位置，不能对应原图的图片地址，有可能2个cell地址一样
+
+
+    private int autoIndex = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class ComposeTrendActivity extends BaseActivity {
     }
 
     private void initView() {
+        initProgressBar();
         adapter = new ComposePicAdapter(activity);
         adapter.setOnAddPicListener(new ComposePicAdapter.onAddPicListener() {
             @Override
@@ -110,7 +112,17 @@ public class ComposeTrendActivity extends BaseActivity {
             }
 
             @Override
-            public void deleteImage() {
+            public void deleteImage(String path) {
+                //删除已经上传好的图片
+                if(imageBeans != null && !imageBeans.isEmpty()){
+                    //TODO iterator删除
+                    for(ImageBean imageBean : imageBeans){
+                        if(TextUtils.equals(imageBean.getLocalCompressFileName(), path)){
+                            imageBeans.remove(imageBean);
+                        }
+                    }
+                }
+                Log.e(TAG,"after delete imageBeans.size->"+imageBeans.size());
                 binding.compose.setEnabled(changeComposeButtonState());
             }
         });
@@ -165,6 +177,7 @@ public class ComposeTrendActivity extends BaseActivity {
             @Override
             public void onNoDoubleClick(View view) {
                 KeyboardUtils.hideSoftInput(activity);
+//                showProgressBar();
                 Map map = new HashMap();
                 map.put("dynamicInfo",binding.edtContent.getText().toString());
                 map.put("dynamicType","1");
@@ -199,18 +212,27 @@ public class ComposeTrendActivity extends BaseActivity {
 
 
 //    List<File> originPhotos = new ArrayList<>();
+
+    /**
+     * 选择完成，先所有压缩，压缩完成显示，然后再上传
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<String> mSelected = Matisse.obtainPathResult(data);
 //            for(int i = 0;i<mSelected.size();i++){
+//                Log.e(TAG,"origin pic 第"+i+"个->"+mSelected.get(i));
+//            }
+//            for(int i = 0;i<mSelected.size();i++){
 //                originPhotos.add(new File(mSelected.get(i)));
 //            }
-            Log.e(TAG,"file 1->"+mSelected.get(0));
             withLs(mSelected);
-            adapter.getItems().addAll(mSelected);
-            adapter.notifyDataSetChanged();
+//            adapter.getItems().addAll(mSelected);
+//            adapter.notifyDataSetChanged();
             binding.compose.setEnabled(changeComposeButtonState());
         }
     }
@@ -220,7 +242,9 @@ public class ComposeTrendActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    private <T> void withLs(final List<T> photos) {
+    private  void withLs(final List<String> photos) {
+        uploadDialog.show();
+        countReadyToUpload = photos.size();
         Luban.with(this)
                 .load(photos)
                 .ignoreBy(100)
@@ -238,12 +262,12 @@ public class ComposeTrendActivity extends BaseActivity {
 //                        Log.e(TAG,"rename->"+filePath);
 //                        try {
 //                            MessageDigest md = MessageDigest.getInstance("MD5");
-//                            md.update(filePath.getBytes());
+//                            md.uuploadDialogate(filePath.getBytes());
 //                            return new BigInteger(1, md.digest()).toString(32);
 //                        } catch (NoSuchAlgorithmException e) {
 //                            e.printStackTrace();
 //                        }
-//                        return "";
+//                        return filePath;
 //                    }
 //                })
                 .setCompressListener(new OnCompressListener() {
@@ -253,6 +277,14 @@ public class ComposeTrendActivity extends BaseActivity {
                     @Override
                     public void onSuccess(File file) {
                         Log.e(TAG,"setCompressListener file->"+file.getAbsolutePath());
+//                        compressToOrigin.put(file.getName(), autoIndex);
+//                        autoIndex++;
+//                        if(autoIndex == photos.size()){
+//                            originToCompress设置完成 autoIndex重置
+//                            autoIndex = 0;
+//                        }
+                        adapter.getItems().add(file.getAbsolutePath());
+                        adapter.notifyDataSetChanged();
                         uploadOnePic(file);
 //                        mImageList.add(file.getAbsolutePath());
 //                        Log.i(TAG, file.getAbsolutePath() + ",all size->"+mImageList.size());
@@ -260,7 +292,9 @@ public class ComposeTrendActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onError(Throwable e) { }
+                    public void onError(Throwable e) {
+                        Log.e(TAG,"compress onError->"+e.getMessage());
+                    }
                 }).launch();
     }
 
@@ -280,7 +314,12 @@ public class ComposeTrendActivity extends BaseActivity {
 
                     @Override
                     public void onNext(ImageBean imageBean) {
+                        countReadyToUpload --;
+                        if(countReadyToUpload == 0){
+                            uploadDialog.dismiss();
+                        }
                         ImageBean imgBean = imageBean.getData();
+                        imgBean.setLocalCompressFileName(file.getAbsolutePath());
                         imageBeans.add(imgBean);
                     }
                 });
@@ -325,6 +364,17 @@ public class ComposeTrendActivity extends BaseActivity {
             return path;
         }
         return path;
+    }
+
+    private void initProgressBar(){
+        uploadDialog = new ProgressDialog(activity);
+        //设置提示信息
+        uploadDialog.setMessage("正在上传...");
+        //设置ProgressDialog 是否可以按返回键取消；
+        uploadDialog.setCancelable(false);
+        uploadDialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条
+        //显示ProgressDialog
+//        uploadDialog.show();
     }
 
     @Override
