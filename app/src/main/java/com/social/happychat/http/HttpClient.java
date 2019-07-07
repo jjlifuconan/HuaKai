@@ -95,7 +95,7 @@ public interface HttpClient {
      * 修改密码
      */
     @POST("user/forgetPwd.do")
-    Observable<Object> forgetPwd(@Body JSONObject parmas);
+    Observable<BaseBean> forgetPwd(@Body JSONObject parmas);
 
     /**
      * 单个文件上传

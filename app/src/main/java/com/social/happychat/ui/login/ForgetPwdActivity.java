@@ -14,10 +14,14 @@ import android.view.View;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
+import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.bean.BaseBean;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityForgetPwdBinding;
 import com.social.happychat.http.HttpClient;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
 
@@ -108,7 +112,7 @@ public class ForgetPwdActivity extends BaseActivity {
     private void submitModify(Map params) {
         Subscription subscription = HttpClient.Builder.getRealServer().forgetPwd(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Object>() {
+                .subscribe(new Observer<BaseBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -118,10 +122,46 @@ public class ForgetPwdActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(Object object) {
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                    public void onNext(BaseBean baseBean) {
+                        if(baseBean.isValid()){
+                            Map map = new HashMap();
+                            map.put("loginName",binding.edtPhone.getText().toString());
+                            map.put("loginType","1");
+                            map.put("password",binding.edtPassword.getText().toString());
+                            submitLogin(map);
+                        }else{
+                            ToastUtil.show(activity, baseBean.getMsg());
+                        }
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+    /**
+     * 提交登录信息
+     */
+    private void submitLogin(Map params) {
+        Subscription subscription = HttpClient.Builder.getRealServer().login(RequestBody.as(params))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(UserBean userBean) {
+                        if(userBean.isValid()){
+                            SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean.getData());
+                            Intent intent = new Intent(activity, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }else{
+                            ToastUtil.show(activity, userBean.getMsg());
+                        }
                     }
                 });
         addSubscription(subscription);
