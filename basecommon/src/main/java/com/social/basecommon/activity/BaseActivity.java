@@ -19,6 +19,7 @@ import rx.subscriptions.CompositeSubscription;
 public class BaseActivity extends SupportActivity {
     protected Activity activity;
     private CompositeSubscription mCompositeSubscription;
+    public static final String TAG = "FLJ";
 
 
     @Override

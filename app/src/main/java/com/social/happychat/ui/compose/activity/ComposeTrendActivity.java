@@ -12,7 +12,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
@@ -22,12 +24,18 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.SPUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.bean.BaseBean;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
+import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.compose.gifsize.GifSizeFilter;
 import com.social.happychat.ui.compose.gifsize.GlideEngine;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.widget.DividerGridItemDecoration;
 import com.zhihu.matisse.Matisse;
@@ -40,8 +48,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -64,7 +74,8 @@ public class ComposeTrendActivity extends BaseActivity {
     ActivityComposeTrendBinding binding;
     private ComposePicAdapter adapter;
     private static final int REQUEST_CODE_CHOOSE = 23;
-    private List<String> mImageList = new ArrayList<>();//准备上传的一压缩过的图片
+//    private List<String> mImageList = new ArrayList<>();//准备上传的一压缩过的图片
+    private List<ImageBean> imageBeans = new ArrayList<>();//准备上传的一压缩过的图片
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,6 +108,11 @@ public class ComposeTrendActivity extends BaseActivity {
                         .imageEngine(new GlideEngine())
                         .forResult(REQUEST_CODE_CHOOSE);
             }
+
+            @Override
+            public void deleteImage() {
+                binding.compose.setEnabled(changeComposeButtonState());
+            }
         });
         binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
         DividerItemDecoration divider = new DividerItemDecoration(activity,DividerItemDecoration.HORIZONTAL);
@@ -106,6 +122,22 @@ public class ComposeTrendActivity extends BaseActivity {
     }
 
     private void setListener() {
+        binding.edtContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                binding.compose.setEnabled(changeComposeButtonState());
+            }
+        });
         binding.vpClose.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
@@ -132,7 +164,35 @@ public class ComposeTrendActivity extends BaseActivity {
         binding.compose.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
+                KeyboardUtils.hideSoftInput(activity);
+                Map map = new HashMap();
+                map.put("dynamicInfo",binding.edtContent.getText().toString());
+                map.put("dynamicType","1");
+                map.put("publishLocation","南京");
+                map.put("userFiles",imageBeans);
 
+                Subscription subscription = HttpClient.Builder.getRealServer().publishDynamic(com.social.happychat.util.RequestBody.as(map))
+                        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<BaseBean>() {
+                            @Override
+                            public void onCompleted() {
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onNext(BaseBean baseBean) {
+                                if(baseBean.isValid()){
+                                    ToastUtil.show(activity,"发布成功");
+                                    finish();
+                                }else{
+                                    ToastUtil.show(activity, baseBean.getMsg());
+                                }
+                            }
+                        });
+                addSubscription(subscription);
             }
         });
     }
@@ -147,37 +207,11 @@ public class ComposeTrendActivity extends BaseActivity {
 //            for(int i = 0;i<mSelected.size();i++){
 //                originPhotos.add(new File(mSelected.get(i)));
 //            }
+            Log.e(TAG,"file 1->"+mSelected.get(0));
             withLs(mSelected);
             adapter.getItems().addAll(mSelected);
             adapter.notifyDataSetChanged();
-
-
-            String path = mSelected.get(0);
-            File file = new File(path);
-            RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part part =  MultipartBody.Part.createFormData("file", file.getName(), fileRQ);
-
-//            RequestBody body =new MultipartBody.Builder()
-//                    .addFormDataPart("file",file.getName(),fileRQ)
-//                    .build();
-
-            Subscription subscription = HttpClient.Builder.getRealServer().uploadOneFile(part)
-                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<Object>() {
-                        @Override
-                        public void onCompleted() {
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                        }
-
-                        @Override
-                        public void onNext(Object object) {
-                            int i = 0;
-                        }
-                    });
-            addSubscription(subscription);
+            binding.compose.setEnabled(changeComposeButtonState());
         }
     }
 
@@ -198,27 +232,30 @@ public class ComposeTrendActivity extends BaseActivity {
                         return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
                     }
                 })
-                .setRenameListener(new OnRenameListener() {
-                    @Override
-                    public String rename(String filePath) {
-                        try {
-                            MessageDigest md = MessageDigest.getInstance("MD5");
-                            md.update(filePath.getBytes());
-                            return new BigInteger(1, md.digest()).toString(32);
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        }
-                        return "";
-                    }
-                })
+//                .setRenameListener(new OnRenameListener() {
+//                    @Override
+//                    public String rename(String filePath) {
+//                        Log.e(TAG,"rename->"+filePath);
+//                        try {
+//                            MessageDigest md = MessageDigest.getInstance("MD5");
+//                            md.update(filePath.getBytes());
+//                            return new BigInteger(1, md.digest()).toString(32);
+//                        } catch (NoSuchAlgorithmException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return "";
+//                    }
+//                })
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() { }
 
                     @Override
                     public void onSuccess(File file) {
-                        mImageList.add(file.getAbsolutePath());
-                        Log.i("FLJ", file.getAbsolutePath() + ",all size->"+mImageList.size());
+                        Log.e(TAG,"setCompressListener file->"+file.getAbsolutePath());
+                        uploadOnePic(file);
+//                        mImageList.add(file.getAbsolutePath());
+//                        Log.i(TAG, file.getAbsolutePath() + ",all size->"+mImageList.size());
 //                        showResult(originPhotos, file);
                     }
 
@@ -227,14 +264,45 @@ public class ComposeTrendActivity extends BaseActivity {
                 }).launch();
     }
 
+    private void uploadOnePic(File file){
+        RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part part =  MultipartBody.Part.createFormData("file", file.getName(), fileRQ);
+        Subscription subscription = HttpClient.Builder.getRealServer().uploadOneFile(part)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ImageBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(ImageBean imageBean) {
+                        ImageBean imgBean = imageBean.getData();
+                        imageBeans.add(imgBean);
+                    }
+                });
+        addSubscription(subscription);
+    }
+
 //    private void showResult(List<File> photos, File file) {
 //        int[] originSize = computeSize(photos.get(photos.size()-1));
 //        int[] thumbSize = computeSize(file);
 //        String originArg = String.format(Locale.CHINA, "原图参数：%d*%d, %dk", originSize[0], originSize[1], photos.get(photos.size()-1).length() >> 10);
 //        String thumbArg = String.format(Locale.CHINA, "压缩后参数：%d*%d, %dk", thumbSize[0], thumbSize[1], file.length() >> 10);
-//        Log.i("FLJ", originArg);
-//        Log.e("FLJ", thumbArg);
+//        Log.i(TAG, originArg);
+//        Log.e(TAG, thumbArg);
 //    }
+
+    private boolean changeComposeButtonState(){
+        if(!TextUtils.isEmpty(binding.edtContent.getText().toString()) && adapter.getItems().size() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     private int[] computeSize(File srcImg) {
         int[] size = new int[2];
@@ -257,5 +325,10 @@ public class ComposeTrendActivity extends BaseActivity {
             return path;
         }
         return path;
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        binding.vpClose.performClick();
     }
 }

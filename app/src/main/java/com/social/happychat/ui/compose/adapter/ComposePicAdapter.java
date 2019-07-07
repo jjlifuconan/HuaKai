@@ -53,6 +53,9 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
         binding.delImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(listener != null){
+                    listener.deleteImage();
+                }
                 getItems().remove(getItems().indexOf(item));
             }
         });
@@ -123,5 +126,6 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
 
     public interface onAddPicListener{
         void chooseImage();
+        void deleteImage();
     }
 }

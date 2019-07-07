@@ -99,7 +99,7 @@
                 android:drawablePadding="@dimen/dp5"
                 android:gravity="center_vertical"
                 android:layout_gravity="center"
-                android:text="0"
+                android:text="@{bean.recInfo.commentCount+``}"
                 />
         </FrameLayout>
 
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp5"
-                    android:text="0"/>
+                    android:text="@{bean.recInfo.praiseCount+``}"/>
 
             </LinearLayout>
         </FrameLayout>
