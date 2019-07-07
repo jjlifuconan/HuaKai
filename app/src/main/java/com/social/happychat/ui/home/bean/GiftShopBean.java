@@ -58,9 +58,18 @@ public class GiftShopBean implements Serializable {
         private String nickName;
         private String photo;
         private String giftName;
+        private String giftNum;
         private String sex;
         private String age;
         private String time;
+
+        public String getGiftNum() {
+            return giftNum;
+        }
+
+        public void setGiftNum(String giftNum) {
+            this.giftNum = giftNum;
+        }
 
         public int getPrice() {
             return price;

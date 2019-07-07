@@ -24,7 +24,79 @@ public class GiftShopPresent {
         mModel = new GiftShopViewModel();
     }
 
-    public void loadGiftData() {
+    public void loadGiftShopData() {
+        mModel.setData( mPage, HttpUtils.per_page_more);
+        mModel.getGiftData(new RequestImpl() {
+            @Override
+            public void loadSuccess(Object object) {
+                navigator.showLoadSuccessView();
+                GiftShopBean GiftListBean = (GiftShopBean) object;
+                if (mPage == 1) {
+                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
+                        navigator.showLoadFailedView();
+                        return;
+                    }
+                } else {
+                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
+                        navigator.showListNoMoreLoading();
+                        return;
+                    }
+                }
+                navigator.showAdapterView(GiftListBean.getData());
+            }
+
+            @Override
+            public void loadFailed() {
+                navigator.showLoadFailedView();
+                if (mPage > 1) {
+                    mPage--;
+                }
+            }
+
+            @Override
+            public void addSubscription(Subscription subscription) {
+                navigator.addRxSubscription(subscription);
+            }
+        });
+    }
+
+    public void loadGiftReceiveData() {
+        mModel.setData( mPage, HttpUtils.per_page_more);
+        mModel.getGiftData(new RequestImpl() {
+            @Override
+            public void loadSuccess(Object object) {
+                navigator.showLoadSuccessView();
+                GiftShopBean GiftListBean = (GiftShopBean) object;
+                if (mPage == 1) {
+                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
+                        navigator.showLoadFailedView();
+                        return;
+                    }
+                } else {
+                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
+                        navigator.showListNoMoreLoading();
+                        return;
+                    }
+                }
+                navigator.showAdapterView(GiftListBean.getData());
+            }
+
+            @Override
+            public void loadFailed() {
+                navigator.showLoadFailedView();
+                if (mPage > 1) {
+                    mPage--;
+                }
+            }
+
+            @Override
+            public void addSubscription(Subscription subscription) {
+                navigator.addRxSubscription(subscription);
+            }
+        });
+    }
+
+    public void loadGiftSendData() {
         mModel.setData( mPage, HttpUtils.per_page_more);
         mModel.getGiftData(new RequestImpl() {
             @Override

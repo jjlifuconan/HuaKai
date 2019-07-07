@@ -250,7 +250,7 @@ public class UserHomeActivity extends BaseActivity {
         binding.vpSendGift.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                GiftShopActivity.action(v.getContext());
+                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP);
             }
         });
     }

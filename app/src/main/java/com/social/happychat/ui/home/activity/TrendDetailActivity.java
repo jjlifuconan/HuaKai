@@ -81,7 +81,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         binding.layoutBottom.vpGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftShopActivity.action(view.getContext());
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
             }
         });
     }

@@ -101,6 +101,12 @@ public interface HttpClient {
     Observable<Object> uploadOneFile(@Part MultipartBody.Part body);
 
     /**
+     * 单个文件上传 body上传
+     */
+    @POST("user/private/file/saveFile.do")
+    Observable<Object> uploadOneFile(@Body RequestBody body);
+
+    /**
      * 多个文件上传
      */
     @Multipart

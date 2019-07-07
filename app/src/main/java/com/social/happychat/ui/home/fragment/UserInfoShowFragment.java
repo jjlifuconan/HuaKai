@@ -3,6 +3,7 @@ package com.social.happychat.ui.home.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.happychat.R;
 import com.social.happychat.databinding.FragmentUserinfoShowBinding;
+import com.social.happychat.ui.home.activity.GiftShopActivity;
 import com.social.happychat.ui.home.bean.UserDetailBean;
 
 /**
@@ -59,6 +61,12 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
                 binding.liReceive.addView(img,lp);
             }
         }
+        binding.liReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_RECEIVE);
+            }
+        });
 
         if(bean.getSendList()!=null && !bean.getSendList().isEmpty()){
             for(String url: bean.getSendList()){
@@ -69,6 +77,12 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
                 binding.liSend.addView(img,lp);
             }
         }
+        binding.liSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SEND);
+            }
+        });
 
         if(bean.getVisitorList()!=null && !bean.getVisitorList().isEmpty()){
             for(String url: bean.getVisitorList()){

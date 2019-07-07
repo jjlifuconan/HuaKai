@@ -64,7 +64,7 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
         binding.vpGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftShopActivity.action(view.getContext());
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
             }
         });
         List<NeteaseList.DataBean.ImagesBean> imagesBeans = item.getImages();

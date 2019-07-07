@@ -19,7 +19,7 @@ import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
 import com.social.happychat.databinding.DialogGiftSendBinding;
-import com.social.happychat.ui.home.adapter.GiftShopAdapter;
+import com.social.happychat.ui.home.adapter.GiftSendReceiveAdapter;
 import com.social.happychat.ui.home.bean.GiftShopBean;
 import com.social.happychat.ui.home.interfaces.GiftShopNavigator;
 import com.social.happychat.ui.home.present.GiftShopPresent;
@@ -34,15 +34,15 @@ import rx.Subscription;
  * @date 2019/7/2 0002
  * @description:礼物列表
  */
-public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftShopNavigator {
-    private GiftShopAdapter GiftAdapter;
+public class GiftReceiveListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftShopNavigator {
+    private GiftSendReceiveAdapter GiftAdapter;
     private GiftShopPresent present;
 
-    public static GiftShopListFragment newInstance() {
+    public static GiftReceiveListFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        GiftShopListFragment fragment = new GiftShopListFragment();
+        GiftReceiveListFragment fragment = new GiftReceiveListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,11 +61,11 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
                 int page = present.getPage();
                 page++;
                 present.setPage(page);
-                present.loadGiftShopData();
+                present.loadGiftReceiveData();
             }
         });
 
-        GiftAdapter = new GiftShopAdapter(activity);
+        GiftAdapter = new GiftSendReceiveAdapter(activity);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 4));
         DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
@@ -96,7 +96,7 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
                 });
             }
         });
-        present.loadGiftShopData();
+        present.loadGiftReceiveData();
     }
 
     @Override
@@ -138,7 +138,7 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
 
     @Override
     protected void onRefresh() {
-        present.loadGiftShopData();
+        present.loadGiftReceiveData();
     }
 
 
