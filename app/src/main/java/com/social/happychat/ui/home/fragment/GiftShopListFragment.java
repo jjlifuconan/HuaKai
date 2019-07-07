@@ -77,16 +77,7 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
                 DialogGiftSendBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_gift_send, null,false);
                 binding.setBean(item);
 
-                MaterialDialog dialog = new MaterialDialog.Builder(activity).build();
-                Window window = dialog.getWindow();
-                WindowManager.LayoutParams layoutParams;
-                if (window != null) {
-                    layoutParams = window.getAttributes();
-                    layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
-                    layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                    window.setAttributes(layoutParams);
-                }
-                dialog.getBuilder().customView(binding.getRoot(),false)
+                MaterialDialog dialog = new MaterialDialog.Builder(activity).customView(binding.getRoot(),false)
                         .show();
                 binding.vpClose.setOnClickListener(new View.OnClickListener() {
                     @Override

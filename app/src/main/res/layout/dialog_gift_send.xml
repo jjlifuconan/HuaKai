@@ -73,6 +73,8 @@
             android:paddingHorizontal="@dimen/dp38"
             app:bl_corners_radius="@dimen/dp3"
             app:bl_solid_color="@color/colorPrimary"
+            app:bl_ripple_color="@color/ripple"
+            app:bl_ripple_enable="true"
             android:text="立即赠送"
             android:textSize="@dimen/sp16"
             android:textColor="@color/white"
