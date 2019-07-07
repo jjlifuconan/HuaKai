@@ -13,10 +13,13 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityLoginBinding;
 import com.social.happychat.http.HttpClient;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
 
@@ -104,7 +107,7 @@ public class LoginActivity extends BaseActivity {
     private void submitLogin(Map params) {
         Subscription subscription = HttpClient.Builder.getRealServer().login(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Object>() {
+                .subscribe(new Observer<UserBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -114,10 +117,15 @@ public class LoginActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(Object object) {
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                    public void onNext(UserBean userBean) {
+                        if(userBean.isValid()){
+                            SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean.getData());
+                            Intent intent = new Intent(activity, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }else{
+                            ToastUtil.show(activity, userBean.getMsg());
+                        }
                     }
                 });
         addSubscription(subscription);

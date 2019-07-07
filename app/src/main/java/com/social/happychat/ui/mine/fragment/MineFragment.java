@@ -9,7 +9,6 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.social.basecommon.fragment.BaseFragment;
-import com.social.basecommon.util.GlideApp;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
@@ -17,8 +16,9 @@ import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentMineBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.login.LoginActivity;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
-import com.social.happychat.ui.main.MainActivity;
+import com.social.happychat.ui.login.cookie.LoginCookie;
 import com.social.happychat.util.RequestBody;
 
 import java.util.HashMap;
@@ -55,7 +55,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         super.onLazyInitView(savedInstanceState);
 //        ImmersionBar.setTitleBar(this, binding.headerLayout);
         showContentView();
-        WechatUserBean wechatUserBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.WECHAT_USER_INFO, WechatUserBean.class);
+        WechatUserBean wechatUserBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_WECHAT_USER_INFO, WechatUserBean.class);
         if(wechatUserBean != null){
 //            GlideApp.with(activity).load(R.mipmap.file_paths_public).into(binding.ivHead);
             ImageLoadUtil.displayCircle(binding.ivHead, wechatUserBean.getHeadimgurl());
@@ -69,7 +69,8 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                String userId = "";
+                                UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+                                int userId = userBean.getId();
                                 Map map = new HashMap();
                                 map.put("userId",userId);
                                 logout(map);
@@ -94,6 +95,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
 
                     @Override
                     public void onNext(Object object) {
+                        LoginCookie.clearLoginCookie();
                         Intent intent = new Intent(activity, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);

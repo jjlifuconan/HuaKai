@@ -7,7 +7,8 @@ package com.social.happychat.constant;
  */
 public class Constant {
     public static final String SP_HAPPY_CHAT = "SP_HAPPY_CHAT";
-    public static final String WECHAT_USER_INFO = "WECHAT_USER_INFO";
+    public static final String PLATFORM_WECHAT_USER_INFO = "PLATFORM_WECHAT_USER_INFO";
+    public static final String PLATFORM_HAPPYCHAT_USER_INFO = "PLATFORM_HAPPYCHAT_USER_INFO";
     public static class TabType{
         public static final String GIFT = "gift";
         public static final String MONEY = "money";

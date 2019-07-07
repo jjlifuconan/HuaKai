@@ -155,7 +155,7 @@ public class ComposeTrendActivity extends BaseActivity {
             String path = mSelected.get(0);
             File file = new File(path);
             RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part part =  MultipartBody.Part.createFormData("picture", file.getName(), fileRQ);
+            MultipartBody.Part part =  MultipartBody.Part.createFormData("file", file.getName(), fileRQ);
             Subscription subscription = HttpClient.Builder.getRealServer().uploadOneFile(part)
                     .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<Object>() {

@@ -5,6 +5,7 @@ import com.example.http.HttpUtils;
 import com.example.http.utils.BuildFactory;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.login.bean.UserBean;
 
 
 import java.util.Map;
@@ -78,12 +79,12 @@ public interface HttpClient {
      * 登录
      */
     @POST("login/login.do")
-    Observable<Object> login(@Body JSONObject parmas);
+    Observable<UserBean> login(@Body JSONObject parmas);
 
     /**
      * 退出
      */
-    @POST("/login/private/logout.do")
+    @POST("login/private/logout.do")
     Observable<Object> loginout(@Body JSONObject parmas);
 
     /**
@@ -96,14 +97,14 @@ public interface HttpClient {
      * 单个文件上传
      */
     @Multipart
-    @POST("/user/private/file/saveFile.do")
+    @POST("user/private/file/saveFile.do")
     Observable<Object> uploadOneFile(@Part MultipartBody.Part body);
 
     /**
      * 多个文件上传
      */
     @Multipart
-    @POST("/user/private/file/saveFile.do")
+    @POST("user/private/file/saveFile.do")
     Observable<Object> uploadFiles(@PartMap Map<String, RequestBody> map);
 
 }

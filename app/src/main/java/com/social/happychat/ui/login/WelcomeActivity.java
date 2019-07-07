@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.common.ToastHelper;
@@ -114,7 +113,7 @@ public class WelcomeActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 WechatUserBean wechatUserBean = new WechatUserBean(hashMap);
-                                SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.WECHAT_USER_INFO, wechatUserBean);
+                                SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_WECHAT_USER_INFO, wechatUserBean);
                                 startActivity(new Intent(activity, MainActivity.class));
                             }
                         });
