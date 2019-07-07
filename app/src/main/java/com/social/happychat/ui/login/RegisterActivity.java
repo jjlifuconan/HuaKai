@@ -16,6 +16,7 @@ import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.bean.BaseBean;
 import com.social.happychat.databinding.ActivityRegisterBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.main.MainActivity;
@@ -122,7 +123,7 @@ public class RegisterActivity extends BaseActivity {
     private void submitRegister(Map params) {
         Subscription subscription = HttpClient.Builder.getRealServer().register(RequestBody.as(params))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Object>() {
+                .subscribe(new Observer<BaseBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -133,10 +134,14 @@ public class RegisterActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(Object object) {
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                    public void onNext(BaseBean baseBean) {
+                        if(baseBean.isValid()){
+                            Intent intent = new Intent(activity, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }else{
+                            ToastUtil.show(activity, baseBean.getMsg());
+                        }
                     }
                 });
         addSubscription(subscription);

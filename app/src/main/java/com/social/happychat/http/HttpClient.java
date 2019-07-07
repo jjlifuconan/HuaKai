@@ -76,7 +76,7 @@ public interface HttpClient {
      * 注册
      */
     @POST("regist/regist.do")
-    Observable<Object> register(@Body JSONObject parmas);
+    Observable<BaseBean> register(@Body JSONObject parmas);
 
     /**
      * 登录
