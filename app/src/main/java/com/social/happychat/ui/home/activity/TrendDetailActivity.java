@@ -25,6 +25,7 @@ import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.fragment.CommentDialogFragment;
 import com.social.happychat.ui.home.fragment.CommentListFragment;
 import com.social.happychat.ui.home.fragment.GiftRecordListFragment;
@@ -46,7 +47,7 @@ import java.util.Map;
 
 public class TrendDetailActivity extends BaseActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
-    NeteaseList.DataBean bean;
+    TrendListBean bean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         ImmersionBar.with(this).init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
 
-        bean = (NeteaseList.DataBean) getIntent().getSerializableExtra("bean");
+        bean = (TrendListBean) getIntent().getSerializableExtra("bean");
         binding.setBean(bean);
         initView();
         setListener();
@@ -130,15 +131,11 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
 
 
 
-        List<NeteaseList.DataBean.ImagesBean> imagesBeans = bean.getImages();
+        List<TrendListBean.UserFilesBean> imagesBeans = bean.getUserFiles();
         ArrayList strList = new ArrayList();
         if(imagesBeans!=null && !imagesBeans.isEmpty()){
-            if(imagesBeans.size() == 1){
-                strList.add("https://nimg.ws.126.net/?url="+imagesBeans.get(0).getUrl()+"&thumbnail="+ DensityUtil.getWidth(binding.getRoot().getContext())+"x2147483647&quality=75&type=webp");
-            }else{
-                for(int i=0;i<imagesBeans.size();i++){
-                    strList.add("https://nimg.ws.126.net/?url="+imagesBeans.get(i).getUrl()+"&thumbnail=480x2147483647&quality=75&type=webp");
-                }
+            for(int i=0;i<imagesBeans.size();i++){
+                strList.add(imagesBeans.get(i).getFileUrl());
             }
         }
         binding.layoutHeader.nineimage.setImagesData(strList);
@@ -257,7 +254,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
     }
 
-    public static void action(Context context, NeteaseList.DataBean bean){
+    public static void action(Context context, TrendListBean bean){
         Intent intent = new Intent(context, TrendDetailActivity.class);
         intent.putExtra("bean",bean);
         context.startActivity(intent);

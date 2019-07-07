@@ -3,8 +3,11 @@ package com.social.happychat.ui.home.present;
 import com.example.http.HttpUtils;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.interfaces.TrendNavigator;
 import com.social.happychat.ui.home.model.TrendModel;
+
+import java.util.List;
 
 import rx.Subscription;
 
@@ -25,24 +28,24 @@ public class TrendPresent {
 
     public void loadTrendData() {
         mModel.setData( mPage, HttpUtils.per_page_more);
-        mModel.getNeteaseData(new RequestImpl() {
+        mModel.getTrendList(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
                 navigator.showLoadSuccessView();
 
-                NeteaseList neteaseList = (NeteaseList) object;
+                TrendListBean trendListBean = (TrendListBean) object;
                 if (mPage == 1) {
-                    if (neteaseList == null || neteaseList.getData() == null || neteaseList.getData().size() <= 0) {
+                    if (!trendListBean.isValid() ||  trendListBean == null || trendListBean.getData() == null || trendListBean.getData().size() <= 0) {
                         navigator.showLoadFailedView();
                         return;
                     }
                 } else {
-                    if (neteaseList == null || neteaseList.getData() == null || neteaseList.getData().size() <= 0) {
+                    if (!trendListBean.isValid() || trendListBean == null || trendListBean.getData() == null || trendListBean.getData().size() <= 0) {
                         navigator.showListNoMoreLoading();
                         return;
                     }
                 }
-                navigator.showAdapterView(neteaseList);
+                navigator.showAdapterView(trendListBean.getData());
             }
 
             @Override

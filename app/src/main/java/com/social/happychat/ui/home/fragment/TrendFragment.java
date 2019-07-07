@@ -16,8 +16,11 @@ import com.social.happychat.R;
 import com.social.happychat.ui.home.activity.TrendDetailActivity;
 import com.social.happychat.ui.home.adapter.TrendAdapter;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.interfaces.TrendNavigator;
 import com.social.happychat.ui.home.present.TrendPresent;
+
+import java.util.List;
 
 import rx.Subscription;
 
@@ -45,7 +48,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         present = new TrendPresent(this);
         binding.refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+            public void onLoadMore(@NonNull RefreshLayout showAdapterView) {
                 int page = present.getPage();
                 page++;
                 present.setPage(page);
@@ -61,9 +64,9 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
 
         trendAdapter = new TrendAdapter(activity);
-        trendAdapter.setOnItemClickListener(new OnItemClickListener<NeteaseList.DataBean>() {
+        trendAdapter.setOnItemClickListener(new OnItemClickListener<TrendListBean>() {
             @Override
-            public void onClick(NeteaseList.DataBean item) {
+            public void onClick(TrendListBean item) {
                 TrendDetailActivity.action(activity, item);
             }
         });
@@ -81,7 +84,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     }
 
     @Override
-    public void showAdapterView(NeteaseList neteaseList) {
+    public void showAdapterView(List<TrendListBean> trendListBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {
@@ -90,7 +93,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         }else{
             binding.refreshLayout.finishLoadMore();
         }
-        trendAdapter.getItems().addAll(neteaseList.getData());
+        trendAdapter.getItems().addAll(trendListBeans);
 
     }
 

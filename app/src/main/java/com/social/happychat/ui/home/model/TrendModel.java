@@ -3,6 +3,11 @@ package com.social.happychat.ui.home.model;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
+import com.social.happychat.util.RequestBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.Observer;
 import rx.Subscription;
@@ -23,10 +28,13 @@ public class TrendModel {
         this.per_page = per_page;
     }
 
-    public void getNeteaseData(final RequestImpl listener) {
-        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(page, per_page)
+    public void getTrendList(final RequestImpl listener) {
+        Map map = new HashMap();
+        map.put("publishLocation ","南京");
+        map.put("page ",page);
+        Subscription subscription = HttpClient.Builder.getRealServer().dynamicList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NeteaseList>() {
+                .subscribe(new Observer<TrendListBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -38,8 +46,8 @@ public class TrendModel {
                     }
 
                     @Override
-                    public void onNext(NeteaseList gankIoDataBean) {
-                        listener.loadSuccess(gankIoDataBean);
+                    public void onNext(TrendListBean trendListBean) {
+//                        listener.loadSuccess(gankIoDataBean);
 
                     }
                 });

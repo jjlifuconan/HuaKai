@@ -22,6 +22,7 @@ import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityWelcomeBinding;
 import com.social.happychat.im.ContactHttpClient;
 import com.social.happychat.im.DemoCache;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.main.MainActivity;
 
@@ -115,6 +116,7 @@ public class WelcomeActivity extends BaseActivity {
                                 WechatUserBean wechatUserBean = new WechatUserBean(hashMap);
                                 SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_WECHAT_USER_INFO, wechatUserBean);
                                 startActivity(new Intent(activity, MainActivity.class));
+                                finish();
                             }
                         });
                     }
@@ -148,6 +150,11 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void playVideo() {
+        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+        if(userBean != null){
+            startActivity(new Intent(activity, MainActivity.class));
+            finish();
+        }
         binding.videoview.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.loginmovie));
         binding.videoview.start();
         binding.videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

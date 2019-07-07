@@ -23,6 +23,7 @@ import com.social.happychat.R;
 import com.social.happychat.databinding.ItemTrendBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.widget.TouchImageView;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.List;
  * @date 2019/6/27 0027
  * @description:
  */
-public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemTrendBinding> {
+public class TrendAdapter extends BaseBindingAdapter<TrendListBean, ItemTrendBinding> {
 
     public TrendAdapter(Context context) {
         super(context);
@@ -51,7 +52,7 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
     }
 
     @Override
-    protected void onBindItem(ItemTrendBinding binding, NeteaseList.DataBean item) {
+    protected void onBindItem(ItemTrendBinding binding, TrendListBean item) {
         binding.setBean(item);
         binding.praise.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,15 +68,11 @@ public class TrendAdapter extends BaseBindingAdapter<NeteaseList.DataBean, ItemT
                 GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
             }
         });
-        List<NeteaseList.DataBean.ImagesBean> imagesBeans = item.getImages();
+        List<TrendListBean.UserFilesBean> imagesBeans = item.getUserFiles();
         ArrayList strList = new ArrayList();
         if(imagesBeans!=null && !imagesBeans.isEmpty()){
-            if(imagesBeans.size() == 1){
-                strList.add("https://nimg.ws.126.net/?url="+imagesBeans.get(0).getUrl()+"&thumbnail="+ DensityUtil.getWidth(binding.getRoot().getContext())+"x2147483647&quality=75&type=webp");
-            }else{
-                for(int i=0;i<imagesBeans.size();i++){
-                    strList.add("https://nimg.ws.126.net/?url="+imagesBeans.get(i).getUrl()+"&thumbnail=480x2147483647&quality=75&type=webp");
-                }
+            for(int i=0;i<imagesBeans.size();i++){
+                strList.add(imagesBeans.get(i).getFileUrl());
             }
         }
         binding.nineimage.setImagesData(strList);

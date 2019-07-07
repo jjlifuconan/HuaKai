@@ -7,6 +7,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.login.bean.UserBean;
 
 
@@ -121,5 +122,11 @@ public interface HttpClient {
      */
     @POST("dynamic/private/publishDynamic.do")
     Observable<BaseBean> publishDynamic(@Body JSONObject parmas);
+
+    /**
+     * 动态列表
+     */
+    @POST("dynamic/private/dynamicList.do")
+    Observable<TrendListBean> dynamicList(@Body JSONObject parmas);
 
 }

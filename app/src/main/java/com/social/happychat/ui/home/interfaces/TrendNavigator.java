@@ -2,6 +2,9 @@ package com.social.happychat.ui.home.interfaces;
 
 
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.TrendListBean;
+
+import java.util.List;
 
 import rx.Subscription;
 
@@ -21,7 +24,7 @@ public interface TrendNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(NeteaseList neteaseList);
+    void showAdapterView(List<TrendListBean> trendListBeans);
 
     /**
      * 显示列表没有更多数据布局
