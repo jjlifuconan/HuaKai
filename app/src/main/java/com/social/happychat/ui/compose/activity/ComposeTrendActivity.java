@@ -29,6 +29,7 @@ import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
+import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
 import com.social.happychat.ui.compose.bean.ImageBean;
@@ -38,6 +39,8 @@ import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -184,6 +187,7 @@ public class ComposeTrendActivity extends BaseActivity {
                 map.put("dynamicInfo",binding.edtContent.getText().toString());
                 map.put("dynamicType","1");
                 map.put("publishLocation","南京");
+                sortImageBeans();
                 map.put("userFiles",imageBeans);
 
                 Subscription subscription = HttpClient.Builder.getRealServer().publishDynamic(com.social.happychat.util.RequestBody.as(map))
@@ -201,6 +205,7 @@ public class ComposeTrendActivity extends BaseActivity {
                             public void onNext(BaseBean baseBean) {
                                 if(baseBean.isValid()){
                                     ToastUtil.show(activity,"发布成功");
+                                    EventBus.getDefault().post(new RefreshTrendListEvent());
                                     finish();
                                 }else{
                                     ToastUtil.show(activity, baseBean.getMsg());
@@ -235,7 +240,6 @@ public class ComposeTrendActivity extends BaseActivity {
             withLs(mSelected);
 //            adapter.getItems().addAll(mSelected);
 //            adapter.notifyDataSetChanged();
-            binding.compose.setEnabled(changeComposeButtonState());
         }
     }
 
@@ -287,6 +291,7 @@ public class ComposeTrendActivity extends BaseActivity {
 //                        }
                         adapter.getItems().add(file.getAbsolutePath());
                         adapter.notifyDataSetChanged();
+                        binding.compose.setEnabled(changeComposeButtonState());
                         uploadOnePic(file);
 //                        mImageList.add(file.getAbsolutePath());
 //                        Log.i(TAG, file.getAbsolutePath() + ",all size->"+mImageList.size());
@@ -308,14 +313,21 @@ public class ComposeTrendActivity extends BaseActivity {
                 .subscribe(new Observer<ImageBean>() {
                     @Override
                     public void onCompleted() {
+//                        Log.e(TAG, "uploadOnePic onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable e) {
+//                        Log.e(TAG, "uploadOnePic onError");
+                        countReadyToUpload --;
+                        if(countReadyToUpload == 0){
+                            uploadDialog.dismiss();
+                        }
                     }
 
                     @Override
                     public void onNext(ImageBean imageBean) {
+//                        Log.e(TAG, "uploadOnePic onNext");
                         countReadyToUpload --;
                         if(countReadyToUpload == 0){
                             uploadDialog.dismiss();
@@ -368,6 +380,28 @@ public class ComposeTrendActivity extends BaseActivity {
         return path;
     }
 
+    /**
+     * 上传前对imagebeans进行排序，因为图片大小、网速影响，ImageBeans顺序不一定是列表展现顺序
+     */
+    private void sortImageBeans(){
+        if(imageBeans != null && adapter.getItems().size() > 0){
+            List<ImageBean> sortBeans = new ArrayList<>();//准备上传的一压缩过的图片
+            for(String path : adapter.getItems()){
+                for(Iterator<ImageBean> it = imageBeans.iterator(); it.hasNext();){
+                    ImageBean imageBean = it.next();
+                    if(TextUtils.equals(imageBean.getLocalCompressFileName(), path)){
+                        sortBeans.add(imageBean);
+                        it.remove();
+                    }
+                }
+            }
+            imageBeans.clear();
+            Log.e("TAG","sortImageBeans size->"+imageBeans.size());
+            imageBeans.addAll(sortBeans);
+        }
+
+    }
+
     private void initProgressBar(){
         uploadDialog = new ProgressDialog(activity);
         //设置提示信息
@@ -382,5 +416,12 @@ public class ComposeTrendActivity extends BaseActivity {
     @Override
     public void onBackPressedSupport() {
         binding.vpClose.performClick();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        imageBeans.clear();
+        imageBeans = null;
     }
 }

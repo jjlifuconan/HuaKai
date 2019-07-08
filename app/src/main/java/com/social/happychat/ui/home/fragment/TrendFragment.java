@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -13,12 +14,17 @@ import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.activity.TrendDetailActivity;
 import com.social.happychat.ui.home.adapter.TrendAdapter;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.interfaces.TrendNavigator;
 import com.social.happychat.ui.home.present.TrendPresent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -40,6 +46,18 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         TrendFragment fragment = new TrendFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -124,4 +142,10 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     public int setContent() {
         return R.layout.fragment_refresh_list;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RefreshTrendListEvent event) {
+        binding.refreshLayout.autoRefresh();
+    }
+
 }
