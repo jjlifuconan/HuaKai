@@ -10,10 +10,15 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.adapter.CommentAdapter;
 import com.social.happychat.ui.home.bean.CommentListBean;
 import com.social.happychat.ui.home.interfaces.CommentNavigator;
 import com.social.happychat.ui.home.present.CommentPresent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -36,6 +41,19 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
@@ -103,5 +121,10 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
     @Override
     public int setContent() {
         return R.layout.fragment_refresh_list;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RefreshTrendListEvent event) {
+        binding.refreshLayout.autoRefresh();
     }
 }

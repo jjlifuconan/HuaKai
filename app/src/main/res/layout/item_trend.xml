@@ -41,6 +41,30 @@
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="@dimen/dp18"
+            android:layout_height="@dimen/dp18"
+            android:layout_marginLeft="@dimen/dp5"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            android:src="@{bean.user.userAge==2?@drawable/ic_mine_female:@drawable/ic_mine_male}" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp5"
+            android:text="@{bean.user.userAge+`岁`}"
+            android:textColor="@{bean.user.userAge==2?@color/age_girl_tv:@color/age_boy_tv}"
+            android:textSize="@dimen/sp13"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+
+
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
