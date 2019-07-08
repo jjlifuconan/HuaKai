@@ -55,16 +55,15 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
     @Override
     protected void onBindItem(ItemTrendBinding binding, TrendListBean.ListBean item) {
         binding.setBean(item);
-        binding.praise.setOnClickListener(new View.OnClickListener() {
+        binding.vpPraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.ivPraise.startAnimation(AnimationUtils.loadAnimation(
-                        context, R.anim.dianzan_anim));
-
                 if(item.getIsPraise() == 1){
                     item.setIsPraise(0);
                     item.setPraiseCount(item.getPraiseCount()-1);
                 }else{
+                    binding.ivPraise.startAnimation(AnimationUtils.loadAnimation(
+                            context, R.anim.dianzan_anim));
                     item.setIsPraise(1);
                     item.setPraiseCount(item.getPraiseCount()+1);
                 }
