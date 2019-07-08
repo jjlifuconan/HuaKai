@@ -64,9 +64,9 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
 
         trendAdapter = new TrendAdapter(activity);
-        trendAdapter.setOnItemClickListener(new OnItemClickListener<TrendListBean>() {
+        trendAdapter.setOnItemClickListener(new OnItemClickListener<TrendListBean.ListBean>() {
             @Override
-            public void onClick(TrendListBean item) {
+            public void onClick(TrendListBean.ListBean item) {
                 TrendDetailActivity.action(activity, item);
             }
         });
@@ -84,7 +84,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     }
 
     @Override
-    public void showAdapterView(List<TrendListBean> trendListBeans) {
+    public void showAdapterView(List<TrendListBean.ListBean> listBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {
@@ -93,7 +93,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         }else{
             binding.refreshLayout.finishLoadMore();
         }
-        trendAdapter.getItems().addAll(trendListBeans);
+        trendAdapter.getItems().addAll(listBeans);
 
     }
 

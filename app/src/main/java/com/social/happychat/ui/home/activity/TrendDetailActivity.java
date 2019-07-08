@@ -47,7 +47,7 @@ import java.util.Map;
 
 public class TrendDetailActivity extends BaseActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
-    TrendListBean bean;
+    TrendListBean.ListBean bean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         ImmersionBar.with(this).init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
 
-        bean = (TrendListBean) getIntent().getSerializableExtra("bean");
+        bean = (TrendListBean.ListBean) getIntent().getSerializableExtra("bean");
         binding.setBean(bean);
         initView();
         setListener();
@@ -131,7 +131,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
 
 
 
-        List<TrendListBean.UserFilesBean> imagesBeans = bean.getUserFiles();
+        List<TrendListBean.ListBean.UserFilesBean> imagesBeans = bean.getUserFiles();
         ArrayList strList = new ArrayList();
         if(imagesBeans!=null && !imagesBeans.isEmpty()){
             for(int i=0;i<imagesBeans.size();i++){
@@ -254,7 +254,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
     }
 
-    public static void action(Context context, TrendListBean bean){
+    public static void action(Context context, TrendListBean.ListBean bean){
         Intent intent = new Intent(context, TrendDetailActivity.class);
         intent.putExtra("bean",bean);
         context.startActivity(intent);

@@ -42,6 +42,7 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -115,10 +116,11 @@ public class ComposeTrendActivity extends BaseActivity {
             public void deleteImage(String path) {
                 //删除已经上传好的图片
                 if(imageBeans != null && !imageBeans.isEmpty()){
-                    //TODO iterator删除
-                    for(ImageBean imageBean : imageBeans){
+
+                    for(Iterator<ImageBean> it = imageBeans.iterator(); it.hasNext();){
+                        ImageBean imageBean = it.next();
                         if(TextUtils.equals(imageBean.getLocalCompressFileName(), path)){
-                            imageBeans.remove(imageBean);
+                            it.remove();
                         }
                     }
                 }
@@ -369,7 +371,7 @@ public class ComposeTrendActivity extends BaseActivity {
     private void initProgressBar(){
         uploadDialog = new ProgressDialog(activity);
         //设置提示信息
-        uploadDialog.setMessage("正在上传...");
+        uploadDialog.setMessage("正在上传图片...");
         //设置ProgressDialog 是否可以按返回键取消；
         uploadDialog.setCancelable(false);
         uploadDialog.setCanceledOnTouchOutside(false);// 设置在点击Dialog外是否取消Dialog进度条

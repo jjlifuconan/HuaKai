@@ -34,7 +34,7 @@ import java.util.List;
  * @date 2019/6/27 0027
  * @description:
  */
-public class TrendAdapter extends BaseBindingAdapter<TrendListBean, ItemTrendBinding> {
+public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, ItemTrendBinding> {
 
     public TrendAdapter(Context context) {
         super(context);
@@ -52,7 +52,7 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean, ItemTrendBin
     }
 
     @Override
-    protected void onBindItem(ItemTrendBinding binding, TrendListBean item) {
+    protected void onBindItem(ItemTrendBinding binding, TrendListBean.ListBean item) {
         binding.setBean(item);
         binding.praise.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +68,7 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean, ItemTrendBin
                 GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
             }
         });
-        List<TrendListBean.UserFilesBean> imagesBeans = item.getUserFiles();
+        List<TrendListBean.ListBean.UserFilesBean> imagesBeans = item.getUserFiles();
         ArrayList strList = new ArrayList();
         if(imagesBeans!=null && !imagesBeans.isEmpty()){
             for(int i=0;i<imagesBeans.size();i++){

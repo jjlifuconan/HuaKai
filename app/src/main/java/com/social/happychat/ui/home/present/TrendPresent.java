@@ -35,17 +35,22 @@ public class TrendPresent {
 
                 TrendListBean trendListBean = (TrendListBean) object;
                 if (mPage == 1) {
-                    if (!trendListBean.isValid() ||  trendListBean == null || trendListBean.getData() == null || trendListBean.getData().size() <= 0) {
+                    if (trendListBean == null || !trendListBean.isValid() ||  trendListBean.getData() == null
+                            || trendListBean.getData().getList() == null || trendListBean.getData().getList().size() <= 0) {
                         navigator.showLoadFailedView();
                         return;
                     }
                 } else {
-                    if (!trendListBean.isValid() || trendListBean == null || trendListBean.getData() == null || trendListBean.getData().size() <= 0) {
+                    if (trendListBean == null || !trendListBean.isValid() ||  trendListBean.getData() == null
+                            || trendListBean.getData().getList() == null || trendListBean.getData().getList().size() <= 0) {
                         navigator.showListNoMoreLoading();
                         return;
                     }
                 }
-                navigator.showAdapterView(trendListBean.getData());
+                if(trendListBean != null && !trendListBean.isHasNextPage()){
+                    navigator.showListNoMoreLoading();
+                }
+                navigator.showAdapterView(trendListBean.getData().getList());
             }
 
             @Override

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.TrendListBean"/>
+            type="com.social.happychat.ui.home.bean.TrendListBean.ListBean"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

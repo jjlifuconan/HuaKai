@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/white">
 
         <FrameLayout
@@ -45,28 +46,43 @@
 
         </FrameLayout>
 
-        <EditText
-            android:id="@+id/edt_content"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp14"
-            android:minLines="3"
-            android:gravity="left|top"
-            app:layout_constraintTop_toBottomOf="@+id/titlebar"
-            android:maxLength="200"
-            android:textSize="@dimen/sp16"
-            android:hint="@string/compose_hint"
-            android:background="@null"/>
+            android:layout_height="match_parent"
+            >
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            app:layout_constraintTop_toBottomOf="@+id/edt_content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/dp14"
-            android:layout_marginVertical="@dimen/dp28"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/edt_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp14"
+                    android:minLines="3"
+                    android:gravity="left|top"
+                    android:maxLength="200"
+                    android:textSize="@dimen/sp16"
+                    android:hint="@string/compose_hint"
+                    android:background="@null"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginHorizontal="@dimen/dp14"
+                    android:layout_marginVertical="@dimen/dp28"/>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
 
 
-    </android.support.constraint.ConstraintLayout>
+
+
+    </LinearLayout>
 </layout>

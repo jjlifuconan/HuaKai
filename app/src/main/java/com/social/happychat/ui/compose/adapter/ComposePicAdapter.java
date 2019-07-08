@@ -55,7 +55,7 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
             @Override
             public void onClick(View view) {
                 if(listener != null){
-                    listener.deleteImage(new File(item).getName());
+                    listener.deleteImage(new File(item).getAbsolutePath());
                 }
                 getItems().remove(getItems().indexOf(item));
             }

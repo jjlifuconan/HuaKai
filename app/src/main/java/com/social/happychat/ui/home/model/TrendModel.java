@@ -32,6 +32,7 @@ public class TrendModel {
         Map map = new HashMap();
         map.put("publishLocation","南京");
         map.put("pageNumber ",page);
+        map.put("pages ",per_page);
         Subscription subscription = HttpClient.Builder.getRealServer().dynamicList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<TrendListBean>() {
@@ -47,7 +48,7 @@ public class TrendModel {
 
                     @Override
                     public void onNext(TrendListBean trendListBean) {
-//                        listener.loadSuccess(gankIoDataBean);
+                        listener.loadSuccess(trendListBean);
 
                     }
                 });

@@ -24,7 +24,7 @@ public interface TrendNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<TrendListBean> trendListBeans);
+    void showAdapterView(List<TrendListBean.ListBean> listBeans);
 
     /**
      * 显示列表没有更多数据布局
