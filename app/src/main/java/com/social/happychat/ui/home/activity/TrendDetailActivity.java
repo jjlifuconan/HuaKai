@@ -21,9 +21,15 @@ import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.util.SPUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
+import com.social.happychat.bean.BaseBean;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
+import com.social.happychat.event.RefreshCommentNumEvent;
+import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.fragment.CommentDialogFragment;
@@ -31,6 +37,9 @@ import com.social.happychat.ui.home.fragment.CommentListFragment;
 import com.social.happychat.ui.home.fragment.GiftRecordListFragment;
 import com.social.happychat.ui.home.fragment.PraiseListFragment;
 import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
+import com.social.happychat.ui.login.bean.UserBean;
+import com.social.happychat.ui.main.MainActivity;
+import com.social.happychat.util.RequestBody;
 import com.social.happychat.widget.ScaleTransitionPagerTitleView;
 import com.social.happychat.widget.TouchImageView;
 
@@ -41,13 +50,22 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class TrendDetailActivity extends BaseActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
     TrendListBean.ListBean bean;
+    private String commentText = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,11 +173,11 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ScaleTransitionPagerTitleView colorTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context);
                 if(index == 0){
-                    colorTransitionPagerTitleView.setText(titles[index]+"12");
+                    colorTransitionPagerTitleView.setText(titles[index]+(bean.getCommentCount()>0?bean.getCommentCount():""));
                 }else if(index == 1){
-                    colorTransitionPagerTitleView.setText(titles[index]+"14");
+                    colorTransitionPagerTitleView.setText(titles[index]+(bean.getPraiseCount()>0?bean.getPraiseCount():""));
                 }else if(index == 2){
-                    colorTransitionPagerTitleView.setText(titles[index]+"27");
+                    colorTransitionPagerTitleView.setText(titles[index]+(bean.getGiftCount()>0?bean.getGiftCount():""));
                 }
                 colorTransitionPagerTitleView.setTextSize(18f);
                 colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
@@ -262,12 +280,12 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
 
     @Override
     public String getCommentText() {
-        return "";
+        return commentText;
     }
 
     @Override
     public void setCommentText(String commentTextTemp) {
-
+        commentText = commentTextTemp;
     }
 
     @Override
@@ -292,6 +310,39 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
 
     @Override
     public void submitCommentToPost(String commentTextTemp) {
+        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+        Map map = new HashMap();
+        map.put("dynamicId",bean.getId());
+        map.put("content",commentTextTemp.trim());
+        map.put("headPhotoUrl",userBean.getHeadPhotoUrl());
+        map.put("userName",userBean.getNickName());
+        map.put("userId",userBean.getId());
+        Subscription subscription = HttpClient.Builder.getRealServer().doComment(RequestBody.as(map))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        if(baseBean.isValid()){
+                            //刷新评论列表、详情评论数、列表评论数
+                            bean.setCommentCount(bean.getCommentCount()+1);
+                            EventBus.getDefault().post(new RefreshCommentNumEvent(bean.getCommentCount()));
+                        }else{
+                            ToastUtil.show(activity, userBean.getMsg());
+                        }
+
+
+                    }
+                });
+        addSubscription(subscription);
+
 
     }
 

@@ -29,8 +29,17 @@ public class UserBean extends BaseBean<UserBean> {
     private String userBirthday;
     private String userMobile;
     private String userSign;
+    private int userSex;
     private List<?> userFileDtos;
     private List<?> userTagDtos;
+
+    public int getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(int userSex) {
+        this.userSex = userSex;
+    }
 
     public String getHeadPhotoUrl() {
         return headPhotoUrl;

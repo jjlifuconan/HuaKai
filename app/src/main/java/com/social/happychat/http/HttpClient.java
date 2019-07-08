@@ -132,7 +132,13 @@ public interface HttpClient {
     /**
      * 点赞
      */
-    @GET("dynamic/private/doPraise.htm")
-    Observable<BaseBean> doPraise(@Query("businessId") int businessId, @Query("operateType") int operateType, @Query("type") int type);
+    @POST("dynamic/private/doPraise.htm")
+    Observable<BaseBean> doPraise(@Body JSONObject parmas);
+
+    /**
+     * 评论动态
+     */
+    @POST("dynamic/private/doComment.do")
+    Observable<BaseBean> doComment(@Body JSONObject parmas);
 
 }

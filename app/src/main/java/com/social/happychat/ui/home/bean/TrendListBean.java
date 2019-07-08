@@ -128,12 +128,14 @@ public class TrendListBean extends BaseBean<TrendListBean> {
         private List<?> commentList;
         private List<UserFilesBean> userFiles;
 
+        @Bindable
         public int getCommentCount() {
             return commentCount;
         }
 
         public void setCommentCount(int commentCount) {
             this.commentCount = commentCount;
+            notifyPropertyChanged(BR.commentCount);
         }
 
         public String getDynamicInfo() {

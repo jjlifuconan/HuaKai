@@ -9,6 +9,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -19,9 +20,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.DensityUtil;
+import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentHomeBinding;
 import com.social.happychat.ui.compose.activity.ComposeTrendActivity;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.widget.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -64,6 +68,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
         super.onLazyInitView(savedInstanceState);
         ImmersionBar.setTitleBar(this, binding.titlebar);
         showContentView();
@@ -81,13 +86,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
             @Override
             public int getCount() {
-                return titles.length;
+                return 2;
             }
 
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ScaleTransitionPagerTitleView colorTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setText(titles[index]);
+                int indexbySex = userBean.getUserSex() == 1?1:2;
+                colorTransitionPagerTitleView.setText(titles[indexbySex]);
                 colorTransitionPagerTitleView.setTextSize(20.0f);
                 colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
                 colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.main_text_grey));
@@ -125,11 +131,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             public Fragment getItem(int position) {
                 if(position == 0){
                     return TrendFragment.newInstance();
-                }else if(position == 1){
-                    return MaleAskingForChatFragment.newInstance();
                 }else{
-                    return FemaleGrabChatFragment.newInstance();
+                    if(userBean.getUserSex() == 1){
+                        return MaleAskingForChatFragment.newInstance();
+                    }else{
+                        return FemaleGrabChatFragment.newInstance();
+                    }
                 }
+
             }
 
             @Override

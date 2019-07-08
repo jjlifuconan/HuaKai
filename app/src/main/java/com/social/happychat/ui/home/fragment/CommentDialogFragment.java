@@ -84,7 +84,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!TextUtils.isEmpty(s.toString())){
+                if(!TextUtils.isEmpty(s.toString().trim())){
                     btn_send.setEnabled(true);
                     btn_send.setImageResource(R.mipmap.video_evaluate_button_on);
                 }else{

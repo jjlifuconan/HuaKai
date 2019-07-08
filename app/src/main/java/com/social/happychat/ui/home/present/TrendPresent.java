@@ -52,7 +52,6 @@ public class TrendPresent {
                 if(trendListBean != null && !trendListBean.isHasNextPage()){
                     navigator.showListNoMoreLoading();
                 }
-                Collections.reverse(trendListBean.getData().getList());
                 navigator.showAdapterView(trendListBean.getData().getList());
             }
 

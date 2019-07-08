@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.event.BaseEvent;
+import com.social.basecommon.util.SPUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
