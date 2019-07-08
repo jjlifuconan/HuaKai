@@ -26,6 +26,7 @@
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_behavior="com.social.basecommon.behavior.FixAppBarLayoutBehavior"
                 android:background="@color/page_bg">
 
                 <android.support.constraint.ConstraintLayout

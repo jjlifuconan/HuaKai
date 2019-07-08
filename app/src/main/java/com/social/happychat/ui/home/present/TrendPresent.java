@@ -7,6 +7,8 @@ import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.interfaces.TrendNavigator;
 import com.social.happychat.ui.home.model.TrendModel;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import rx.Subscription;
@@ -50,6 +52,7 @@ public class TrendPresent {
                 if(trendListBean != null && !trendListBean.isHasNextPage()){
                     navigator.showListNoMoreLoading();
                 }
+                Collections.reverse(trendListBean.getData().getList());
                 navigator.showAdapterView(trendListBean.getData().getList());
             }
 
