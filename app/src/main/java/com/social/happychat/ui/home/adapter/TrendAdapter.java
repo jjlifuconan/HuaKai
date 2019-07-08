@@ -60,11 +60,17 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
             public void onClick(View view) {
                 if(item.getIsPraise() == 1){
                     item.setIsPraise(0);
+                    if(listener != null){
+                        listener.onPraise(item.getId(), 0);
+                    }
                     item.setPraiseCount(item.getPraiseCount()-1);
                 }else{
                     binding.ivPraise.startAnimation(AnimationUtils.loadAnimation(
                             context, R.anim.dianzan_anim));
                     item.setIsPraise(1);
+                    if(listener != null){
+                        listener.onPraise(item.getId(), 1);
+                    }
                     item.setPraiseCount(item.getPraiseCount()+1);
                 }
             }
@@ -135,4 +141,15 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
             });
         }
     }
+
+    public interface OnPraiseClickListener{
+        public void onPraise(int id, int type);
+    }
+
+    public void setOnPraiseClickListener(OnPraiseClickListener listener) {
+        this.listener = listener;
+    }
+
+    private OnPraiseClickListener listener;
+
 }

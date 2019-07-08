@@ -1,5 +1,6 @@
 package com.social.happychat.ui.home.model;
 
+import com.social.happychat.bean.BaseBean;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.NeteaseList;
@@ -49,6 +50,33 @@ public class TrendModel {
                     @Override
                     public void onNext(TrendListBean trendListBean) {
                         listener.loadSuccess(trendListBean);
+
+                    }
+                });
+        listener.addSubscription(subscription);
+    }
+
+    public void praise(int businessId, int operateType, int type, final RequestImpl listener) {
+        Map map = new HashMap();
+        map.put("businessId",businessId);
+        map.put("operateType ",operateType);
+        map.put("type ",type);
+        Subscription subscription = HttpClient.Builder.getRealServer().doPraise(businessId, operateType, type)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.loadFailed();
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        listener.loadSuccess(baseBean);
 
                     }
                 });

@@ -71,6 +71,25 @@ public class TrendPresent {
         });
     }
 
+    public void praiseAction(int businessId, int operateType, int type) {
+        mModel.praise(businessId, operateType, type, new RequestImpl() {
+            @Override
+            public void loadSuccess(Object object) {
+//                nahowAdapterView(trendListBean.getData().getList());
+            }
+
+            @Override
+            public void loadFailed() {
+
+            }
+
+            @Override
+            public void addSubscription(Subscription subscription) {
+                navigator.addRxSubscription(subscription);
+            }
+        });
+    }
+
 
     public int getPage() {
         return mPage;

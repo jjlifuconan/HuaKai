@@ -88,6 +88,12 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
                 TrendDetailActivity.action(activity, item);
             }
         });
+        trendAdapter.setOnPraiseClickListener(new TrendAdapter.OnPraiseClickListener() {
+            @Override
+            public void onPraise(int id,int type) {
+                present.praiseAction(id,type,1);
+            }
+        });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         DividerItemDecoration divider = new DividerItemDecoration(activity, DividerItemDecoration.VERTICAL);
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent));

@@ -129,4 +129,10 @@ public interface HttpClient {
     @POST("dynamic/private/dynamicList.do")
     Observable<TrendListBean> dynamicList(@Body JSONObject parmas);
 
+    /**
+     * 点赞
+     */
+    @GET("dynamic/private/doPraise.htm")
+    Observable<BaseBean> doPraise(@Query("businessId") int businessId, @Query("operateType") int operateType, @Query("type") int type);
+
 }
