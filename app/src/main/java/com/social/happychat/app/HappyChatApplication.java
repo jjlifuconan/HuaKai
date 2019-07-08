@@ -11,6 +11,7 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import com.social.basecommon.util.DebugUtil;
 import com.social.happychat.im.DemoCache;
 import com.social.happychat.im.NimSDKOptionConfig;
+import com.social.happychat.util.LocationService;
 
 
 /**
@@ -20,6 +21,8 @@ import com.social.happychat.im.NimSDKOptionConfig;
  */
 public class HappyChatApplication extends MultiDexApplication {
     private static HappyChatApplication application;
+    public LocationService locationService;
+
 
     public static HappyChatApplication getInstance(){
         return application;
@@ -41,6 +44,8 @@ public class HappyChatApplication extends MultiDexApplication {
             // 在主进程中初始化UI组件，判断所属进程方法请参见demo源码。
             initUiKit();
         }
+        // 初始化百度地图SDK
+        initBaiduLocation();
     }
 
     private LoginInfo getLoginInfo() {
@@ -61,7 +66,13 @@ public class HappyChatApplication extends MultiDexApplication {
 
     }
 
-
+    /***
+     * 初始化定位sdk，建议在Application中创建
+     */
+    private void initBaiduLocation() {
+        locationService = new LocationService(getApplicationContext());
+        locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+    }
 
 
 

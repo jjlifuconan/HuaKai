@@ -1,1 +1,1 @@
-include ':app', ':basecommon', ':http', ':uikit'
+include ':app', ':basecommon', ':http', ':uikit', ':bdlocation'

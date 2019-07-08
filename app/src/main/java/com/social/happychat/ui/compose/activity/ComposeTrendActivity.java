@@ -21,12 +21,17 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
 import com.gyf.immersionbar.ImmersionBar;
+import com.noober.background.view.Const;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.app.HappyChatApplication;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
 import com.social.happychat.event.RefreshTrendListEvent;
@@ -424,4 +429,40 @@ public class ComposeTrendActivity extends BaseActivity {
         imageBeans.clear();
         imageBeans = null;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        HappyChatApplication.getInstance().locationService.registerListener(mListener);
+        HappyChatApplication.getInstance().locationService.start();// 定位SDK
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        HappyChatApplication.getInstance().locationService.unregisterListener(mListener); //注销掉监听
+        HappyChatApplication.getInstance().locationService.stop(); //停止定位服务
+    }
+
+    /*****
+     *
+     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+     *
+     */
+    private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+        @Override
+        public void onLocDiagnosticMessage(int i, int i1, String s) {
+            Log.e(TAG,"onLocDiagnosticMessage s->"+s);
+            super.onLocDiagnosticMessage(i, i1, s);
+        }
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                String cityName = location.getCity();
+                Log.e(TAG,"cityName->"+cityName);
+            }
+        }
+
+    };
 }

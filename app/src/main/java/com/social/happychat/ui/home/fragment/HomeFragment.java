@@ -164,7 +164,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
 
 
-    @NeedsPermission({Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION ,Manifest.permission.ACCESS_FINE_LOCATION ,Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void toComposeActivity() {
         ComposeTrendActivity.action(activity);
     }
@@ -177,17 +177,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
         HomeFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
-    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnShowRationale({Manifest.permission.ACCESS_COARSE_LOCATION ,Manifest.permission.ACCESS_FINE_LOCATION ,Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void showRationaleForCamera(PermissionRequest request) {
         showRationaleDialog(R.string.permission_camera_rationale, request);
     }
 
-    @OnPermissionDenied({Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnPermissionDenied({Manifest.permission.ACCESS_COARSE_LOCATION ,Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void onCameraDenied() {
         Toast.makeText(activity, R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
     }
 
-    @OnNeverAskAgain({Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    @OnNeverAskAgain({Manifest.permission.ACCESS_COARSE_LOCATION ,Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void onCameraNeverAskAgain() {
 //        Toast.makeText(activity, R.string.permission_camera_never_askagain, Toast.LENGTH_SHORT).show()
     }
