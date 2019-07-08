@@ -3,6 +3,7 @@ package com.social.happychat.ui.home.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,14 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
             public void onClick(View view) {
                 binding.ivPraise.startAnimation(AnimationUtils.loadAnimation(
                         context, R.anim.dianzan_anim));
+
+                if(item.getIsPraise() == 1){
+                    item.setIsPraise(0);
+                    item.setPraiseCount(item.getPraiseCount()-1);
+                }else{
+                    item.setIsPraise(1);
+                    item.setPraiseCount(item.getPraiseCount()+1);
+                }
             }
         });
 

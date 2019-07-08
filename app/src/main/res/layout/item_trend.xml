@@ -125,12 +125,13 @@
                     android:id="@+id/iv_praise"
                     android:layout_width="@dimen/dp18"
                     android:layout_height="@dimen/dp18"
-                    android:src="@mipmap/am4" />
+                    android:src="@{bean.isPraise==1?@drawable/praise_check:@drawable/praise_normal}" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp5"
+                    android:textColor="@{bean.isPraise==1?@color/colorPrimary:@color/default_text_black}"
                     android:text="@{bean.praiseCount+``}"/>
 
             </LinearLayout>
