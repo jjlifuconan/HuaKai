@@ -3,6 +3,7 @@ package com.social.basecommon.util;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -155,19 +156,7 @@ public class ImageLoadUtil {
     public static void displayCircle(ImageView imageView, String imageUrl) {
         GlideApp.with(imageView.getContext())
                 .load(imageUrl)
-                .transition(withCrossFade(500))
                 .error(R.drawable.ic_avatar_default)
-//                .listener(new RequestListener<Drawable>() {
-//                    @Override
-//                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-//                        return false;
-//                    }
-//                })
                 .transform(new GlideCircleTransform(imageView.getContext()))
                 .into(imageView);
     }

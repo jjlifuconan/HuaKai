@@ -9,6 +9,7 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.social.basecommon.fragment.BaseFragment;
+import com.social.basecommon.util.GlideApp;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
@@ -55,9 +56,9 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         super.onLazyInitView(savedInstanceState);
 //        ImmersionBar.setTitleBar(this, binding.headerLayout);
         showContentView();
+
         WechatUserBean wechatUserBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_WECHAT_USER_INFO, WechatUserBean.class);
         if(wechatUserBean != null){
-//            GlideApp.with(activity).load(R.mipmap.file_paths_public).into(binding.ivHead);
             ImageLoadUtil.displayCircle(binding.ivHead, wechatUserBean.getHeadimgurl());
             binding.tvNickname.setText(wechatUserBean.getNickname());
         }

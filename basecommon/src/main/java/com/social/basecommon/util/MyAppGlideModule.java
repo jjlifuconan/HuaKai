@@ -26,17 +26,12 @@ public class MyAppGlideModule extends AppGlideModule {
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
         super.registerComponents(context, glide, registry);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .build();
-        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(client);
-//        glide.registry.replace(GlideUrl::class.java, InputStream::class.java, factory)
-//        val factory = new OkHttpUrlLoader.Factory(client);
-//        val factory = new HttpUriLoader.Factory();
-//        registry.replace(GlideUrl.class, InputStream.class, factory);
-//
-        glide.getRegistry().replace(GlideUrl.class, InputStream.class, factory);
+//        OkHttpClient client = new OkHttpClient.Builder()
+//                .readTimeout(30, TimeUnit.SECONDS)
+//                .connectTimeout(30, TimeUnit.SECONDS)
+//                .build();
+//        OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(client);
+//        glide.getRegistry().replace(GlideUrl.class, InputStream.class, factory);
 
 
     }

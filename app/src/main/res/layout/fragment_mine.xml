@@ -24,15 +24,6 @@
                     android:paddingVertical="@dimen/dp68"
                     android:paddingHorizontal="@dimen/dp23">
 
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="@dimen/dp60"
-                        android:layout_height="@dimen/dp60"
-                        android:src="@drawable/ic_girl"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView17"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_nickname" />
-
                     <com.social.basecommon.widget.CircleImageView
                         android:id="@+id/iv_head"
                         android:layout_width="@dimen/dp60"
@@ -53,7 +44,7 @@
                         android:textSize="@dimen/sp16"
                         android:textStyle="bold"
                         android:text="这是昵称"
-                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintStart_toEndOf="@+id/iv_head"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
