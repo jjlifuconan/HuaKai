@@ -35,6 +35,8 @@
     <string name="signature">个人签名：%1$s</string>
 
     <string name="compose_hint">这一刻，想和大家分享点什么？</string>
+    <string name="compose_warning">尊敬的用户，您发布的内容须遵守相关法律法规，请严重遵守相关规定，以免违规。</string>
+
 
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
     <string name="permission_camera_rationale">发布功能需要开启相关权限</string>

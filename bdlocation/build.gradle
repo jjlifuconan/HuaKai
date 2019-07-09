@@ -22,7 +22,17 @@ android {
         }
     }
 
+    sourceSets{
+        main{
+            jniLibs.srcDir 'libs'
+            jni.srcDirs = []    //disable automatic ndk-build
+        }
+    }
+
 }
+
+
+
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
