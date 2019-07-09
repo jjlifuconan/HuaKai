@@ -18,14 +18,16 @@ public class CommentPresent {
     private CommentNavigator navigator;
     private CommentViewModel mModel;
     private int mPage = 1;
+    private int dynamicId;
 
-    public CommentPresent(CommentNavigator navigator) {
+    public CommentPresent(CommentNavigator navigator, int dynamicId) {
         this.navigator = navigator;
+        this.dynamicId = dynamicId;
         mModel = new CommentViewModel();
     }
 
     public void loadCommentData() {
-        mModel.setData( mPage, HttpUtils.per_page_more);
+        mModel.setData( mPage, HttpUtils.per_page_more, dynamicId);
         mModel.getCommentData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {

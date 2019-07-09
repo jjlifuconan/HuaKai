@@ -214,9 +214,9 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
             @Override
             public Fragment getItem(int position) {
                 if(position == 0){
-                    return CommentListFragment.newInstance();
+                    return CommentListFragment.newInstance(bean.getId());
                 }else if(position == 1){
-                    return PraiseListFragment.newInstance();
+                    return PraiseListFragment.newInstance(bean.getId());
                 }else{
                     return GiftRecordListFragment.newInstance();
                 }

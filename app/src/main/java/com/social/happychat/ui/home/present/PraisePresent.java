@@ -18,14 +18,16 @@ public class PraisePresent {
     private PraiseNavigator navigator;
     private PraiseViewModel mModel;
     private int mPage = 1;
+    private int dynamicId;
 
-    public PraisePresent(PraiseNavigator navigator) {
+    public PraisePresent(PraiseNavigator navigator, int dynamicId) {
         this.navigator = navigator;
+        this.dynamicId = dynamicId;
         mModel = new PraiseViewModel();
     }
 
     public void loadPraiseData() {
-        mModel.setData( mPage, HttpUtils.per_page_more);
+        mModel.setData( mPage, HttpUtils.per_page_more, dynamicId);
         mModel.getPraiseData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {

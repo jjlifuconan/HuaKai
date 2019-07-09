@@ -130,6 +130,18 @@ public interface HttpClient {
     Observable<TrendListBean> dynamicList(@Body JSONObject parmas);
 
     /**
+     * 评论列表
+     */
+    @POST("dynamic/private/dynamicCommentList.do")
+    Observable<BaseBean> dynamicCommentList(@Body JSONObject parmas);
+
+    /**
+     * 点赞列表
+     */
+    @POST("dynamic/private/praiseList.htm")
+    Observable<BaseBean> praiseList(@Body JSONObject parmas);
+
+    /**
      * 点赞
      */
     @POST("dynamic/private/doPraise.htm")

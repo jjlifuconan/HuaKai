@@ -32,10 +32,12 @@ import rx.Subscription;
 public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding> implements CommentNavigator {
     private CommentAdapter CommentAdapter;
     private CommentPresent present;
+    private int dynamicId;
 
-    public static CommentListFragment newInstance() {
+    public static CommentListFragment newInstance(int dynamicId) {
 
         Bundle args = new Bundle();
+        args.putInt("dynamicId", dynamicId);
 
         CommentListFragment fragment = new CommentListFragment();
         fragment.setArguments(args);
@@ -58,7 +60,8 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        present = new CommentPresent(this);
+        dynamicId = getArguments().getInt("dynamicId");
+        present = new CommentPresent(this, dynamicId);
         binding.refreshLayout.setEnableRefresh(false);
         binding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override

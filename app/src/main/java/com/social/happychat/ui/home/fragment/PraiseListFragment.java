@@ -27,11 +27,12 @@ import rx.Subscription;
 public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding> implements PraiseNavigator {
     private PraiseAdapter PraiseAdapter;
     private PraisePresent present;
+    private int dynamicId;
 
-    public static PraiseListFragment newInstance() {
+    public static PraiseListFragment newInstance(int dynamicId) {
 
         Bundle args = new Bundle();
-
+        args.putInt("dynamicId", dynamicId);
         PraiseListFragment fragment = new PraiseListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -40,7 +41,8 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        present = new PraisePresent(this);
+        dynamicId = getArguments().getInt("dynamicId");
+        present = new PraisePresent(this, dynamicId);
         binding.refreshLayout.setEnableRefresh(false);
         binding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
