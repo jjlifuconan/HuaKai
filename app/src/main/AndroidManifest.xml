@@ -160,6 +160,7 @@
 
         <activity
             android:name=".ui.compose.activity.ComposeTrendActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:screenOrientation="portrait" />
 
         <provider

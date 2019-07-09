@@ -81,6 +81,26 @@
 
         </android.support.v4.widget.NestedScrollView>
 
+        <com.social.basecommon.widget.TextImageView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp13"
+            android:layout_marginLeft="@dimen/dp14"
+            android:layout_marginTop="@dimen/dp14"
+            android:paddingHorizontal="@dimen/dp8"
+            android:paddingVertical="@dimen/dp5"
+            android:drawablePadding="@dimen/dp5"
+            app:drawableLeftWidth="@dimen/dp15"
+            app:drawableLeftHeight="@dimen/dp15"
+            app:bl_corners_radius="@dimen/dp15"
+            app:bl_solid_color="@color/color_f3f3f3"
+            app:bl_stroke_color="@color/color_e6e6e6"
+            app:bl_stroke_width="@dimen/line"
+            android:gravity="center_vertical"
+            android:drawableLeft="@mipmap/ic_location"
+            android:textColor="@color/colorPrimary"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

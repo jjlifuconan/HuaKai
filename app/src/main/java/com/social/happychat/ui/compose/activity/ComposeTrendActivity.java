@@ -93,6 +93,7 @@ public class ComposeTrendActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_compose_trend);
         ImmersionBar.with(activity)
                 .statusBarDarkFont(true, 0.2f)
+                .keyboardEnable(true)
                 .init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
         initView();
@@ -144,6 +145,18 @@ public class ComposeTrendActivity extends BaseActivity {
     }
 
     private void setListener() {
+        binding.tvLocation.setOnClickListener(new PerfectClickListener() {
+            @Override
+            public void onNoDoubleClick(View view) {
+                if(TextUtils.equals("重新定位", binding.tvLocation.getText().toString())){
+                    HappyChatApplication.getInstance().locationService.unregisterListener(mListener); //注销掉监听
+                    HappyChatApplication.getInstance().locationService.stop(); //停止定位服务
+
+                    HappyChatApplication.getInstance().locationService.registerListener(mListener);
+                    HappyChatApplication.getInstance().locationService.start();// 定位SDK
+                }
+            }
+        });
         binding.edtContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -191,7 +204,11 @@ public class ComposeTrendActivity extends BaseActivity {
                 Map map = new HashMap();
                 map.put("dynamicInfo",binding.edtContent.getText().toString());
                 map.put("dynamicType","1");
-                map.put("publishLocation","南京");
+                String publishLocation = "南京市";
+                if(!TextUtils.isEmpty(binding.tvLocation.getText().toString()) && !TextUtils.equals("重新定位",binding.tvLocation.getText().toString())){
+                    publishLocation = binding.tvLocation.getText().toString();
+                }
+                map.put("publishLocation",publishLocation);
                 sortImageBeans();
                 map.put("userFiles",imageBeans);
 
@@ -454,6 +471,7 @@ public class ComposeTrendActivity extends BaseActivity {
         public void onLocDiagnosticMessage(int i, int i1, String s) {
             Log.e(TAG,"onLocDiagnosticMessage s->"+s);
             super.onLocDiagnosticMessage(i, i1, s);
+            binding.tvLocation.setText("重新定位");
         }
 
         @Override
@@ -461,6 +479,11 @@ public class ComposeTrendActivity extends BaseActivity {
             if (null != location && location.getLocType() != BDLocation.TypeServerError) {
                 String cityName = location.getCity();
                 Log.e(TAG,"cityName->"+cityName);
+                if(!TextUtils.isEmpty(cityName)){
+                    binding.tvLocation.setText(cityName);
+                }else{
+                    binding.tvLocation.setText("重新定位");
+                }
             }
         }
 
