@@ -92,8 +92,12 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 ScaleTransitionPagerTitleView colorTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context);
-                int indexbySex = userBean.getUserSex() == 1?1:2;
-                colorTransitionPagerTitleView.setText(titles[indexbySex]);
+                if(index == 0){
+                    colorTransitionPagerTitleView.setText(titles[0]);
+                }else{
+                    int indexbySex = userBean.getUserSex() == 1?1:2;
+                    colorTransitionPagerTitleView.setText(titles[indexbySex]);
+                }
                 colorTransitionPagerTitleView.setTextSize(20.0f);
                 colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
                 colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.main_text_grey));
@@ -124,7 +128,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             }
         });
         binding.indicator.setNavigator(commonNavigator);
-        binding.viewpager.setOffscreenPageLimit(titles.length);
+        binding.viewpager.setOffscreenPageLimit(2);
 
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
@@ -143,7 +147,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
             @Override
             public int getCount() {
-                return titles.length;
+                return 2;
             }
         });
 
