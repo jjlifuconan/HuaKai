@@ -12,6 +12,9 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.netease.nim.uikit.common.util.string.MD5;
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.SPUtils;
@@ -21,6 +24,9 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityRegisterBinding;
 import com.social.happychat.http.HttpClient;
+import com.social.happychat.im.IMConstant;
+import com.social.happychat.im.IMImpl;
+import com.social.happychat.im.IMUtils;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
@@ -43,6 +49,7 @@ import rx.schedulers.Schedulers;
  */
 public class RegisterActivity extends BaseActivity {
     ActivityRegisterBinding binding;
+    private AbortableFuture<LoginInfo> loginRequest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -171,9 +178,7 @@ public class RegisterActivity extends BaseActivity {
                     public void onNext(UserBean userBean) {
                         if(userBean.isValid()){
                             SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean.getData());
-                            Intent intent = new Intent(activity, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                            handleIMAcount(userBean.getData());
                         }else{
                             ToastUtil.show(activity, userBean.getMsg());
                         }
@@ -255,5 +260,59 @@ public class RegisterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         timer.cancel();
+    }
+
+    /**
+     * im账户注册或登录
+     */
+    private void handleIMAcount(UserBean userBean){
+        //本地没有IM信息
+        if(userBean.isReisterIM()){
+            //注册过，直接登录IM
+            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+                @Override
+                public void success() {
+                    loginRequest = null;
+                }
+
+                @Override
+                public void fail() {
+                    loginRequest = null;
+                }
+
+                @Override
+                public void exception() {
+                    loginRequest = null;
+                }
+            });
+        }else{
+            //没注册过，注册IM
+            new IMUtils().register(activity, userBean.getUserMobile(), userBean.getNickName(), IMConstant.IM_TOKEN, new IMImpl.IMResisterImpl() {
+                @Override
+                public void success() {
+                    loginRequest = new IMUtils().login(activity, userBean.getUserMobile(),IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+                        @Override
+                        public void success() {
+                            loginRequest = null;
+                        }
+
+                        @Override
+                        public void fail() {
+                            loginRequest = null;
+                        }
+
+                        @Override
+                        public void exception() {
+                            loginRequest = null;
+                        }
+                    });
+                }
+
+                @Override
+                public void failed() {
+
+                }
+            });
+        }
     }
 }

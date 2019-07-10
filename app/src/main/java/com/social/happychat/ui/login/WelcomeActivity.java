@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -22,6 +23,9 @@ import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityWelcomeBinding;
 import com.social.happychat.im.ContactHttpClient;
 import com.social.happychat.im.DemoCache;
+import com.social.happychat.im.IMConstant;
+import com.social.happychat.im.IMImpl;
+import com.social.happychat.im.IMUtils;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.main.MainActivity;
@@ -47,17 +51,6 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
         playVideo();
-        ContactHttpClient.getInstance().register("conanaiflj", "conanaiflj", "123456aa", new ContactHttpClient.ContactHttpCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                ToastHelper.showToast(WelcomeActivity.this, "注册成功");
-            }
-
-            @Override
-            public void onFailed(int code, String errorMsg) {
-                ToastHelper.showToast(WelcomeActivity.this, "注册失败");
-            }
-        });
         setListener();
     }
 
@@ -65,36 +58,7 @@ public class WelcomeActivity extends BaseActivity {
         binding.imgPhone.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
-                loginRequest = NimUIKit.login(new LoginInfo("conanaiflj", MD5.getStringMD5("123456aa")), new RequestCallback<LoginInfo>() {
-                    @Override
-                    public void onSuccess(LoginInfo param) {
-                        Log.e("FLJ", "IM login success");
-                        onLoginDone();
-                        DemoCache.setAccount("conanaiflj");
-//                        saveLoginInfo(account, token);
-                        // 初始化消息提醒配置
-//                        initNotificationConfig();
-                        // 进入主界面
-//                        MainActivity.start(WelcomeActivity.this, null);
-                        startActivity(new Intent(activity, LoginActivity.class));
-                    }
-
-                    @Override
-                    public void onFailed(int code) {
-                        onLoginDone();
-                        if (code == 302 || code == 404) {
-                            ToastHelper.showToast(WelcomeActivity.this, "帐号或密码错误");
-                        } else {
-                            ToastHelper.showToast(WelcomeActivity.this, "登录失败: " + code);
-                        }
-                    }
-
-                    @Override
-                    public void onException(Throwable exception) {
-                        ToastHelper.showToast(WelcomeActivity.this, "无效输入");
-                        onLoginDone();
-                    }
-                });
+                startActivity(new Intent(activity, LoginActivity.class));
             }
         });
         binding.tomain.setOnClickListener(new PerfectClickListener() {
@@ -145,15 +109,18 @@ public class WelcomeActivity extends BaseActivity {
         });
     }
 
-    private void onLoginDone() {
-        loginRequest = null;
-    }
 
     private void playVideo() {
         UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
         if(userBean != null){
-            startActivity(new Intent(activity, MainActivity.class));
-            finish();
+            if (!TextUtils.isEmpty(DemoCache.getAccount())) {
+                //已有IM登录信息，直接进主页
+                startActivity(new Intent(activity, MainActivity.class));
+                finish();
+                return;
+            }else{
+                handleIMAcount(userBean);
+            }
         }
         binding.videoview.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.loginmovie));
         binding.videoview.start();
@@ -164,5 +131,59 @@ public class WelcomeActivity extends BaseActivity {
                 mp.setLooping(true);
             }
         });
+    }
+
+    /**
+     * im账户注册或登录
+     */
+    private void handleIMAcount(UserBean userBean){
+        //本地没有IM信息
+        if(userBean.isReisterIM()){
+            //注册过，直接登录IM
+            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+                @Override
+                public void success() {
+                    loginRequest = null;
+                }
+
+                @Override
+                public void fail() {
+                    loginRequest = null;
+                }
+
+                @Override
+                public void exception() {
+                    loginRequest = null;
+                }
+            });
+        }else{
+            //没注册过，注册IM
+            new IMUtils().register(activity, userBean.getUserMobile(), userBean.getNickName(), IMConstant.IM_TOKEN, new IMImpl.IMResisterImpl() {
+                @Override
+                public void success() {
+                    loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+                        @Override
+                        public void success() {
+                            loginRequest = null;
+                        }
+
+                        @Override
+                        public void fail() {
+                            loginRequest = null;
+                        }
+
+                        @Override
+                        public void exception() {
+                            loginRequest = null;
+                        }
+                    });
+                }
+
+                @Override
+                public void failed() {
+
+                }
+            });
+        }
     }
 }

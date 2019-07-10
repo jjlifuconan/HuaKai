@@ -1,6 +1,7 @@
 package com.social.happychat.app;
 
 import android.support.multidex.MultiDexApplication;
+import android.text.TextUtils;
 
 import com.example.http.HttpUtils;
 import com.mob.MobSDK;
@@ -11,6 +12,7 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import com.social.basecommon.util.DebugUtil;
 import com.social.happychat.im.DemoCache;
 import com.social.happychat.im.NimSDKOptionConfig;
+import com.social.happychat.im.Preferences;
 import com.social.happychat.util.LocationService;
 
 
@@ -49,15 +51,15 @@ public class HappyChatApplication extends MultiDexApplication {
     }
 
     private LoginInfo getLoginInfo() {
-//        String account = Preferences.getUserAccount();
-////        String token = Preferences.getUserToken();
-////
-////        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
-////            DemoCache.setAccount(account.toLowerCase());
-////            return new LoginInfo(account, token);
-////        } else {
+        String account = Preferences.getUserAccount();
+        String token = Preferences.getUserToken();
+
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            DemoCache.setAccount(account.toLowerCase());
+            return new LoginInfo(account, token);
+        } else {
             return null;
-//        }
+        }
     }
 
     private void initUiKit() {

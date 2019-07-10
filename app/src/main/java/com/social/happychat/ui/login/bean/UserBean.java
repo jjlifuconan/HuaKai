@@ -1,5 +1,7 @@
 package com.social.happychat.ui.login.bean;
 
+import android.text.TextUtils;
+
 import com.social.happychat.bean.BaseBean;
 
 import java.util.List;
@@ -30,8 +32,17 @@ public class UserBean extends BaseBean<UserBean> {
     private String userMobile;
     private String userSign;
     private int userSex;
+    private boolean isReisterIM;
     private List<?> userFileDtos;
     private List<?> userTagDtos;
+
+    public boolean isReisterIM() {
+        return isReisterIM;
+    }
+
+    public void setReisterIM(boolean reisterIM) {
+        isReisterIM = reisterIM;
+    }
 
     public int getUserSex() {
         return userSex;
@@ -58,6 +69,9 @@ public class UserBean extends BaseBean<UserBean> {
     }
 
     public String getNickName() {
+        if(!TextUtils.isEmpty(nickName) && nickName.length()>10){
+            return nickName.substring(0,10);
+        }
         return nickName;
     }
 
