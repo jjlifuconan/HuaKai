@@ -66,7 +66,7 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
     }
 
     @Override
-    public void showAdapterView(List<PraiseListBean.DataBean> dataBeans) {
+    public void showAdapterView(List<PraiseListBean.ListBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

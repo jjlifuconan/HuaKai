@@ -34,17 +34,22 @@ public class PraisePresent {
                 navigator.showLoadSuccessView();
                 PraiseListBean PraiseListBean = (PraiseListBean) object;
                 if (mPage == 1) {
-                    if (PraiseListBean == null || PraiseListBean.getData() == null || PraiseListBean.getData().size() <= 0) {
+                    if (PraiseListBean == null || !PraiseListBean.isValid()|| PraiseListBean.getData() == null
+                            || PraiseListBean.getData().getList() == null || PraiseListBean.getData().getList().size() <= 0) {
                         navigator.showLoadFailedView();
                         return;
                     }
                 } else {
-                    if (PraiseListBean == null || PraiseListBean.getData() == null || PraiseListBean.getData().size() <= 0) {
+                    if (PraiseListBean == null || !PraiseListBean.isValid()|| PraiseListBean.getData() == null
+                            || PraiseListBean.getData().getList() == null || PraiseListBean.getData().getList().size() <= 0) {
                         navigator.showListNoMoreLoading();
                         return;
                     }
                 }
-                navigator.showAdapterView(PraiseListBean.getData());
+                if(PraiseListBean != null && !PraiseListBean.isHasNextPage()){
+                    navigator.showListNoMoreLoading();
+                }
+                navigator.showAdapterView(PraiseListBean.getData().getList());
             }
 
             @Override

@@ -23,7 +23,7 @@ public interface PraiseNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<PraiseListBean.DataBean> dataBean);
+    void showAdapterView(List<PraiseListBean.ListBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局

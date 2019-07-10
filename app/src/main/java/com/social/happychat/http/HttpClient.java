@@ -7,6 +7,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
+import com.social.happychat.ui.home.bean.PraiseListBean;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.login.bean.UserBean;
 
@@ -139,7 +140,7 @@ public interface HttpClient {
      * 点赞列表
      */
     @POST("dynamic/private/praiseList.htm")
-    Observable<BaseBean> praiseList(@Body JSONObject parmas);
+    Observable<PraiseListBean> praiseList(@Body JSONObject parmas);
 
     /**
      * 点赞

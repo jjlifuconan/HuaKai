@@ -12,7 +12,7 @@ import com.social.happychat.ui.home.bean.PraiseListBean;
  * @date 2019/6/27 0027
  * @description:
  */
-public class PraiseAdapter extends BaseBindingAdapter<PraiseListBean.DataBean, ItemPraiseBinding> {
+public class PraiseAdapter extends BaseBindingAdapter<PraiseListBean.ListBean, ItemPraiseBinding> {
 
     public PraiseAdapter(Context context) {
         super(context);
@@ -24,7 +24,7 @@ public class PraiseAdapter extends BaseBindingAdapter<PraiseListBean.DataBean, I
     }
 
     @Override
-    protected void onBindItem(ItemPraiseBinding binding, PraiseListBean.DataBean item) {
+    protected void onBindItem(ItemPraiseBinding binding, PraiseListBean.ListBean item) {
         binding.setBean(item);
     }
 }

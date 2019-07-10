@@ -39,7 +39,7 @@ public class PraiseViewModel {
         map.put("id",dynamicId);
         Subscription subscription = HttpClient.Builder.getRealServer().praiseList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseBean>() {
+                .subscribe(new Observer<PraiseListBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -51,7 +51,7 @@ public class PraiseViewModel {
                     }
 
                     @Override
-                    public void onNext(BaseBean baseBean) {
+                    public void onNext(PraiseListBean baseBean) {
                         listener.loadSuccess(baseBean);
 
                     }

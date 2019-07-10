@@ -12,8 +12,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/avchatkit" />
             <option value="$PROJECT_DIR$/basecommon" />
             <option value="$PROJECT_DIR$/bdlocation" />
+            <option value="$PROJECT_DIR$/faceunity" />
             <option value="$PROJECT_DIR$/http" />
             <option value="$PROJECT_DIR$/uikit" />
           </set>
