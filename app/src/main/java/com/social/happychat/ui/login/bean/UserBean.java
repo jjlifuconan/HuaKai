@@ -37,7 +37,8 @@ public class UserBean extends BaseBean<UserBean> {
     private List<?> userTagDtos;
 
     public boolean isReisterIM() {
-        return isReisterIM;
+        //for test
+        return true;
     }
 
     public void setReisterIM(boolean reisterIM) {

@@ -57,10 +57,16 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
 //        ImmersionBar.setTitleBar(this, binding.headerLayout);
         showContentView();
 
-        WechatUserBean wechatUserBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_WECHAT_USER_INFO, WechatUserBean.class);
-        if(wechatUserBean != null){
-            ImageLoadUtil.displayCircle(binding.ivHead, wechatUserBean.getHeadimgurl());
-            binding.tvNickname.setText(wechatUserBean.getNickname());
+        //微信登录缓存 勿删！！！！勿删！！！！勿删！！！！
+//        WechatUserBean wechatUserBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_WECHAT_USER_INFO, WechatUserBean.class);
+//        if(wechatUserBean != null){
+//            ImageLoadUtil.displayCircle(binding.ivHead, wechatUserBean.getHeadimgurl());
+//            binding.tvNickname.setText(wechatUserBean.getNickname());
+//        }
+
+        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+        if(userBean != null){
+            binding.setBean(userBean);
         }
 
         binding.logout.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.text.TextUtils" />
+        <variable
+            name="bean"
+            type="com.social.happychat.ui.login.bean.UserBean"/>
+    </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -31,6 +37,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView17"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/tv_nickname"
+                        android:defaultPicType="@{bean.userSex==1?3:4}"
+                        android:displayCircle="@{bean.headPhotoUrl}"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="@dimen/dp2" />
 
@@ -43,7 +51,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp16"
                         android:textStyle="bold"
-                        android:text="这是昵称"
+                        android:text="@{bean.nickName}"
                         app:layout_constraintStart_toEndOf="@+id/iv_head"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,7 +62,8 @@
                         android:layout_marginTop="@dimen/dp5"
                         app:layout_constraintStart_toStartOf="@+id/tv_nickname"
                         app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
-                        android:src="@drawable/ic_mine_female" />
+                        android:src="@{bean.userSex==1?@drawable/ic_mine_male:@drawable/ic_mine_female}"
+                        />
 
                     <TextView
                         android:id="@+id/textView16"
