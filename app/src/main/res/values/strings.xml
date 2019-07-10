@@ -43,4 +43,14 @@
     <string name="permission_contacts_rationale">Contacts permissions are needed to demonstrate access to the contacts database.</string>
     <string name="permission_camera_denied">相关权限被拒绝，请到设置中开启</string>
     <string name="permission_camera_never_ask_again">Camera permission was denied with never ask again.</string>
+
+    <string name="input_panel_audio_call">语音通话</string>
+    <string name="input_panel_video_call">视频通话</string>
+    <string name="input_panel_tip">Tip</string>
+    <string name="message_p2p_clear_tips">确定清空点对点历史消息?</string>
+    <string name="sure_keep_roam">确认单保留漫游</string>
+    <string name="message_history_query">云消息记录</string>
+    <string name="message_clear">清空本地消息记录</string>
+    <string name="message_p2p_clear">清空点对点历史消息</string>
+
 </resources>

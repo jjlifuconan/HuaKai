@@ -1,4 +1,4 @@
-package com.netease.nim.demo.session.extension;
+package com.social.happychat.im.session.extension;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netease.nim.uikit.common.util.file.FileUtil;

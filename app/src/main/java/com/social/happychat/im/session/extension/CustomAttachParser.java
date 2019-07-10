@@ -1,4 +1,4 @@
-package com.netease.nim.demo.session.extension;
+package com.social.happychat.im.session.extension;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -21,22 +21,10 @@ public class CustomAttachParser implements MsgAttachmentParser {
             int type = object.getInteger(KEY_TYPE);
             JSONObject data = object.getJSONObject(KEY_DATA);
             switch (type) {
-                case CustomAttachmentType.Guess:
-                    attachment = new GuessAttachment();
-                    break;
                 case CustomAttachmentType.SnapChat:
                     return new SnapChatAttachment(data);
                 case CustomAttachmentType.Sticker:
                     attachment = new StickerAttachment();
-                    break;
-                case CustomAttachmentType.RTS:
-                    attachment = new RTSAttachment();
-                    break;
-                case CustomAttachmentType.RedPacket:
-                    attachment = new RedPacketAttachment();
-                    break;
-                case CustomAttachmentType.OpenedRedPacket:
-                    attachment = new RedPacketOpenedAttachment();
                     break;
                 default:
                     attachment = new DefaultCustomAttachment();

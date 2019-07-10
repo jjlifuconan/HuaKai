@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.noober.background.drawable.DrawableCreator;
 import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.basecommon.util.DensityUtil;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ItemGrabBinding;
+import com.social.happychat.im.SessionHelper;
 import com.social.happychat.ui.home.bean.GrabListBean;
 
 /**
@@ -42,5 +45,11 @@ public class GrabAdapter extends BaseBindingAdapter<GrabListBean.DataBean, ItemG
                     .build();
             binding.contact.setBackground(drawable4);
         }
+        binding.contact.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                SessionHelper.startP2PSession(context, "18652032521");
+            }
+        });
     }
 }

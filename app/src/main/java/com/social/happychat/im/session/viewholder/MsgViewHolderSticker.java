@@ -1,16 +1,16 @@
-package com.netease.nim.demo.session.viewholder;
+package com.social.happychat.im.session.viewholder;
 
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.netease.nim.demo.R;
-import com.netease.nim.demo.session.extension.StickerAttachment;
 import com.netease.nim.uikit.business.session.emoji.StickerManager;
 import com.netease.nim.uikit.business.session.viewholder.MsgViewHolderBase;
 import com.netease.nim.uikit.business.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nim.uikit.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
+import com.social.happychat.R;
+import com.social.happychat.im.session.extension.StickerAttachment;
 
 /**
  * Created by zhoujianghua on 2015/8/7.

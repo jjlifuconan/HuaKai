@@ -1,4 +1,4 @@
-package com.netease.nim.demo.session.extension;
+package com.social.happychat.im.session.extension;
 
 /**
  * Created by zhoujianghua on 2015/4/9.

@@ -1,4 +1,4 @@
-package com.netease.nim.demo.session.extension;
+package com.social.happychat.im.session.extension;
 
 import android.text.TextUtils;
 

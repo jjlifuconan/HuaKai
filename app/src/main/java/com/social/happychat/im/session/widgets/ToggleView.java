@@ -1,4 +1,4 @@
-package com.netease.nim.avchatkit.common.widgets;
+package com.social.happychat.im.session.widgets;
 
 import android.view.View;
 import android.view.ViewGroup;

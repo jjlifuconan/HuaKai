@@ -1,4 +1,4 @@
-package com.netease.nim.avchatkit.common.widgets;
+package com.social.happychat.im.session.widgets;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,11 +15,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.netease.nim.avchatkit.R;
-import com.netease.nim.avchatkit.common.adapter.TAdapter;
-import com.netease.nim.avchatkit.common.adapter.TAdapterDelegate;
-import com.netease.nim.avchatkit.common.adapter.TViewHolder;
-import com.netease.nim.avchatkit.common.util.ScreenUtil;
+
+import com.netease.nim.uikit.common.adapter.TAdapter;
+import com.netease.nim.uikit.common.adapter.TAdapterDelegate;
+import com.netease.nim.uikit.common.adapter.TViewHolder;
+import com.netease.nim.uikit.common.util.sys.ScreenUtil;
+import com.social.happychat.R;
 
 import java.util.HashMap;
 import java.util.Iterator;

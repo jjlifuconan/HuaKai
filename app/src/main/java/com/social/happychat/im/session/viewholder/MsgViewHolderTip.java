@@ -1,4 +1,4 @@
-package com.netease.nim.demo.session.viewholder;
+package com.social.happychat.im.session.viewholder;
 
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;

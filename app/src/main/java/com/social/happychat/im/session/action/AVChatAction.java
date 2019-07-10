@@ -1,15 +1,14 @@
-package com.netease.nim.demo.session.action;
+package com.social.happychat.im.session.action;
 
-
-import com.netease.nim.uikit.common.ToastHelper;
 
 import com.netease.nim.avchatkit.AVChatKit;
 import com.netease.nim.avchatkit.activity.AVChatActivity;
-import com.netease.nim.demo.R;
 import com.netease.nim.uikit.business.session.actions.BaseAction;
 import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
+import com.netease.nim.uikit.common.ToastHelper;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
+import com.social.happychat.R;
 
 /**
  * Created by hzxuwen on 2015/6/12.

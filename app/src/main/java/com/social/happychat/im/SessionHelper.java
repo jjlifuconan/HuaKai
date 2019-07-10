@@ -1,4 +1,4 @@
-package com.netease.nim.demo.session;
+package com.social.happychat.im;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,43 +7,6 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.netease.nim.avchatkit.TeamAVChatProfile;
-import com.netease.nim.demo.DemoCache;
-import com.netease.nim.demo.R;
-import com.netease.nim.demo.contact.activity.RobotProfileActivity;
-import com.netease.nim.demo.contact.activity.UserProfileActivity;
-import com.netease.nim.demo.redpacket.NIMRedPacketClient;
-import com.netease.nim.demo.session.action.AVChatAction;
-import com.netease.nim.demo.session.action.AckMessageAction;
-import com.netease.nim.demo.session.action.FileAction;
-import com.netease.nim.demo.session.action.GuessAction;
-import com.netease.nim.demo.session.action.RTSAction;
-import com.netease.nim.demo.session.action.RedPacketAction;
-import com.netease.nim.demo.session.action.SnapChatAction;
-import com.netease.nim.demo.session.action.TeamAVChatAction;
-import com.netease.nim.demo.session.action.TipAction;
-import com.netease.nim.demo.session.activity.AckMsgInfoActivity;
-import com.netease.nim.demo.session.activity.MessageHistoryActivity;
-import com.netease.nim.demo.session.activity.MessageInfoActivity;
-import com.netease.nim.demo.session.extension.CustomAttachParser;
-import com.netease.nim.demo.session.extension.CustomAttachment;
-import com.netease.nim.demo.session.extension.GuessAttachment;
-import com.netease.nim.demo.session.extension.RTSAttachment;
-import com.netease.nim.demo.session.extension.RedPacketAttachment;
-import com.netease.nim.demo.session.extension.RedPacketOpenedAttachment;
-import com.netease.nim.demo.session.extension.SnapChatAttachment;
-import com.netease.nim.demo.session.extension.StickerAttachment;
-import com.netease.nim.demo.session.search.SearchMessageActivity;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderAVChat;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderDefCustom;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderFile;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderGuess;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderOpenRedPacket;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderRTS;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderRedPacket;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderSnapChat;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderSticker;
-import com.netease.nim.demo.session.viewholder.MsgViewHolderTip;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.recent.RecentCustomization;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
@@ -53,7 +16,6 @@ import com.netease.nim.uikit.business.session.actions.BaseAction;
 import com.netease.nim.uikit.business.session.helper.MessageListPanelHelper;
 import com.netease.nim.uikit.business.session.module.MsgForwardFilter;
 import com.netease.nim.uikit.business.session.module.MsgRevokeFilter;
-import com.netease.nim.uikit.business.session.viewholder.MsgViewHolderUnknown;
 import com.netease.nim.uikit.business.team.model.TeamExtras;
 import com.netease.nim.uikit.business.team.model.TeamRequestCode;
 import com.netease.nim.uikit.common.ui.dialog.CustomAlertDialog;
@@ -78,8 +40,17 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.LocalAntiSpamResult;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.netease.nimlib.sdk.robot.model.RobotAttachment;
-import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
-import com.netease.nimlib.sdk.team.model.Team;
+import com.social.happychat.R;
+import com.social.happychat.im.session.action.AVChatAction;
+import com.social.happychat.im.session.action.TipAction;
+import com.social.happychat.im.session.extension.CustomAttachParser;
+import com.social.happychat.im.session.extension.CustomAttachment;
+import com.social.happychat.im.session.extension.SnapChatAttachment;
+import com.social.happychat.im.session.extension.StickerAttachment;
+import com.social.happychat.im.session.viewholder.MsgViewHolderAVChat;
+import com.social.happychat.im.session.viewholder.MsgViewHolderDefCustom;
+import com.social.happychat.im.session.viewholder.MsgViewHolderSticker;
+import com.social.happychat.im.session.viewholder.MsgViewHolderTip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +101,6 @@ public class SessionHelper {
         // 注册消息撤回监听器
         registerMsgRevokeObserver();
         NimUIKit.setCommonP2PSessionCustomization(getP2pCustomization());
-        NimUIKit.setCommonTeamSessionCustomization(getTeamCustomization(null));
         NimUIKit.setRecentCustomization(getRecentCustomization());
     }
 
@@ -150,19 +120,6 @@ public class SessionHelper {
         }
     }
 
-    public static void startTeamSession(Context context, String tid) {
-        startTeamSession(context, tid, null);
-    }
-
-    public static void startTeamSession(Context context, String tid, IMMessage anchor) {
-        NimUIKit.startTeamSession(context, tid, getTeamCustomization(tid), anchor);
-    }
-
-    // 打开群聊界面(用于 UIKIT 中部分界面跳转回到指定的页面)
-    public static void startTeamSession(Context context, String tid, Class<? extends Activity> backToClass,
-                                        IMMessage anchor) {
-        NimUIKit.startChatting(context, tid, SessionTypeEnum.Team, getTeamCustomization(tid), backToClass, anchor);
-    }
 
     // 定制化单聊界面。如果使用默认界面，返回null即可
     private static SessionCustomization getP2pCustomization() {
@@ -197,14 +154,7 @@ public class SessionHelper {
                 actions.add(new AVChatAction(AVChatType.AUDIO));
                 actions.add(new AVChatAction(AVChatType.VIDEO));
             }
-            actions.add(new RTSAction());
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
             actions.add(new TipAction());
-            if (NIMRedPacketClient.isEnable()) {
-                actions.add(new RedPacketAction());
-            }
             p2pCustomization.actions = actions;
             p2pCustomization.withSticker = true;
             // 定制ActionBar右边的按钮，可以加多个
@@ -221,7 +171,7 @@ public class SessionHelper {
 
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
-                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
+//                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
                 }
             };
             infoButton.iconId = R.drawable.nim_ic_message_actionbar_p2p_add;
@@ -249,7 +199,6 @@ public class SessionHelper {
                             if (TextUtils.isEmpty(tid)) {
                                 return;
                             }
-                            startTeamSession(activity, tid);
                             activity.finish();
                         }
                     }
@@ -267,9 +216,6 @@ public class SessionHelper {
             };
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
             myP2pCustomization.actions = actions;
             myP2pCustomization.withSticker = true;
             // 定制ActionBar右边的按钮，可以加多个
@@ -341,10 +287,10 @@ public class SessionHelper {
 
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
-                    RobotProfileActivity.start(context, sessionId); //打开聊天信息
+//                    RobotProfileActivity.start(context, sessionId); //打开聊天信息
                 }
             };
-            infoButton.iconId = R.drawable.nim_ic_actionbar_robot_info;
+//            infoButton.iconId = R.drawable.nim_ic_actionbar_robot_info;
             buttons.add(cloudMsgButton);
             buttons.add(infoButton);
             robotCustomization.buttons = buttons;
@@ -396,119 +342,14 @@ public class SessionHelper {
         return recentCustomization;
     }
 
-    private static SessionCustomization getTeamCustomization(String tid) {
-        if (normalTeamCustomization == null) {
-            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
-            TeamAVChatProfile.sharedInstance().registerObserver(true);
-            ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(avChatAction);
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            if (NIMRedPacketClient.isEnable()) {
-                actions.add(new RedPacketAction());
-            }
-            actions.add(new TipAction());
-            SessionTeamCustomization.SessionTeamCustomListener listener = new SessionTeamCustomization.SessionTeamCustomListener() {
-
-                @Override
-                public void initPopupWindow(Context context, View view, String sessionId,
-                                            SessionTypeEnum sessionTypeEnum) {
-                    initPopuptWindow(context, view, sessionId, sessionTypeEnum);
-                }
-
-                @Override
-                public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
-                    avChatAction.onSelectedAccountsResult(selectedAccounts);
-                }
-
-                @Override
-                public void onSelectedAccountFail() {
-                    avChatAction.onSelectedAccountFail();
-                }
-            };
-            normalTeamCustomization = new SessionTeamCustomization(listener) {
-
-                @Override
-                public boolean isAllowSendMessage(IMMessage message) {
-                    return checkLocalAntiSpam(message);
-                }
-            };
-            normalTeamCustomization.actions = actions;
-        }
-        if (advancedTeamCustomization == null) {
-            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
-            TeamAVChatProfile.sharedInstance().registerObserver(true);
-            ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(avChatAction);
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            actions.add(new AckMessageAction());
-            if (NIMRedPacketClient.isEnable()) {
-                actions.add(new RedPacketAction());
-            }
-            actions.add(new TipAction());
-            SessionTeamCustomization.SessionTeamCustomListener listener = new SessionTeamCustomization.SessionTeamCustomListener() {
-
-                @Override
-                public void initPopupWindow(Context context, View view, String sessionId,
-                                            SessionTypeEnum sessionTypeEnum) {
-                    initPopuptWindow(context, view, sessionId, sessionTypeEnum);
-                }
-
-
-                @Override
-                public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
-                    avChatAction.onSelectedAccountsResult(selectedAccounts);
-                }
-
-                @Override
-                public void onSelectedAccountFail() {
-                    avChatAction.onSelectedAccountFail();
-                }
-            };
-            advancedTeamCustomization = new SessionTeamCustomization(listener) {
-
-                @Override
-                public boolean isAllowSendMessage(IMMessage message) {
-                    return checkLocalAntiSpam(message);
-                }
-            };
-            advancedTeamCustomization.actions = actions;
-        }
-        if (TextUtils.isEmpty(tid)) {
-            return normalTeamCustomization;
-        } else {
-            Team team = TeamDataCache.getInstance().getTeamById(tid);
-            if (team != null && team.getType() == TeamTypeEnum.Advanced) {
-                return advancedTeamCustomization;
-            }
-        }
-        return normalTeamCustomization;
-    }
 
     private static void registerViewHolders() {
-        NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
         NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
-        NimUIKit.registerMsgItemViewHolder(GuessAttachment.class, MsgViewHolderGuess.class);
         NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
         NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
-        NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
-        NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
-        registerRedPacketViewHolder();
     }
 
-    private static void registerRedPacketViewHolder() {
-        if (NIMRedPacketClient.isEnable()) {
-            NimUIKit.registerMsgItemViewHolder(RedPacketAttachment.class, MsgViewHolderRedPacket.class);
-            NimUIKit.registerMsgItemViewHolder(RedPacketOpenedAttachment.class, MsgViewHolderOpenRedPacket.class);
-        } else {
-            NimUIKit.registerMsgItemViewHolder(RedPacketAttachment.class, MsgViewHolderUnknown.class);
-            NimUIKit.registerMsgItemViewHolder(RedPacketOpenedAttachment.class, MsgViewHolderUnknown.class);
-        }
-    }
 
     private static void setSessionListener() {
         SessionEventListener listener = new SessionEventListener() {
@@ -518,12 +359,8 @@ public class SessionHelper {
                 // 一般用于打开用户资料页面
                 if (message.getMsgType() == MsgTypeEnum.robot && message.getDirect() == MsgDirectionEnum.In) {
                     RobotAttachment attachment = (RobotAttachment) message.getAttachment();
-                    if (attachment.isRobotSend()) {
-                        RobotProfileActivity.start(context, attachment.getFromRobotAccount());
-                        return;
-                    }
                 }
-                UserProfileActivity.start(context, message.getFromAccount());
+//                UserProfileActivity.start(context, message.getFromAccount());
             }
 
             @Override
@@ -534,7 +371,7 @@ public class SessionHelper {
             @Override
             public void onAckMsgClicked(Context context, IMMessage message) {
                 // 已读回执事件处理，用于群组的已读回执事件的响应，弹出消息已读详情
-                AckMsgInfoActivity.start(context, message);
+//                AckMsgInfoActivity.start(context, message);
             }
         };
         NimUIKit.setSessionListener(listener);
@@ -550,9 +387,7 @@ public class SessionHelper {
             @Override
             public boolean shouldIgnore(IMMessage message) {
                 if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null &&
-                    (message.getAttachment() instanceof SnapChatAttachment ||
-                     message.getAttachment() instanceof RTSAttachment ||
-                     message.getAttachment() instanceof RedPacketAttachment)) {
+                    (message.getAttachment() instanceof SnapChatAttachment)) {
                     // 白板消息和阅后即焚消息，红包消息 不允许转发
                     return true;
                 } else if (message.getMsgType() == MsgTypeEnum.robot && message.getAttachment() != null &&
@@ -572,9 +407,7 @@ public class SessionHelper {
 
             @Override
             public boolean shouldIgnore(IMMessage message) {
-                if (message.getAttachment() != null && (message.getAttachment() instanceof AVChatAttachment ||
-                                                        message.getAttachment() instanceof RTSAttachment ||
-                                                        message.getAttachment() instanceof RedPacketAttachment)) {
+                if (message.getAttachment() != null && (message.getAttachment() instanceof AVChatAttachment )) {
                     // 视频通话消息和白板消息，红包消息 不允许撤回
                     return true;
                 } else if (DemoCache.getAccount().equals(message.getSessionId())) {
@@ -609,11 +442,11 @@ public class SessionHelper {
         public void onItemClick(final PopupMenuItem item) {
             switch (item.getTag()) {
                 case ACTION_HISTORY_QUERY:
-                    MessageHistoryActivity.start(item.getContext(), item.getSessionId(),
-                                                 item.getSessionTypeEnum()); // 漫游消息查询
+//                    MessageHistoryActivity.start(item.getContext(), item.getSessionId(),
+//                                                 item.getSessionTypeEnum()); // 漫游消息查询
                     break;
                 case ACTION_SEARCH_MESSAGE:
-                    SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
+//                    SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
                     break;
                 case ACTION_CLEAR_MESSAGE:
                     EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true,

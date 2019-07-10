@@ -1,8 +1,8 @@
-package com.netease.nim.demo.session.viewholder;
+package com.social.happychat.im.session.viewholder;
 
-import com.netease.nim.demo.session.extension.DefaultCustomAttachment;
 import com.netease.nim.uikit.business.session.viewholder.MsgViewHolderText;
 import com.netease.nim.uikit.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
+import com.social.happychat.im.session.extension.DefaultCustomAttachment;
 
 /**
  * Created by zhoujianghua on 2015/8/4.

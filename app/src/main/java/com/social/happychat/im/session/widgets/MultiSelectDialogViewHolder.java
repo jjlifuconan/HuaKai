@@ -1,11 +1,12 @@
-package com.netease.nim.avchatkit.common.widgets;
+package com.social.happychat.im.session.widgets;
 
 import android.util.Pair;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.netease.nim.avchatkit.R;
-import com.netease.nim.avchatkit.common.adapter.TViewHolder;
+import com.netease.nim.uikit.common.adapter.TViewHolder;
+import com.social.happychat.R;
+
 
 public class MultiSelectDialogViewHolder extends TViewHolder {
 

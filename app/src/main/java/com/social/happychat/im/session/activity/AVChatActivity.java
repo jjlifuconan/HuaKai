@@ -1,4 +1,4 @@
-package com.netease.nim.avchatkit.activity;
+package com.social.happychat.im.session.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +15,6 @@ import com.faceunity.FaceU;
 import com.faceunity.utils.VersionUtil;
 import com.netease.nim.avchatkit.AVChatKit;
 import com.netease.nim.avchatkit.AVChatProfile;
-import com.netease.nim.avchatkit.R;
-import com.netease.nim.avchatkit.common.activity.UI;
-import com.netease.nim.avchatkit.common.log.LogUtil;
 import com.netease.nim.avchatkit.constant.AVChatExitCode;
 import com.netease.nim.avchatkit.controll.AVChatController;
 import com.netease.nim.avchatkit.controll.AVChatSoundPlayer;
@@ -28,6 +25,8 @@ import com.netease.nim.avchatkit.notification.AVChatNotification;
 import com.netease.nim.avchatkit.receiver.PhoneCallStateObserver;
 import com.netease.nim.avchatkit.ui.AVChatAudioUI;
 import com.netease.nim.avchatkit.ui.AVChatVideoUI;
+import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusCode;
@@ -44,6 +43,7 @@ import com.netease.nimlib.sdk.avchat.model.AVChatControlEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.avchat.model.AVChatOnlineAckEvent;
 import com.netease.nimlib.sdk.avchat.model.AVChatVideoFrame;
+import com.social.happychat.R;
 
 /**
  * 音视频主界面
