@@ -12,7 +12,7 @@ import com.social.happychat.ui.home.bean.CommentListBean;
  * @date 2019/6/27 0027
  * @description:
  */
-public class CommentAdapter extends BaseBindingAdapter<CommentListBean.DataBean, ItemCommentBinding> {
+public class CommentAdapter extends BaseBindingAdapter<CommentListBean.ListBean, ItemCommentBinding> {
 
     public CommentAdapter(Context context) {
         super(context);
@@ -24,7 +24,7 @@ public class CommentAdapter extends BaseBindingAdapter<CommentListBean.DataBean,
     }
 
     @Override
-    protected void onBindItem(ItemCommentBinding binding, CommentListBean.DataBean item) {
+    protected void onBindItem(ItemCommentBinding binding, CommentListBean.ListBean item) {
         binding.setBean(item);
     }
 }

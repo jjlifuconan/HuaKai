@@ -85,7 +85,7 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
     }
 
     @Override
-    public void showAdapterView(List<CommentListBean.DataBean> dataBeans) {
+    public void showAdapterView(List<CommentListBean.ListBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

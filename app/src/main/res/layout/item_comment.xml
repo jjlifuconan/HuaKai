@@ -6,7 +6,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.CommentListBean.DataBean"/>
+            type="com.social.happychat.ui.home.bean.CommentListBean.ListBean"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
             android:id="@+id/imageView5"
             android:layout_width="@dimen/dp36"
             android:layout_height="@dimen/dp36"
-            android:defaultPicType="@{TextUtils.equals(bean.sex,`1`)?4:3}"
-            android:displayCircle="@{bean.photo}"
+            android:defaultPicType="@{bean.userSex==1?3:4}"
+            android:displayCircle="@{bean.headPhotoUrl}"
             app:layout_constraintBottom_toBottomOf="@+id/textView17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -33,7 +33,7 @@
             android:layout_marginLeft="@dimen/dp14"
             android:textColor="@color/comment_title"
             android:textSize="@dimen/sp14"
-            android:text="@{bean.nickName}"
+            android:text="@{bean.userName}"
             tools:text="啊实打实大"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text="@{bean.comment}"
+            android:text="@{bean.content}"
             tools:text="啊实打实大"
             android:textColor="@color/comment_content"
             android:ellipsize="end"
@@ -100,17 +100,19 @@
             app:layout_constraintTop_toTopOf="@+id/textView18"
             android:orientation="horizontal">
 
+
             <ImageView
                 android:id="@+id/iv_praise"
                 android:layout_width="@dimen/dp18"
                 android:layout_height="@dimen/dp18"
-                android:src="@mipmap/am4" />
+                android:src="@{bean.isPraise==1?@drawable/praise_check:@drawable/praise_normal}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp5"
-                android:text="@{bean.praiseNum+``}"/>
+                android:textColor="@{bean.isPraise==1?@color/colorPrimary:@color/default_text_black}"
+                android:text="@{bean.praiseCount+``}"/>
 
         </LinearLayout>
 

@@ -23,7 +23,7 @@ public interface CommentNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<CommentListBean.DataBean> dataBean);
+    void showAdapterView(List<CommentListBean.ListBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局

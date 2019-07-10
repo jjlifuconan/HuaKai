@@ -37,10 +37,10 @@ public class CommentViewModel {
         Map map = new HashMap();
         map.put("pageNumber ",page);
         map.put("pages ",per_page);
-        map.put("dynamicId",dynamicId);
+        map.put("businessId",dynamicId);
         Subscription subscription = HttpClient.Builder.getRealServer().dynamicCommentList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseBean>() {
+                .subscribe(new Observer<CommentListBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -52,7 +52,7 @@ public class CommentViewModel {
                     }
 
                     @Override
-                    public void onNext(BaseBean baseBean) {
+                    public void onNext(CommentListBean baseBean) {
                         listener.loadSuccess(baseBean);
 
                     }

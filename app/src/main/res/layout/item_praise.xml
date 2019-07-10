@@ -65,19 +65,26 @@
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+        <ImageView
+            android:layout_width="@dimen/dp18"
+            android:layout_height="@dimen/dp18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="@dimen/dp5"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/oval_praise_icon"
+            app:layout_constraintEnd_toStartOf="@+id/textView20"
+            android:src="@mipmap/am5"/>
+
+
         <com.social.basecommon.widget.TextImageView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="赞"
             android:gravity="center_vertical"
-            android:drawableLeft="@mipmap/am5"
-            app:drawableLeftHeight="@dimen/dp18"
-            app:drawableLeftWidth="@dimen/dp18"
-            android:drawablePadding="@dimen/dp3"
             android:textColor="@color/comment_content"
             android:textSize="@dimen/sp14"
-            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -34,17 +34,22 @@ public class CommentPresent {
                 navigator.showLoadSuccessView();
                 CommentListBean CommentListBean = (CommentListBean) object;
                 if (mPage == 1) {
-                    if (CommentListBean == null || CommentListBean.getData() == null || CommentListBean.getData().size() <= 0) {
+                    if (CommentListBean == null || !CommentListBean.isValid()|| CommentListBean.getData() == null
+                            || CommentListBean.getData().getList() == null || CommentListBean.getData().getList().size() <= 0) {
                         navigator.showLoadFailedView();
                         return;
                     }
                 } else {
-                    if (CommentListBean == null || CommentListBean.getData() == null || CommentListBean.getData().size() <= 0) {
+                    if (CommentListBean == null || !CommentListBean.isValid()|| CommentListBean.getData() == null
+                            || CommentListBean.getData().getList() == null || CommentListBean.getData().getList().size() <= 0) {
                         navigator.showListNoMoreLoading();
                         return;
                     }
                 }
-                navigator.showAdapterView(CommentListBean.getData());
+                if(CommentListBean != null && !CommentListBean.isHasNextPage()){
+                    navigator.showListNoMoreLoading();
+                }
+                navigator.showAdapterView(CommentListBean.getData().getList());
             }
 
             @Override
