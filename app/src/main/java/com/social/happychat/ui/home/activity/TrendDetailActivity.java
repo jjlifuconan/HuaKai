@@ -66,6 +66,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     ActivityDetailTrendBinding binding;
     TrendListBean.ListBean bean;
     private String commentText = "";
+    private int replyUserId = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -261,12 +262,11 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     /**
      * 回复评论的评论
      */
-    private void initCommentDialog(Map commentItem) {
+    private void initCommentDialog(int replyUserid, String replyName) {
         CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("userId", "当前用户id");
-        bundle.putString("commentId", "评论的那条id");
-        bundle.putString("nickname", "对谁评论");
+        bundle.putInt("userId", replyUserid);
+        bundle.putString("nickname", replyName);
         commentDialogFragment.setArguments(bundle);
         commentDialogFragment.setCancelable(true);
         commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
@@ -289,13 +289,13 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     }
 
     @Override
-    public void setCommentToWhichUserid(String userId) {
-
+    public void setCommentToWhichUserid(int replyUserId) {
+        this.replyUserId = replyUserId;
     }
 
     @Override
-    public String getCommentToWhichUserid() {
-        return null;
+    public int getCommentToWhichUserid() {
+        return replyUserId;
     }
 
     @Override
@@ -347,12 +347,42 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     }
 
     @Override
-    public void submitCommentToSb(String commentTextTemp, String commentId) {
+    public void submitCommentToSb(int replyUserid, String replyName, String commentTextTemp) {
+        Map map = new HashMap();
+        map.put("replyUserId",replyUserid);
+        map.put("replyUserName",replyName);
+        map.put("content",commentTextTemp.trim());
+        Subscription subscription = HttpClient.Builder.getRealServer().doComment(RequestBody.as(map))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        if(baseBean.isValid()){
+                            //刷新评论列表、详情评论数、列表评论数
+                            bean.setCommentCount(bean.getCommentCount()+1);
+                            EventBus.getDefault().post(new RefreshCommentNumEvent(bean.getCommentCount()));
+                        }else{
+                            ToastUtil.show(activity, baseBean.getMsg());
+                        }
+
+
+                    }
+                });
+        addSubscription(subscription);
 
     }
 
     @Override
-    public void alertCommentSbDialog(Map item) {
+    public void alertCommentSbDialog(int replyUserid, String replyName) {
+        initCommentDialog(replyUserid, replyName);
 
     }
 }

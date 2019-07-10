@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
@@ -14,6 +15,7 @@ import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.adapter.CommentAdapter;
 import com.social.happychat.ui.home.bean.CommentListBean;
 import com.social.happychat.ui.home.interfaces.CommentNavigator;
+import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.happychat.ui.home.present.CommentPresent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -21,6 +23,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.Map;
 
 import rx.Subscription;
 
@@ -33,6 +36,8 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
     private CommentAdapter CommentAdapter;
     private CommentPresent present;
     private int dynamicId;
+    private DialogFragmentDataCallback dataCallback;
+
 
     public static CommentListFragment newInstance(int dynamicId) {
 
@@ -48,6 +53,7 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        dataCallback = (DialogFragmentDataCallback) getActivity();
     }
 
     @Override
@@ -74,6 +80,12 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
         });
 
         CommentAdapter = new CommentAdapter(activity);
+        CommentAdapter.setOnItemClickListener(new OnItemClickListener<CommentListBean.ListBean>() {
+            @Override
+            public void onClick(CommentListBean.ListBean item) {
+                dataCallback.alertCommentSbDialog(item.getUserId(),item.getUserName());
+            }
+        });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         binding.recyclerView.setAdapter(CommentAdapter);
         present.loadCommentData();

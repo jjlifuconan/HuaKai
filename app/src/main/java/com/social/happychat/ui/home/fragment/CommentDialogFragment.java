@@ -104,8 +104,8 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
 
     private void fillEditText() {
         dataCallback = (DialogFragmentDataCallback) getActivity();
-        if(!TextUtils.isEmpty(dataCallback.getCommentToWhichUserid())){
-            if(TextUtils.equals(dataCallback.getCommentToWhichUserid(), getArguments().getString("userId"))){
+        if(dataCallback.getCommentToWhichUserid() != 0){
+            if(dataCallback.getCommentToWhichUserid() == getArguments().getInt("userId")){
                 commentEditText.setText(dataCallback.getCommentText());
                 commentEditText.setSelection(dataCallback.getCommentText().length());
             }
@@ -168,7 +168,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
                     }
                     if(getArguments()!=null && !TextUtils.isEmpty(getArguments().getString("commentId"))){
                         //回复评论
-                        dataCallback.submitCommentToSb(commentEditText.getText().toString().trim(), (String) getArguments().get("commentId"));
+                        dataCallback.submitCommentToSb(getArguments().getInt("userId"),getArguments().getString("nickname"),commentEditText.getText().toString().trim());
                     }else{
                         //回复帖子
                         dataCallback.submitCommentToPost(commentEditText.getText().toString().trim());
@@ -176,7 +176,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
                     //扫尾
                     commentEditText.setText("");
                     dataCallback.setCommentText("");
-                    dataCallback.setCommentToWhichUserid("");
+                    dataCallback.setCommentToWhichUserid(0);
                     dataCallback.setCommentId("");
                     dismiss();
                 }
@@ -190,7 +190,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
     @Override
     public void onDismiss(DialogInterface dialog) {
         dataCallback.setCommentText(commentEditText.getText().toString());
-        dataCallback.setCommentToWhichUserid(getArguments().getString("userId"));
+        dataCallback.setCommentToWhichUserid(getArguments().getInt("userId"));
         hideSoftInput(getContext(), commentEditText);
         super.onDismiss(dialog);
     }
@@ -198,7 +198,7 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
     @Override
     public void onCancel(DialogInterface dialog) {
         dataCallback.setCommentText(commentEditText.getText().toString());
-        dataCallback.setCommentToWhichUserid(getArguments().getString("userId"));
+        dataCallback.setCommentToWhichUserid(getArguments().getInt("userId"));
         hideSoftInput(getContext(), commentEditText);
         super.onCancel(dialog);
     }

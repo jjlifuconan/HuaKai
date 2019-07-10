@@ -116,8 +116,17 @@ public class PraiseListBean extends BaseBean<PraiseListBean> {
 
         private String headPhotoUrl;
         private String nickName;
+        private String userSign;
         private int userId;
         private int userSex;
+
+        public String getUserSign() {
+            return userSign;
+        }
+
+        public void setUserSign(String userSign) {
+            this.userSign = userSign;
+        }
 
         public String getHeadPhotoUrl() {
             return headPhotoUrl;

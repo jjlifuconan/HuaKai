@@ -15,15 +15,15 @@ public interface DialogFragmentDataCallback {
     void setCommentText(String commentTextTemp);
 
     //根据用户id，记录评论，如果还点击的当前userid的评论，评论内容带过去，否则清空
-    void setCommentToWhichUserid(String userId);
+    void setCommentToWhichUserid(int replyUserId);
 
-    String getCommentToWhichUserid();
+    int getCommentToWhichUserid();
 
     String getCommentId();
 
     void setCommentId(String commentId);
 
-    /**
+    /**1
      * 评论帖子
      * @param commentTextTemp
      */
@@ -31,15 +31,17 @@ public interface DialogFragmentDataCallback {
 
     /**
      * 掉起评论fragment并传递id
-     * @param commentId  被回复的评论id
-     * @param commentTextTemp
+     * @param replyUserid  被回复人的id
+     * @param replyName    被回复人的名字
+     * @param content      内容
      */
-    void submitCommentToSb(String commentTextTemp, String commentId);
+    void submitCommentToSb(int replyUserid, String replyName, String content);
 
     /**
-     * 回复人的对话框
-     * @param item
+     *
+     * @param replyUserid
+     * @param replyName
      */
-    void alertCommentSbDialog(Map item);
+    void alertCommentSbDialog(int replyUserid, String replyName);
 
 }

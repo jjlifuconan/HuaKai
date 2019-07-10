@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text="@{`个性签名字段`}"
+            android:text="@{bean.userSign}"
             tools:text="啊实打实大"
             android:textColor="@color/comment_time"
             android:ellipsize="end"
