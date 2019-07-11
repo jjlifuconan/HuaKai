@@ -11,6 +11,7 @@ import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.adapter.CommentAdapter;
 import com.social.happychat.ui.home.bean.CommentListBean;
@@ -130,6 +131,7 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
 
     @Override
     protected void onRefresh() {
+        present.setPage(1);
         present.loadCommentData();
     }
 
@@ -139,7 +141,7 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(RefreshTrendListEvent event) {
-        binding.refreshLayout.autoRefresh();
+    public void Event(RefreshCommentNumEvent event) {
+        onRefresh();
     }
 }

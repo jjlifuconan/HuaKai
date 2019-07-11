@@ -67,6 +67,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
         binding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                present.setPage(1);
                 present.loadRankData(tabType, radioType);
             }
         });
@@ -133,6 +134,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
 
     @Override
     protected void onRefresh() {
+        //                present.setPage(1);
         present.loadRankData(tabType, radioType);
     }
 }

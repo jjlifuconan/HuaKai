@@ -116,6 +116,7 @@ public class FemaleGrabChatFragment extends BaseFragment<FragmentRefreshListBind
 
     @Override
     protected void onRefresh() {
+        present.setPage(1);
         present.loadGrabData();
     }
 

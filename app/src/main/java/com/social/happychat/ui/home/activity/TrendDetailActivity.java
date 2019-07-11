@@ -68,6 +68,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     private String commentText = "";
     private int replyUserId = 0;
 
+    private CommonNavigator commonNavigator;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +162,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
 
         final String[] titles = getResources().getStringArray(R.array.trendDetailTabTitle);
 
-        CommonNavigator commonNavigator = new CommonNavigator(activity);
+        commonNavigator = new CommonNavigator(activity);
         commonNavigator.setScrollPivotX(0.8f);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 
@@ -320,6 +321,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
                         if(baseBean.isValid()){
                             //刷新评论列表、详情评论数、列表评论数
                             bean.setCommentCount(bean.getCommentCount()+1);
+                            updateIndicatorTitle();
                             EventBus.getDefault().post(new RefreshCommentNumEvent(bean.getCommentCount()));
                         }else{
                             ToastUtil.show(activity, userBean.getMsg());
@@ -331,6 +333,56 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         addSubscription(subscription);
 
 
+    }
+
+    private void updateIndicatorTitle(){
+        final String[] titles = getResources().getStringArray(R.array.trendDetailTabTitle);
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+
+            @Override
+            public int getCount() {
+                return titles.length;
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, final int index) {
+                ScaleTransitionPagerTitleView colorTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context);
+                if(index == 0){
+                    colorTransitionPagerTitleView.setText(titles[index]+(bean.getCommentCount()>0?bean.getCommentCount():""));
+                }else if(index == 1){
+                    colorTransitionPagerTitleView.setText(titles[index]+(bean.getPraiseCount()>0?bean.getPraiseCount():""));
+                }else if(index == 2){
+                    colorTransitionPagerTitleView.setText(titles[index]+(bean.getGiftCount()>0?bean.getGiftCount():""));
+                }
+                colorTransitionPagerTitleView.setTextSize(18f);
+                colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
+                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.main_text_grey));
+                colorTransitionPagerTitleView.setSelectTypeBold(true);
+                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.main_text_black));
+
+                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        binding.viewpager.setCurrentItem(index);
+                    }
+                });
+                return colorTransitionPagerTitleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+
+                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setLineHeight((float) UIUtil.dip2px(context, 3.0d));
+                indicator.setLineWidth((float) UIUtil.dip2px(context, 16.0d));
+                indicator.setRoundRadius((float) UIUtil.dip2px(context, 3.0d));
+                indicator.setStartInterpolator(new AccelerateInterpolator());
+                indicator.setEndInterpolator(new DecelerateInterpolator(2.0f));
+                indicator.setColors(new Integer[]{Integer.valueOf(getResources().getColor(R.color.child_tab_yellow))});
+                return indicator;
+            }
+        });
     }
 
     @Override

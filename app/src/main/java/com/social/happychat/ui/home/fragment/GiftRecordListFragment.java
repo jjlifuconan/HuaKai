@@ -97,6 +97,7 @@ public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBind
 
     @Override
     protected void onRefresh() {
+        present.setPage(1);
         present.loadGiftData();
     }
 

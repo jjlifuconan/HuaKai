@@ -141,6 +141,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
     @Override
     protected void onRefresh() {
+        present.setPage(1);
         present.loadTrendData();
     }
 

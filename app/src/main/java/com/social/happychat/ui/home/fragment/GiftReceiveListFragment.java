@@ -113,6 +113,7 @@ public class GiftReceiveListFragment extends BaseFragment<FragmentRefreshListBin
 
     @Override
     protected void onRefresh() {
+        present.setPage(1);
         present.loadGiftReceiveData();
     }
 

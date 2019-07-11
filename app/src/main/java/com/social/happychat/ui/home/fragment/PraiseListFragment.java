@@ -99,6 +99,7 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
 
     @Override
     protected void onRefresh() {
+        present.setPage(1);
         present.loadPraiseData();
     }
 
