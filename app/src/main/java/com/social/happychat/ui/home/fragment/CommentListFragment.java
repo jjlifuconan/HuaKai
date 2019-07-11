@@ -14,6 +14,7 @@ import com.social.happychat.R;
 import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.adapter.CommentAdapter;
+import com.social.happychat.ui.home.adapter.TrendAdapter;
 import com.social.happychat.ui.home.bean.CommentListBean;
 import com.social.happychat.ui.home.interfaces.CommentNavigator;
 import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
@@ -81,6 +82,12 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
         });
 
         CommentAdapter = new CommentAdapter(activity);
+        CommentAdapter.setOnPraiseClickListener(new TrendAdapter.OnPraiseClickListener() {
+            @Override
+            public void onPraise(int id,int type) {
+                present.praiseAction(id,type,2);
+            }
+        });
         CommentAdapter.setOnItemClickListener(new OnItemClickListener<CommentListBean.ListBean>() {
             @Override
             public void onClick(CommentListBean.ListBean item) {

@@ -64,4 +64,31 @@ public class CommentViewModel {
         listener.addSubscription(subscription);
     }
 
+    public void praise(int businessId, int operateType, int type, final RequestImpl listener) {
+        Map map = new HashMap();
+        map.put("businessId",businessId);
+        map.put("operateType",operateType);
+        map.put("type",type);
+        Subscription subscription = HttpClient.Builder.getRealServer().doPraise(RequestBody.as(map))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.loadFailed();
+
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        listener.loadSuccess(baseBean);
+
+                    }
+                });
+        listener.addSubscription(subscription);
+    }
+
 }

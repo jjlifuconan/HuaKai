@@ -1,7 +1,12 @@
 package com.social.happychat.ui.home.bean;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.social.happychat.BR;
 import com.social.happychat.bean.BaseBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -106,7 +111,7 @@ public class CommentListBean extends BaseBean<CommentListBean> {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean extends BaseObservable implements Serializable {
         /**
          * content : 电脑上你睡吧
          * dynamicId : 5
@@ -174,20 +179,24 @@ public class CommentListBean extends BaseBean<CommentListBean> {
             this.id = id;
         }
 
+        @Bindable
         public int getIsPraise() {
             return isPraise;
         }
 
         public void setIsPraise(int isPraise) {
             this.isPraise = isPraise;
+            notifyPropertyChanged(BR.isPraise);
         }
 
+        @Bindable
         public int getPraiseCount() {
             return praiseCount;
         }
 
         public void setPraiseCount(int praiseCount) {
             this.praiseCount = praiseCount;
+            notifyPropertyChanged(BR.praiseCount);
         }
 
         public int getReplyUserId() {

@@ -86,12 +86,12 @@
             android:layout_height="@dimen/dp18"
             android:layout_marginRight="@dimen/dp14"
             app:layout_constraintBottom_toBottomOf="@+id/textView18"
-            app:layout_constraintEnd_toStartOf="@+id/praise"
+            app:layout_constraintEnd_toStartOf="@+id/vp_praise"
             app:layout_constraintTop_toTopOf="@+id/textView18"
             android:src="@mipmap/am1" />
 
         <LinearLayout
-            android:id="@+id/praise"
+            android:id="@+id/vp_praise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
