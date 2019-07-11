@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
@@ -21,6 +22,7 @@ import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
@@ -30,6 +32,7 @@ import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
 import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.http.HttpClient;
+import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.fragment.CommentDialogFragment;
@@ -37,6 +40,7 @@ import com.social.happychat.ui.home.fragment.CommentListFragment;
 import com.social.happychat.ui.home.fragment.GiftRecordListFragment;
 import com.social.happychat.ui.home.fragment.PraiseListFragment;
 import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
+import com.social.happychat.ui.home.present.TrendPresent;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
@@ -69,13 +73,14 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     private int replyUserId = 0;
 
     private CommonNavigator commonNavigator;
+    private TrendPresent trendPresent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_trend);
         ImmersionBar.with(this).init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
-
+        trendPresent = new TrendPresent(null);
         bean = (TrendListBean.ListBean) getIntent().getSerializableExtra("bean");
         binding.setBean(bean);
         initView();
@@ -92,20 +97,37 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
             }
         });
 
-        binding.layoutBottom.tvComment.setOnClickListener(new View.OnClickListener() {
+        binding.layoutBottom.vpPraise.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            protected void onNoDoubleClick(View v) {
+                if(bean.getIsPraise() == 1){
+                    bean.setIsPraise(0);
+                    bean.setPraiseCount(bean.getPraiseCount()-1);
+                    trendPresent.praiseAction(bean.getId(),2,1);
+                }else{
+                    binding.layoutBottom.ivPraise.startAnimation(AnimationUtils.loadAnimation(
+                            activity, R.anim.dianzan_anim));
+                    bean.setIsPraise(1);
+                    bean.setPraiseCount(bean.getPraiseCount()+1);
+                    trendPresent.praiseAction(bean.getId(),1,1);
+                }
+            }
+        });
+        binding.layoutBottom.tvComment.setOnClickListener(new PerfectClickListener() {
+            @Override
+            public void onNoDoubleClick(View view) {
                 initCommentDialog();
             }
         });
 
-        binding.layoutBottom.vpGift.setOnClickListener(new View.OnClickListener() {
+        binding.layoutBottom.vpGift.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onNoDoubleClick(View view) {
                 GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
             }
         });
     }
+
 
     private void initView(){
         NineGridImageViewAdapter<String> mAdapter = new NineGridImageViewAdapter<String>() {

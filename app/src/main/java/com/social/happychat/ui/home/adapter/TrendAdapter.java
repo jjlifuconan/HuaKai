@@ -61,7 +61,7 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
                 if(item.getIsPraise() == 1){
                     item.setIsPraise(0);
                     if(listener != null){
-                        listener.onPraise(item.getId(), 0);
+                        listener.onPraise(item.getId(), 2);
                     }
                     item.setPraiseCount(item.getPraiseCount()-1);
                 }else{

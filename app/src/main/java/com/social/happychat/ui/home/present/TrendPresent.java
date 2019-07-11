@@ -84,7 +84,9 @@ public class TrendPresent {
 
             @Override
             public void addSubscription(Subscription subscription) {
-                navigator.addRxSubscription(subscription);
+                if(navigator != null){
+                    navigator.addRxSubscription(subscription);
+                }
             }
         });
     }
