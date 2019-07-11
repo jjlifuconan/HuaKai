@@ -154,12 +154,14 @@ public class TrendListBean extends BaseBean<TrendListBean> {
             this.dynamicTitle = dynamicTitle;
         }
 
+        @Bindable
         public int getGiftCount() {
             return giftCount;
         }
 
         public void setGiftCount(int giftCount) {
             this.giftCount = giftCount;
+            notifyPropertyChanged(BR.giftCount);
         }
 
         public int getId() {

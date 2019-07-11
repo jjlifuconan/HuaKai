@@ -6,14 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.social.basecommon.adapter.OnItemClickListener;
+import com.social.basecommon.adapter.OnItemClickListener2;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.event.RefreshSingleItemEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.activity.TrendDetailActivity;
 import com.social.happychat.ui.home.adapter.TrendAdapter;
@@ -82,10 +85,11 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
 
         trendAdapter = new TrendAdapter(activity);
-        trendAdapter.setOnItemClickListener(new OnItemClickListener<TrendListBean.ListBean>() {
+        trendAdapter.setOnItemClickListener2(new OnItemClickListener2(){
+
             @Override
-            public void onClick(TrendListBean.ListBean item) {
-                TrendDetailActivity.action(activity, item);
+            public void onClick(int position) {
+                TrendDetailActivity.action(activity, position , trendAdapter.getItems().get(position));
             }
         });
         trendAdapter.setOnPraiseClickListener(new TrendAdapter.OnPraiseClickListener() {
@@ -153,6 +157,16 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(RefreshTrendListEvent event) {
         binding.refreshLayout.autoRefresh();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RefreshSingleItemEvent event) {
+        TrendListBean.ListBean bean = trendAdapter.getItems().get(event.position);
+        bean.setPraiseCount((Integer) event.modify_map.get("praiseCount"));
+        bean.setIsPraise((Integer) event.modify_map.get("isPraise"));
+        bean.setCommentCount((Integer) event.modify_map.get("commentCount"));
+        bean.setGiftCount((Integer) event.modify_map.get("giftCount"));
+        EventBus.getDefault().cancelEventDelivery(event);
     }
 
 }

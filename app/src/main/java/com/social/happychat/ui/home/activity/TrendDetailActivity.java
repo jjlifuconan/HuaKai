@@ -31,6 +31,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
 import com.social.happychat.event.RefreshCommentNumEvent;
+import com.social.happychat.event.RefreshSingleItemEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.NeteaseList;
@@ -68,6 +69,7 @@ import rx.schedulers.Schedulers;
 
 public class TrendDetailActivity extends BaseActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
+    int position = -1;//标记列表的位置，返回更新数据
     TrendListBean.ListBean bean;
     private String commentText = "";
     private int replyUserId = 0;
@@ -81,6 +83,7 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         ImmersionBar.with(this).init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
         trendPresent = new TrendPresent(null);
+        position = getIntent().getIntExtra("position", -1);
         bean = (TrendListBean.ListBean) getIntent().getSerializableExtra("bean");
         binding.setBean(bean);
         initView();
@@ -292,8 +295,9 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
     }
 
-    public static void action(Context context, TrendListBean.ListBean bean){
+    public static void action(Context context, int position, TrendListBean.ListBean bean){
         Intent intent = new Intent(context, TrendDetailActivity.class);
+        intent.putExtra("position",position);
         intent.putExtra("bean",bean);
         context.startActivity(intent);
     }
@@ -450,5 +454,25 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     public void alertCommentSbDialog(int replyUserid, String replyName) {
         initCommentDialog(replyUserid, replyName);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        postItemChangedEvent();
+    }
+
+    /**
+     * 返回上级页面参数变化事件
+     */
+    public void postItemChangedEvent(){
+        if(position != -1){
+            Map modify_map = new HashMap();
+            modify_map.put("isPraise",bean.getIsPraise());
+            modify_map.put("praiseCount",bean.getPraiseCount());
+            modify_map.put("commentCount",bean.getCommentCount());
+            modify_map.put("giftCount",bean.getGiftCount());
+            EventBus.getDefault().post(new RefreshSingleItemEvent(position, modify_map));
+        }
     }
 }
