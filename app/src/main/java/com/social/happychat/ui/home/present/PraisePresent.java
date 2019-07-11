@@ -37,7 +37,7 @@ public class PraisePresent {
                     if (PraiseListBean == null || !PraiseListBean.isValid()|| PraiseListBean.getData() == null
                             || PraiseListBean.getData().getList() == null || PraiseListBean.getData().getList().size() <= 0) {
                         navigator.showLoadFailedView();
-                        return;
+//                        return;  取消赞后数据没有了，要清空，所以不能return
                     }
                 } else {
                     if (PraiseListBean == null || !PraiseListBean.isValid()|| PraiseListBean.getData() == null

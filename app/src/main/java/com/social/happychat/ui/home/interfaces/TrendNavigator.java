@@ -1,7 +1,6 @@
 package com.social.happychat.ui.home.interfaces;
 
 
-import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.TrendListBean;
 
 import java.util.List;
@@ -20,6 +19,11 @@ public interface TrendNavigator {
      * 请求成功
      */
     void showLoadSuccessView();
+
+    /**
+     * 赞|取消赞成功  刷新赞列表
+     */
+    void refreshPraiseList(int type);
 
     /**
      * 显示adapter数据

@@ -37,7 +37,7 @@ public class CommentPresent {
                     if (CommentListBean == null || !CommentListBean.isValid()|| CommentListBean.getData() == null
                             || CommentListBean.getData().getList() == null || CommentListBean.getData().getList().size() <= 0) {
                         navigator.showLoadFailedView();
-                        return;
+//                        return;  取消评论后数据没有了，要清空，所以不能return
                     }
                 } else {
                     if (CommentListBean == null || !CommentListBean.isValid()|| CommentListBean.getData() == null

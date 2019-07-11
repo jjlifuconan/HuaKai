@@ -10,10 +10,17 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.event.RefreshCommentNumEvent;
+import com.social.happychat.event.RefreshPraiseEvent;
 import com.social.happychat.ui.home.adapter.PraiseAdapter;
 import com.social.happychat.ui.home.bean.PraiseListBean;
+import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.happychat.ui.home.interfaces.PraiseNavigator;
 import com.social.happychat.ui.home.present.PraisePresent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -36,6 +43,19 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
         PraiseListFragment fragment = new PraiseListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -76,6 +96,9 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
             binding.refreshLayout.finishLoadMore();
         }
         PraiseAdapter.getItems().addAll(dataBeans);
+        if (PraiseAdapter.getItemCount() == 0) {
+            showError();
+        }
 
     }
 
@@ -106,5 +129,10 @@ public class PraiseListFragment extends BaseFragment<FragmentRefreshListBinding>
     @Override
     public int setContent() {
         return R.layout.fragment_refresh_list;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RefreshPraiseEvent event) {
+        onRefresh();
     }
 }

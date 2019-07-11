@@ -112,6 +112,11 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     }
 
     @Override
+    public void refreshPraiseList(int type) {
+
+    }
+
+    @Override
     public void showAdapterView(List<TrendListBean.ListBean> listBeans) {
         binding.refreshLayout.setNoMoreData(false);
 

@@ -74,7 +74,7 @@ public class TrendPresent {
         mModel.praise(businessId, operateType, type, new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
-//                nahowAdapterView(trendListBean.getData().getList());
+                navigator.refreshPraiseList(operateType);
             }
 
             @Override
@@ -84,9 +84,7 @@ public class TrendPresent {
 
             @Override
             public void addSubscription(Subscription subscription) {
-                if(navigator != null){
-                    navigator.addRxSubscription(subscription);
-                }
+                navigator.addRxSubscription(subscription);
             }
         });
     }

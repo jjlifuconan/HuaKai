@@ -108,6 +108,9 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
             binding.refreshLayout.finishLoadMore();
         }
         CommentAdapter.getItems().addAll(dataBeans);
+        if (CommentAdapter.getItemCount() == 0) {
+            showError();
+        }
 
     }
 

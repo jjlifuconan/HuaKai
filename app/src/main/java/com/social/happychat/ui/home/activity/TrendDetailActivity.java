@@ -31,6 +31,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
 import com.social.happychat.event.RefreshCommentNumEvent;
+import com.social.happychat.event.RefreshPraiseEvent;
 import com.social.happychat.event.RefreshSingleItemEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.http.RequestImpl;
@@ -41,6 +42,7 @@ import com.social.happychat.ui.home.fragment.CommentListFragment;
 import com.social.happychat.ui.home.fragment.GiftRecordListFragment;
 import com.social.happychat.ui.home.fragment.PraiseListFragment;
 import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
+import com.social.happychat.ui.home.interfaces.SimpleTrendNavigator;
 import com.social.happychat.ui.home.present.TrendPresent;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.main.MainActivity;
@@ -82,7 +84,17 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_trend);
         ImmersionBar.with(this).init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
-        trendPresent = new TrendPresent(null);
+        trendPresent = new TrendPresent(new SimpleTrendNavigator(){
+            @Override
+            public void refreshPraiseList(int operateType) {
+                EventBus.getDefault().post(new RefreshPraiseEvent());
+            }
+
+            @Override
+            public void addRxSubscription(Subscription subscription) {
+                addSubscription(subscription);
+            }
+        });
         position = getIntent().getIntExtra("position", -1);
         bean = (TrendListBean.ListBean) getIntent().getSerializableExtra("bean");
         binding.setBean(bean);
@@ -106,12 +118,14 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
                 if(bean.getIsPraise() == 1){
                     bean.setIsPraise(0);
                     bean.setPraiseCount(bean.getPraiseCount()-1);
+                    updateIndicatorTitle();
                     trendPresent.praiseAction(bean.getId(),2,1);
                 }else{
                     binding.layoutBottom.ivPraise.startAnimation(AnimationUtils.loadAnimation(
                             activity, R.anim.dianzan_anim));
                     bean.setIsPraise(1);
                     bean.setPraiseCount(bean.getPraiseCount()+1);
+                    updateIndicatorTitle();
                     trendPresent.praiseAction(bean.getId(),1,1);
                 }
             }
