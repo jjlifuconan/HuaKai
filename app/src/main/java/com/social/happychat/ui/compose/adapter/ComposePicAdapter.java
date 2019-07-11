@@ -29,8 +29,15 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
 
     private onAddPicListener listener;
 
+    private int maxSize = 9;
+
     public ComposePicAdapter(Context context) {
         super(context);
+    }
+
+    public ComposePicAdapter(Context context, int maxSize) {
+        super(context);
+        this.maxSize = maxSize;
     }
 
     @Override
@@ -109,7 +116,7 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
 
     @Override
     public int getItemViewType(int position) {
-        if(getItems().size() < 9){
+        if(getItems().size() < maxSize){
             if(position == getItemCount() - 1){
                 return TYPE_ADD;
             }else{
@@ -122,10 +129,10 @@ public class ComposePicAdapter extends BaseBindingAdapter<String, ItemComposePic
 
     @Override
     public int getItemCount() {
-        if(getItems().size() < 9){
+        if(getItems().size() < maxSize){
             return getItems().size() + 1;
         }else{
-            return 9;
+            return maxSize;
         }
     }
 

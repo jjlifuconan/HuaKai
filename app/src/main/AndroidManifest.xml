@@ -163,6 +163,12 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.mine.activity.ModifyUserInfoActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:screenOrientation="portrait" />
+
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.zhihu.matisse.sample.fileprovider"

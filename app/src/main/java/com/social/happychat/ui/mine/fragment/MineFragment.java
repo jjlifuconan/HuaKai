@@ -11,6 +11,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.GlideApp;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
 import com.social.happychat.constant.Constant;
@@ -20,6 +21,7 @@ import com.social.happychat.ui.login.LoginActivity;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.login.cookie.LoginCookie;
+import com.social.happychat.ui.mine.activity.ModifyUserInfoActivity;
 import com.social.happychat.util.RequestBody;
 
 import java.util.HashMap;
@@ -69,6 +71,17 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
             binding.setBean(userBean);
         }
 
+        setListener();
+
+    }
+
+    private void setListener() {
+        binding.ivHead.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                ModifyUserInfoActivity.action(activity);
+            }
+        });
         binding.logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +99,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
                         .show();
             }
         });
+
     }
 
     private void logout(Map params){
