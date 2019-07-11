@@ -2,6 +2,7 @@ package com.social.happychat.im;
 
 import android.content.Context;
 
+import com.netease.nim.avchatkit.AVChatKit;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 
@@ -29,7 +30,7 @@ public class DemoCache {
     public static void setAccount(String account) {
         DemoCache.account = account;
         NimUIKit.setAccount(account);
-//        AVChatKit.setAccount(account);
+        AVChatKit.setAccount(account);
 //        RTSKit.setAccount(account);
     }
 
@@ -48,14 +49,14 @@ public class DemoCache {
     public static void setContext(Context context) {
         DemoCache.context = context.getApplicationContext();
 
-//        AVChatKit.setContext(context);
+        AVChatKit.setContext(context);
 //        RTSKit.setContext(context);
     }
 
     public static void setMainTaskLaunching(boolean mainTaskLaunching) {
         DemoCache.mainTaskLaunching = mainTaskLaunching;
 
-//        AVChatKit.setMainTaskLaunching(mainTaskLaunching);
+        AVChatKit.setMainTaskLaunching(mainTaskLaunching);
     }
 
     public static boolean isMainTaskLaunching() {

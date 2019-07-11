@@ -19,10 +19,6 @@ public interface DialogFragmentDataCallback {
 
     int getCommentToWhichUserid();
 
-    String getCommentId();
-
-    void setCommentId(String commentId);
-
     /**1
      * 评论帖子
      * @param commentTextTemp

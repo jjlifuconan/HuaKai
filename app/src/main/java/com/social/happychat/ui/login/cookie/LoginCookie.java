@@ -30,6 +30,10 @@ public class LoginCookie {
         if (plat.isAuthValid()) {
             plat.removeAccount(true);
         }
+        clearIMCache();
+    }
+
+    public static void clearIMCache(){
         //退出网易IM
         Preferences.saveUserToken("");
         // 清理缓存&注销监听

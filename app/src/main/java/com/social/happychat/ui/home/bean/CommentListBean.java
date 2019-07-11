@@ -123,7 +123,7 @@ public class CommentListBean extends BaseBean<CommentListBean> {
 
         private String content;
         private int dynamicId;
-        private String time;
+        private String commentTime;
         private String headPhotoUrl;
         private int id;
         private int isPraise;
@@ -134,12 +134,12 @@ public class CommentListBean extends BaseBean<CommentListBean> {
         private String userName;
         private int userSex;
 
-        public String getTime() {
-            return time;
+        public String getCommentTime() {
+            return commentTime;
         }
 
-        public void setTime(String time) {
-            this.time = time;
+        public void setCommentTime(String commentTime) {
+            this.commentTime = commentTime;
         }
 
         public String getContent() {

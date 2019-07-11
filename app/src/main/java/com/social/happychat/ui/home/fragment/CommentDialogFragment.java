@@ -66,8 +66,8 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
 
         root = mDialog.findViewById(R.id.root);
         commentEditText = (EditText) mDialog.findViewById(R.id.edit_comment);
-        if(getArguments()!=null && !TextUtils.isEmpty(getArguments().getString("nickname"))){
-            commentEditText.setHint("回复"+getArguments().getString("nickname")+"：");
+        if(getArguments()!=null && !TextUtils.isEmpty(getArguments().getString("replyName"))){
+            commentEditText.setHint("回复"+getArguments().getString("replyName")+"：");
         }
         btn_send = (ImageView) mDialog.findViewById(R.id.btn_send);
         btn_send.setEnabled(false);
@@ -104,12 +104,14 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
 
     private void fillEditText() {
         dataCallback = (DialogFragmentDataCallback) getActivity();
-        if(dataCallback.getCommentToWhichUserid() != 0){
-            if(dataCallback.getCommentToWhichUserid() == getArguments().getInt("userId")){
+        if(getReplyUserid() != 0){
+            //对其他用户评论
+            if(dataCallback.getCommentToWhichUserid() == getReplyUserid()){
                 commentEditText.setText(dataCallback.getCommentText());
                 commentEditText.setSelection(dataCallback.getCommentText().length());
             }
         }else{
+            //对帖子评论
             commentEditText.setText(dataCallback.getCommentText());
             commentEditText.setSelection(dataCallback.getCommentText().length());
         }
@@ -166,9 +168,9 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
                         ToastUtil.showShort(getContext(), "请输入评论内容");
                         return;
                     }
-                    if(getArguments()!=null && !TextUtils.isEmpty(getArguments().getString("commentId"))){
+                    if(getArguments()!=null && getReplyUserid() != 0){
                         //回复评论
-                        dataCallback.submitCommentToSb(getArguments().getInt("userId"),getArguments().getString("nickname"),commentEditText.getText().toString().trim());
+                        dataCallback.submitCommentToSb(getReplyUserid(),getArguments().getString("replyName"),commentEditText.getText().toString().trim());
                     }else{
                         //回复帖子
                         dataCallback.submitCommentToPost(commentEditText.getText().toString().trim());
@@ -177,7 +179,6 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
                     commentEditText.setText("");
                     dataCallback.setCommentText("");
                     dataCallback.setCommentToWhichUserid(0);
-                    dataCallback.setCommentId("");
                     dismiss();
                 }
                 break;
@@ -186,11 +187,21 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
         }
     }
 
+    private int getReplyUserid(){
+        if(getArguments() != null){
+            return getArguments().getInt("replyUserid");
+        }else{
+            return 0;
+        }
+    }
+
 
     @Override
     public void onDismiss(DialogInterface dialog) {
         dataCallback.setCommentText(commentEditText.getText().toString());
-        dataCallback.setCommentToWhichUserid(getArguments().getInt("userId"));
+        if(getReplyUserid() != 0){
+            dataCallback.setCommentToWhichUserid(getReplyUserid());
+        }
         hideSoftInput(getContext(), commentEditText);
         super.onDismiss(dialog);
     }
@@ -198,7 +209,9 @@ public class CommentDialogFragment extends DialogFragment implements View.OnClic
     @Override
     public void onCancel(DialogInterface dialog) {
         dataCallback.setCommentText(commentEditText.getText().toString());
-        dataCallback.setCommentToWhichUserid(getArguments().getInt("userId"));
+        if(getReplyUserid() != 0){
+            dataCallback.setCommentToWhichUserid(getReplyUserid());
+        }
         hideSoftInput(getContext(), commentEditText);
         super.onCancel(dialog);
     }

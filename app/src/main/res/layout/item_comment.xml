@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text="@{bean.time}"
+            android:text="@{bean.commentTime}"
             tools:text="啊实打实大"
             android:textColor="@color/comment_time"
             android:ellipsize="end"

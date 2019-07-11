@@ -252,9 +252,6 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
      */
     private void initCommentDialog() {
         CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("userId", "当前用户id");
-        commentDialogFragment.setArguments(bundle);
         commentDialogFragment.setCancelable(true);
         commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
     }
@@ -265,8 +262,8 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     private void initCommentDialog(int replyUserid, String replyName) {
         CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("userId", replyUserid);
-        bundle.putString("nickname", replyName);
+        bundle.putInt("replyUserid", replyUserid);
+        bundle.putString("replyName", replyName);
         commentDialogFragment.setArguments(bundle);
         commentDialogFragment.setCancelable(true);
         commentDialogFragment.show(getSupportFragmentManager(), "CommentListDialogFragment");
@@ -296,16 +293,6 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
     @Override
     public int getCommentToWhichUserid() {
         return replyUserId;
-    }
-
-    @Override
-    public String getCommentId() {
-        return null;
-    }
-
-    @Override
-    public void setCommentId(String commentId) {
-
     }
 
     @Override
@@ -348,10 +335,15 @@ public class TrendDetailActivity extends BaseActivity implements DialogFragmentD
 
     @Override
     public void submitCommentToSb(int replyUserid, String replyName, String commentTextTemp) {
+        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
         Map map = new HashMap();
+        map.put("dynamicId",bean.getId());
+        map.put("userId",userBean.getId());
+        map.put("userName",userBean.getNickName());
         map.put("replyUserId",replyUserid);
         map.put("replyUserName",replyName);
         map.put("content",commentTextTemp.trim());
+        map.put("headPhotoUrl",userBean.getHeadPhotoUrl());
         Subscription subscription = HttpClient.Builder.getRealServer().doComment(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseBean>() {

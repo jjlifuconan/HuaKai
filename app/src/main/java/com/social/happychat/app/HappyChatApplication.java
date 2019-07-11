@@ -1,18 +1,34 @@
 package com.social.happychat.app;
 
+import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 import com.example.http.HttpUtils;
 import com.mob.MobSDK;
+import com.netease.nim.avchatkit.AVChatKit;
+import com.netease.nim.avchatkit.config.AVChatOptions;
+import com.netease.nim.avchatkit.model.ITeamDataProvider;
+import com.netease.nim.avchatkit.model.IUserInfoProvider;
 import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.business.team.helper.TeamHelper;
+import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.nimlib.sdk.util.NIMUtil;
 import com.social.basecommon.util.DebugUtil;
+import com.social.happychat.R;
 import com.social.happychat.im.DemoCache;
+import com.social.happychat.im.NIMInitManager;
 import com.social.happychat.im.NimSDKOptionConfig;
 import com.social.happychat.im.Preferences;
+import com.social.happychat.im.SessionHelper;
+import com.social.happychat.im.UserPreferences;
+import com.social.happychat.im.util.LogHelper;
+import com.social.happychat.ui.login.WelcomeActivity;
+import com.social.happychat.ui.login.cookie.LoginCookie;
+import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.LocationService;
 
 
@@ -45,6 +61,14 @@ public class HappyChatApplication extends MultiDexApplication {
         if (NIMUtil.isMainProcess(this)) {
             // 在主进程中初始化UI组件，判断所属进程方法请参见demo源码。
             initUiKit();
+            // 初始化消息提醒
+            NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+            //关闭撤回消息提醒
+//            NIMClient.toggleRevokeMessageNotification(false);
+            // 云信sdk相关业务初始化
+            NIMInitManager.getInstance().init(true);
+            // 初始化音视频模块
+            initAVChatKit();
         }
         // 初始化百度地图SDK
         initBaiduLocation();
@@ -65,6 +89,8 @@ public class HappyChatApplication extends MultiDexApplication {
     private void initUiKit() {
         // 初始化
         NimUIKit.init(this);
+        // IM 会话窗口的定制初始化。
+        SessionHelper.init();
 
     }
 
@@ -74,6 +100,45 @@ public class HappyChatApplication extends MultiDexApplication {
     private void initBaiduLocation() {
         locationService = new LocationService(getApplicationContext());
         locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+    }
+
+    private void initAVChatKit() {
+        AVChatOptions avChatOptions = new AVChatOptions() {
+            @Override
+            public void logout(Context context) {
+                LoginCookie.clearIMCache();
+            }
+        };
+        avChatOptions.entranceActivity = WelcomeActivity.class;
+        avChatOptions.notificationIconRes = R.mipmap.ic_launcher;
+        AVChatKit.init(avChatOptions);
+
+        // 初始化日志系统
+        LogHelper.init();
+        // 设置用户相关资料提供者
+        AVChatKit.setUserInfoProvider(new IUserInfoProvider() {
+            @Override
+            public UserInfo getUserInfo(String account) {
+                return NimUIKit.getUserInfoProvider().getUserInfo(account);
+            }
+
+            @Override
+            public String getUserDisplayName(String account) {
+                return UserInfoHelper.getUserDisplayName(account);
+            }
+        });
+        // 设置群组数据提供者
+        AVChatKit.setTeamDataProvider(new ITeamDataProvider() {
+            @Override
+            public String getDisplayNameWithoutMe(String teamId, String account) {
+                return TeamHelper.getDisplayNameWithoutMe(teamId, account);
+            }
+
+            @Override
+            public String getTeamMemberDisplayName(String teamId, String account) {
+                return TeamHelper.getTeamMemberDisplayName(teamId, account);
+            }
+        });
     }
 
 
