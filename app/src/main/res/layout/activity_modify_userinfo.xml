@@ -58,17 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="@dimen/dp80"
-                    android:layout_height="@dimen/dp80"
-                    android:src="@drawable/ic_girl" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,6 +68,41 @@
                     android:paddingHorizontal="@dimen/dp14"
                     android:paddingBottom="@dimen/dp14"
                     android:showDividers="middle">
+
+                    <LinearLayout
+                        android:id="@+id/vp_headphoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dp20">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_headphoto"
+                            android:textColor="@color/color_4a4a4a"
+                            android:textSize="@dimen/sp15" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="@dimen/dp60"
+                            android:layout_height="@dimen/dp60"
+                            android:src="@drawable/ic_girl" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp7"
+                            android:src="@mipmap/right_going" />
+
+
+                    </LinearLayout>
 
 
                     <LinearLayout
@@ -118,6 +143,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/vp_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -155,6 +181,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/vp_emotion_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -191,6 +218,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/vp_signature"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -228,6 +256,7 @@
 
 
                     <LinearLayout
+                        android:id="@+id/vp_hometown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -264,6 +293,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/vp_job"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -300,6 +330,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/vp_tag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -360,7 +391,6 @@
                     </LinearLayout>
 
 
-                </LinearLayout>
 
 
             </LinearLayout>

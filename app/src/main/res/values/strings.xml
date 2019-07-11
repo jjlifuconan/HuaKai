@@ -34,6 +34,7 @@
     <string name="job">职业：%1$s</string>
     <string name="signature">个人签名：%1$s</string>
 
+    <string name="title_headphoto">用户头像</string>
     <string name="title_nickname">昵称</string>
     <string name="title_birthday">出生日期</string>
     <string name="title_emotion_state">情感状态</string>
