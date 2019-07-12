@@ -168,7 +168,6 @@ public class ImageLoadUtil {
     public static void displayCircle(ImageView imageView, String imageUrl, int defaultPicType) {
         GlideApp.with(imageView.getContext())
                 .load(imageUrl)
-                .transition(withCrossFade(500))
                 .error(getDefaultPic(defaultPicType))
                 .transform(new GlideCircleTransform(imageView.getContext()))
                 .into(imageView);

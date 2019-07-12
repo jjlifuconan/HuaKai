@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.netease.nim.uikit.common.util.string.MD5;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
@@ -26,7 +25,6 @@ import com.social.happychat.im.IMConstant;
 import com.social.happychat.im.IMImpl;
 import com.social.happychat.im.IMUtils;
 import com.social.happychat.ui.login.bean.UserBean;
-import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
 
 import java.util.HashMap;
@@ -117,10 +115,12 @@ public class LoginActivity extends BaseActivity {
                 .subscribe(new Observer<UserBean>() {
                     @Override
                     public void onCompleted() {
+                        int i = 0;
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        int i = 0;
                     }
 
                     @Override
@@ -164,7 +164,7 @@ public class LoginActivity extends BaseActivity {
      */
     private void handleIMAcount(UserBean userBean){
         //本地没有IM信息
-        if(userBean.isReisterIM()){
+        if(userBean.isOpenIm()){
             //注册过，直接登录IM
             loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
                 @Override

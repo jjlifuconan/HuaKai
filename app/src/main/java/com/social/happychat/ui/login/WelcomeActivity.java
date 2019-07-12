@@ -6,14 +6,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 
-import com.netease.nim.uikit.api.NimUIKit;
-import com.netease.nim.uikit.common.ToastHelper;
-import com.netease.nim.uikit.common.util.string.MD5;
 import com.netease.nimlib.sdk.AbortableFuture;
-import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.PerfectClickListener;
@@ -21,7 +16,6 @@ import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityWelcomeBinding;
-import com.social.happychat.im.ContactHttpClient;
 import com.social.happychat.im.DemoCache;
 import com.social.happychat.im.IMConstant;
 import com.social.happychat.im.IMImpl;
@@ -138,7 +132,7 @@ public class WelcomeActivity extends BaseActivity {
      */
     private void handleIMAcount(UserBean userBean){
         //本地没有IM信息
-        if(userBean.isReisterIM()){
+        if(userBean.isOpenIm()){
             //注册过，直接登录IM
             loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
                 @Override

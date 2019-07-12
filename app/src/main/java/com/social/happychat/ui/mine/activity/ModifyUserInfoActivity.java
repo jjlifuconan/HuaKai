@@ -42,6 +42,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
 import com.social.happychat.databinding.ActivityModifyUserinfoBinding;
+import com.social.happychat.event.RefreshMineEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.event.UserSingleAttriteEditEvent;
 import com.social.happychat.http.HttpClient;
@@ -430,6 +431,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                                     String birthday = datePicker.getYear() + "-" + OtherUtils.addZeroForNumber(datePicker.getMonth()+1)+ "-"
                                             + OtherUtils.addZeroForNumber(datePicker.getDayOfMonth());
                                     binding.tvBirthday.setText(birthday);
+                                    userBean.setUserBirthday(birthday);
                                 }
                             })
                             .show();
@@ -458,7 +460,8 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     break;
                 case R.id.vp_close:
                     KeyboardUtils.hideSoftInput(activity);
-                    if (adapter.getItems().size() != 0) {
+                    UserBean localBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+                    if (userBean.isDataModify(localBean)) {
                         new MaterialDialog.Builder(activity).positiveText("确定").negativeText("取消")
                                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                                     @Override
@@ -479,11 +482,16 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     KeyboardUtils.hideSoftInput(activity);
 //                showProgressBar();
                     Map map = new HashMap();
-                    map.put("dynamicType", "1");
+                    map.put("headPhotoUrl", userBean.getHeadPhotoUrl());
+                    map.put("nickName", userBean.getNickName());
+                    map.put("userBirthday", userBean.getUserBirthday());
+                    map.put("userProfession", userBean.getUserProfession());
+                    map.put("userSign", userBean.getUserSign());
+//                    map.put("userTagDtos", "");
                     sortImageBeans();
-                    map.put("userFiles", imageBeans);
+                    map.put("userFileDtos", imageBeans);
 
-                    Subscription subscription = HttpClient.Builder.getRealServer().publishDynamic(com.social.happychat.util.RequestBody.as(map))
+                    Subscription subscription = HttpClient.Builder.getRealServer().modifyUser(com.social.happychat.util.RequestBody.as(map))
                             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<BaseBean>() {
                                 @Override
@@ -497,8 +505,9 @@ public class ModifyUserInfoActivity extends BaseActivity {
                                 @Override
                                 public void onNext(BaseBean baseBean) {
                                     if (baseBean.isValid()) {
-                                        ToastUtil.show(activity, "发布成功");
-                                        EventBus.getDefault().post(new RefreshTrendListEvent());
+                                        ToastUtil.show(activity, "修改成功");
+                                        SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean);
+                                        EventBus.getDefault().post(new RefreshMineEvent());
                                         finish();
                                     } else {
                                         ToastUtil.show(activity, baseBean.getMsg());
@@ -510,6 +519,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
             }
         }
     };
+
 
     /**
      * 初始化城市选择器
@@ -548,13 +558,16 @@ public class ModifyUserInfoActivity extends BaseActivity {
         });
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(UserSingleAttriteEditEvent event) {
         if(TextUtils.equals(getResources().getString(R.string.title_nickname), event.attriname)){
             binding.tvNickname.setText(event.value);
+            userBean.setNickName(event.value);
         }
         if(TextUtils.equals(getResources().getString(R.string.title_signature), event.attriname)){
             binding.tvSignature.setText(event.value);
+            userBean.setUserSign(event.value);
         }
     }
 

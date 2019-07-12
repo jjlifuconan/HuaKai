@@ -16,6 +16,8 @@ import com.social.basecommon.util.SPUtils;
 import com.social.happychat.R;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentMineBinding;
+import com.social.happychat.event.RefreshMineEvent;
+import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.login.LoginActivity;
 import com.social.happychat.ui.login.bean.UserBean;
@@ -23,6 +25,10 @@ import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.login.cookie.LoginCookie;
 import com.social.happychat.ui.mine.activity.ModifyUserInfoActivity;
 import com.social.happychat.util.RequestBody;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +53,19 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 
     @Override
     public int setContent() {
@@ -123,5 +142,13 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
                     }
                 });
         addSubscription(subscription);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RefreshMineEvent event) {
+        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+        if(userBean != null){
+            binding.setBean(userBean);
+        }
     }
 }

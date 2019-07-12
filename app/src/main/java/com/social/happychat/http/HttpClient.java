@@ -126,6 +126,12 @@ public interface HttpClient {
     Observable<BaseBean> publishDynamic(@Body JSONObject parmas);
 
     /**
+     * 会员信息修改
+     */
+    @POST("user/private/user/modify.do")
+    Observable<BaseBean> modifyUser(@Body JSONObject parmas);
+
+    /**
      * 动态列表
      */
     @POST("dynamic/private/dynamicList.do")

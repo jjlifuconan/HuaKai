@@ -1,6 +1,5 @@
 package com.social.happychat.ui.login;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -28,7 +27,6 @@ import com.social.happychat.im.IMConstant;
 import com.social.happychat.im.IMImpl;
 import com.social.happychat.im.IMUtils;
 import com.social.happychat.ui.login.bean.UserBean;
-import com.social.happychat.ui.main.MainActivity;
 import com.social.happychat.util.RequestBody;
 
 import java.util.HashMap;
@@ -251,7 +249,7 @@ public class ForgetPwdActivity extends BaseActivity {
      */
     private void handleIMAcount(UserBean userBean){
         //本地没有IM信息
-        if(userBean.isReisterIM()){
+        if(userBean.isOpenIm()){
             //注册过，直接登录IM
             loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), MD5.getStringMD5(IMConstant.IM_TOKEN), new IMImpl.IMLoginImpl() {
                 @Override

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.social.happychat.BR;
 import com.social.happychat.bean.BaseBean;
+import com.social.happychat.ui.compose.bean.ImageBean;
 
 import java.util.List;
 
@@ -31,20 +32,30 @@ public class UserBean extends BaseBean<UserBean> {
     private int id;
     private String nickName;
     private String userBirthday;
+    private String userProfession;
     private String userMobile;
     private String userSign;
     private int userSex;
-    private boolean isReisterIM;
-    private List<?> userFileDtos;
+    private int isOpenIm;
+    private List<ImageBean> userFileDtos;
     private List<?> userTagDtos;
 
-    public boolean isReisterIM() {
+    public boolean isOpenIm() {
         //for test
         return true;
+//        return isOpenIm == 1;
     }
 
-    public void setReisterIM(boolean reisterIM) {
-        isReisterIM = reisterIM;
+    public void setIsOpenIm(int isOpenIm) {
+        isOpenIm = isOpenIm;
+    }
+
+    public String getUserProfession() {
+        return userProfession;
+    }
+
+    public void setUserProfession(String userProfession) {
+        this.userProfession = userProfession;
     }
 
     public int getUserSex() {
@@ -108,11 +119,19 @@ public class UserBean extends BaseBean<UserBean> {
         this.userSign = userSign;
     }
 
-    public List<?> getUserFileDtos() {
+    public List<ImageBean> getUserFileDtos() {
         return userFileDtos;
     }
 
-    public void setUserFileDtos(List<?> userFileDtos) {
+    public boolean isUserFileDtosEmpty(){
+        if(userFileDtos == null || userFileDtos.size() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void setUserFileDtos(List<ImageBean> userFileDtos) {
         this.userFileDtos = userFileDtos;
     }
 
@@ -122,5 +141,50 @@ public class UserBean extends BaseBean<UserBean> {
 
     public void setUserTagDtos(List<?> userTagDtos) {
         this.userTagDtos = userTagDtos;
+    }
+
+    public boolean isDataModify(UserBean localBean){
+        //昵称
+        if(!TextUtils.equals(localBean.getNickName(), getNickName())){
+            return true;
+        }
+        //头像
+        if(!TextUtils.equals(localBean.getHeadPhotoUrl(), getHeadPhotoUrl())){
+            return true;
+        }
+        //生日
+        if(!TextUtils.equals(localBean.getUserBirthday(), getUserBirthday())){
+            return true;
+        }
+        //签名
+        if(!TextUtils.equals(localBean.getUserSign(), getUserSign())){
+            return true;
+        }
+        //相册  比较复杂
+        if(localBean.isUserFileDtosEmpty() && !isUserFileDtosEmpty()){
+            return true;
+        }
+
+        if(!localBean.isUserFileDtosEmpty() && isUserFileDtosEmpty()){
+            return true;
+        }
+
+        if(!localBean.isUserFileDtosEmpty() && !isUserFileDtosEmpty()){
+            if(localBean.getUserFileDtos().size() != getUserFileDtos().size()){
+                return true;
+            }
+            for(ImageBean imageBean: localBean.getUserFileDtos()){
+                if(!getUserFileDtos().contains(imageBean)){
+                    return true;
+                }
+            }
+        }
+
+        //情感状态
+        //家乡
+        //职业
+        //标签
+
+        return false;
     }
 }
