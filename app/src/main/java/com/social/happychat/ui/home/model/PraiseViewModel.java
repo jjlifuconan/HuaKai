@@ -34,8 +34,8 @@ public class PraiseViewModel {
 
     public void getPraiseData(final RequestImpl listener) {
         Map map = new HashMap();
-        map.put("pageNumber ",page);
-        map.put("pages ",per_page);
+        map.put("pageNumber",page);
+        map.put("pages",per_page);
         map.put("businessId",dynamicId);
         Subscription subscription = HttpClient.Builder.getRealServer().praiseList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

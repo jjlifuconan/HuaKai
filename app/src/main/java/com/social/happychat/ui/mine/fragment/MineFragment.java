@@ -24,6 +24,7 @@ import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.login.cookie.LoginCookie;
 import com.social.happychat.ui.mine.activity.ModifyUserInfoActivity;
+import com.social.happychat.ui.mine.activity.MyTrendActiviy;
 import com.social.happychat.util.RequestBody;
 
 import org.greenrobot.eventbus.EventBus;
@@ -99,6 +100,12 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
             @Override
             protected void onNoDoubleClick(View v) {
                 ModifyUserInfoActivity.action(activity);
+            }
+        });
+        binding.vpMyTrend.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                MyTrendActiviy.action(activity);
             }
         });
         binding.logout.setOnClickListener(new View.OnClickListener() {

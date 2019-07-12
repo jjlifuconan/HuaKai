@@ -36,9 +36,9 @@ public class TrendModel {
         if(type == 2){
             map.put("publishLocation","南京");
         }
-        map.put("pageNumber ",page);
-        map.put("pages ",per_page);
-        map.put("type ",type);
+        map.put("pageNumber",page);
+        map.put("pages",per_page);
+        map.put("type",type);
         Subscription subscription = HttpClient.Builder.getRealServer().dynamicList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<TrendListBean>() {

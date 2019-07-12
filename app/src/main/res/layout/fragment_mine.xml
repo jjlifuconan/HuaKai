@@ -256,6 +256,7 @@
             android:background="@color/divider_line2" />
 
         <LinearLayout
+            android:id="@+id/vp_my_trend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
