@@ -5,6 +5,8 @@
 
     <data>
         <import type="android.text.TextUtils" />
+        <import type="com.social.happychat.ui.mine.utils.UserBindingUtils" />
+
         <variable
             name="bean"
             type="com.social.happychat.ui.login.bean.UserBean"/>
@@ -372,6 +374,7 @@
                             android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:text="@{UserBindingUtils.getTagText(bean.userTagDtos)}"
                             android:singleLine="true"
                             android:textColor="@color/color_c1c1c1"
                             android:textSize="@dimen/sp15"
