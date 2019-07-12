@@ -40,7 +40,9 @@ import rx.schedulers.Schedulers;
  */
 public class MyTagActivity extends BaseActivity {
     ActivityMyTagBinding binding;
-    List<TagListBean> listBeans;
+    List<TagListBean> listBeans;//接口请求到的总的tags
+    List<TagListBean> userTags;//用户选中的数据
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class MyTagActivity extends BaseActivity {
                 .keyboardEnable(true)
                 .init();
         ImmersionBar.setTitleBar(this, binding.titlebar);
+        userTags = (List<TagListBean>) getIntent().getSerializableExtra("userTags");
         binding.vpClose.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
@@ -114,6 +117,11 @@ public class MyTagActivity extends BaseActivity {
                                         }
                                     });
                                     tv_tag.setText(tag.getClassifyName());
+                                    if(userTags != null){
+                                        if(userTags.contains(tag)){
+                                            tv_tag.setSelected(true);
+                                        }
+                                    }
                                     binding.flexbox.addView(tv_tag);
                                 }
                             }
@@ -125,8 +133,9 @@ public class MyTagActivity extends BaseActivity {
         addSubscription(subscription);
     }
 
-    public static void action(Context context) {
+    public static void action(Context context, ArrayList<TagListBean> userTags) {
         Intent intent = new Intent(context, MyTagActivity.class);
+        intent.putExtra("userTags", userTags);
         context.startActivity(intent);
     }
 }

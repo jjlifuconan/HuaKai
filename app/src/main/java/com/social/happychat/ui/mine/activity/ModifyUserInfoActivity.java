@@ -52,6 +52,7 @@ import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.compose.gifsize.GifSizeFilter;
 import com.social.happychat.ui.compose.gifsize.GlideEngine;
 import com.social.happychat.ui.login.bean.UserBean;
+import com.social.happychat.ui.mine.bean.TagListBean;
 import com.social.happychat.util.OtherUtils;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -458,7 +459,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                 case R.id.vp_job:
                     break;
                 case R.id.vp_tag:
-                    MyTagActivity.action(activity);
+                    MyTagActivity.action(activity, (ArrayList<TagListBean>) userBean.getUserTagDtos());
                     break;
                 case R.id.vp_close:
                     KeyboardUtils.hideSoftInput(activity);
