@@ -457,6 +457,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                 case R.id.vp_job:
                     break;
                 case R.id.vp_tag:
+                    MyTagActivity.action(activity);
                     break;
                 case R.id.vp_close:
                     KeyboardUtils.hideSoftInput(activity);

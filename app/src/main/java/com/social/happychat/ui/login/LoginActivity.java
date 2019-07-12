@@ -115,12 +115,10 @@ public class LoginActivity extends BaseActivity {
                 .subscribe(new Observer<UserBean>() {
                     @Override
                     public void onCompleted() {
-                        int i = 0;
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        int i = 0;
                     }
 
                     @Override

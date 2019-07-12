@@ -11,6 +11,7 @@ import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.PraiseListBean;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.login.bean.UserBean;
+import com.social.happychat.ui.mine.bean.TagListBean;
 
 
 import java.util.Map;
@@ -130,6 +131,12 @@ public interface HttpClient {
      */
     @POST("user/private/user/modify.do")
     Observable<BaseBean> modifyUser(@Body JSONObject parmas);
+
+    /**
+     * 标签列表 无分页
+     */
+    @POST("sys/classifyList.do")
+    Observable<TagListBean> classifyList(@Body JSONObject parmas);
 
     /**
      * 动态列表

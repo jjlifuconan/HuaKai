@@ -169,6 +169,12 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.mine.activity.MyTagActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:screenOrientation="portrait" />
+
+
+        <activity
             android:name=".ui.mine.activity.UserSingleAttributeEditActiviy"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:screenOrientation="portrait" />

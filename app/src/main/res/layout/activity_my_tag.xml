@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp44"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/vp_close"
+                android:layout_width="@dimen/dp44"
+                android:layout_height="@dimen/dp44">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_toolbar_back_gray_24dp" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="我的标签"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp16" />
+
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp14"
+                android:background="#fff"
+                app:alignContent="flex_start"
+                app:alignItems="flex_start"
+                app:dividerDrawable="@drawable/divider_flexbox_transparent2"
+                app:flexWrap="wrap"
+                app:showDivider="middle" />
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </LinearLayout>
+</layout>
