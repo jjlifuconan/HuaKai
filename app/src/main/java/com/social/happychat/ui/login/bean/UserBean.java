@@ -1,7 +1,9 @@
 package com.social.happychat.ui.login.bean;
 
+import android.databinding.Bindable;
 import android.text.TextUtils;
 
+import com.social.happychat.BR;
 import com.social.happychat.bean.BaseBean;
 
 import java.util.List;
@@ -53,12 +55,14 @@ public class UserBean extends BaseBean<UserBean> {
         this.userSex = userSex;
     }
 
+    @Bindable
     public String getHeadPhotoUrl() {
         return headPhotoUrl;
     }
 
     public void setHeadPhotoUrl(String headPhotoUrl) {
         this.headPhotoUrl = headPhotoUrl;
+        notifyPropertyChanged(BR.headPhotoUrl);
     }
 
     public int getId() {

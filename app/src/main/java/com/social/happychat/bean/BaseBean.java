@@ -1,5 +1,6 @@
 package com.social.happychat.bean;
 
+import android.databinding.BaseObservable;
 import android.text.TextUtils;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.io.Serializable;
  * @date 2019/7/7
  * @description:
  */
-public class BaseBean<T> implements Serializable {
+public class BaseBean<T> extends BaseObservable implements Serializable {
     private String code;
     private String msg;
     private T data;

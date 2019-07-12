@@ -34,10 +34,12 @@ import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
 import com.social.happychat.app.HappyChatApplication;
 import com.social.happychat.bean.BaseBean;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
 import com.social.happychat.databinding.ActivityModifyUserinfoBinding;
 import com.social.happychat.event.RefreshTrendListEvent;
@@ -47,6 +49,7 @@ import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.compose.gifsize.GifSizeFilter;
 import com.social.happychat.ui.compose.gifsize.GlideEngine;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.util.OtherUtils;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -98,10 +101,14 @@ public class ModifyUserInfoActivity extends BaseActivity {
      */
     CityPickerView mPicker = new CityPickerView();
 
+    UserBean userBean;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_modify_userinfo);
+        userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+        binding.setBean(userBean);
         ImmersionBar.with(activity)
                 .statusBarDarkFont(true, 0.2f)
                 .keyboardEnable(true)
@@ -186,7 +193,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
         }
         if (requestCode == REQUEST_CODE_CHOOSE_HEADPHOTO && resultCode == RESULT_OK) {
             List<String> mSelected = Matisse.obtainPathResult(data);
-            withLs(mSelected);
+            withLsHead(mSelected);
         }
     }
 
@@ -231,6 +238,39 @@ public class ModifyUserInfoActivity extends BaseActivity {
                 }).launch();
     }
 
+    private void withLsHead(final List<String> photos) {
+        uploadDialog.show();
+        countReadyToUpload = photos.size();
+        Luban.with(this)
+                .load(photos)
+                .ignoreBy(100)
+                .setTargetDir(getPath())
+                .setFocusAlpha(false)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+//
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        Log.e(TAG, "setCompressListener file->" + file.getAbsolutePath());
+                        uploadHeadPic(file);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "compress onError->" + e.getMessage());
+                    }
+                }).launch();
+    }
+
     private void uploadOnePic(File file) {
         RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileRQ);
@@ -265,6 +305,41 @@ public class ModifyUserInfoActivity extends BaseActivity {
                 });
         addSubscription(subscription);
     }
+
+    private void uploadHeadPic(File file) {
+        RequestBody fileRQ = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), fileRQ);
+        Subscription subscription = HttpClient.Builder.getRealServer().uploadOneFile(part)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ImageBean>() {
+                    @Override
+                    public void onCompleted() {
+//                        Log.e(TAG, "uploadOnePic onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        Log.e(TAG, "uploadOnePic onError");
+                        countReadyToUpload--;
+                        if (countReadyToUpload == 0) {
+                            uploadDialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onNext(ImageBean imageBean) {
+//                        Log.e(TAG, "uploadOnePic onNext");
+                        countReadyToUpload--;
+                        if (countReadyToUpload == 0) {
+                            uploadDialog.dismiss();
+                        }
+                        ImageBean imgBean = imageBean.getData();
+                        userBean.setHeadPhotoUrl(imgBean.getFileUrl());
+                    }
+                });
+        addSubscription(subscription);
+    }
+
 
 
     private String getPath() {
@@ -482,4 +557,5 @@ public class ModifyUserInfoActivity extends BaseActivity {
             binding.tvSignature.setText(event.value);
         }
     }
+
 }
