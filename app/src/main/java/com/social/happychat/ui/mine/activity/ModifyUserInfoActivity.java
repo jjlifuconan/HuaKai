@@ -129,6 +129,18 @@ public class ModifyUserInfoActivity extends BaseActivity {
         initAreaChoose();
         initProgressBar();
         adapter = new ComposePicAdapter(activity, 8);
+        if(userBean.getUserFileDtos() != null && userBean.getUserFileDtos().size()>0){
+            imageBeans = userBean.getUserFileDtos();
+            List<String> strs = new ArrayList<>();
+            for(ImageBean imageBean : userBean.getUserFileDtos()){
+                //本地地址字段设置和网络地址一样，删除要匹配
+                imageBean.setLocalCompressFileName(imageBean.getFileUrl());
+                strs.add(imageBean.getFileUrl());
+
+            }
+            adapter.getItems().addAll(strs);
+
+        }
         adapter.setOnAddPicListener(new ComposePicAdapter.onAddPicListener() {
             @Override
             public void chooseImage() {
@@ -450,6 +462,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                             @Override
                             public void onSelection(MaterialDialog dialog1, View itemView, int position, CharSequence text) {
                                 binding.tvEmotionState.setText(titles[position]);
+                                userBean.setEmotionStatus(titles[position]);
                             }
                         })
                         .show();
@@ -495,6 +508,8 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     map.put("userBirthday", userBean.getUserBirthday());
                     map.put("userProfession", userBean.getUserProfession());
                     map.put("userSign", userBean.getUserSign());
+                    map.put("emotionStatus", userBean.getEmotionStatus());
+                    map.put("userAddress", userBean.getUserAddress());
                     map.put("userTagDtos", userBean.getUserTagDtos());
                     sortImageBeans();
                     map.put("userFileDtos", imageBeans);
@@ -557,6 +572,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
             @Override
             public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
                 binding.tvHometown.setText(province.getName()+city.getName()+district.getName());
+                userBean.setUserAddress(province.getName()+city.getName()+district.getName());
             }
 
             @Override

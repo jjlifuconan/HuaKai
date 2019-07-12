@@ -36,10 +36,37 @@ public class UserBean extends BaseBean<UserBean> {
     private String userProfession;
     private String userMobile;
     private String userSign;
+    private String constellation;
+    private String emotionStatus;
+    private String userAddress;
     private int userSex;
     private int isOpenIm;
     private List<ImageBean> userFileDtos;
     private List<TagListBean> userTagDtos;
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
+    }
+
+    public String getEmotionStatus() {
+        return emotionStatus;
+    }
+
+    public void setEmotionStatus(String emotionStatus) {
+        this.emotionStatus = emotionStatus;
+    }
+
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
 
     public boolean isOpenIm() {
         //for test
@@ -190,8 +217,19 @@ public class UserBean extends BaseBean<UserBean> {
         }
 
         //情感状态
+
+        if(!TextUtils.equals(localBean.getEmotionStatus(), getEmotionStatus())){
+            return true;
+        }
+
         //家乡
+        if(!TextUtils.equals(localBean.getUserAddress(), getUserAddress())){
+            return true;
+        }
         //职业
+        if(!TextUtils.equals(localBean.getUserProfession(), getUserProfession())){
+            return true;
+        }
         //标签
         if(localBean.isUserTagDtosEmpty() && !isUserTagDtosEmpty()){
             return true;

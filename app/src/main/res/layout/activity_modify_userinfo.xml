@@ -219,6 +219,7 @@
                             android:ellipsize="end"
                             android:gravity="right"
                             android:includeFontPadding="false"
+                            android:text="@{bean.emotionStatus}"
                             android:singleLine="true"
                             android:textColor="@color/color_c1c1c1"
                             android:textSize="@dimen/sp15"
@@ -298,6 +299,7 @@
                             android:gravity="right"
                             android:includeFontPadding="false"
                             android:singleLine="true"
+                            android:text="@{bean.userAddress}"
                             android:textColor="@color/color_c1c1c1"
                             android:textSize="@dimen/sp15"
                             tools:text="@string/title_hometown" />
