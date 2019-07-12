@@ -23,17 +23,22 @@ import rx.schedulers.Schedulers;
 public class TrendModel {
     private int page;
     private int per_page;
+    private int type;
 
-    public void setData( int page, int per_page) {
+    public void setData( int page, int per_page, int type) {
         this.page = page;
         this.per_page = per_page;
+        this.type = type;
     }
 
     public void getTrendList(final RequestImpl listener) {
         Map map = new HashMap();
-        map.put("publishLocation","南京");
+        if(type == 2){
+            map.put("publishLocation","南京");
+        }
         map.put("pageNumber ",page);
         map.put("pages ",per_page);
+        map.put("type ",type);
         Subscription subscription = HttpClient.Builder.getRealServer().dynamicList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<TrendListBean>() {

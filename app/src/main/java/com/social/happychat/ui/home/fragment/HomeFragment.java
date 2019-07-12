@@ -134,7 +134,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
             @Override
             public Fragment getItem(int position) {
                 if(position == 0){
-                    return TrendFragment.newInstance();
+                    return TrendFragment.newInstance(2);
                 }else{
                     if(userBean.getUserSex() == 1){
                         return MaleAskingForChatFragment.newInstance();

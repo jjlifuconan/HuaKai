@@ -28,8 +28,8 @@ public class TrendPresent {
         mModel = new TrendModel();
     }
 
-    public void loadTrendData() {
-        mModel.setData( mPage, HttpUtils.per_page_more);
+    public void loadTrendData(int type) {
+        mModel.setData( mPage, HttpUtils.per_page_more, type);
         mModel.getTrendList(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {

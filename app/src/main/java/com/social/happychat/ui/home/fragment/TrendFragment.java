@@ -41,12 +41,19 @@ import rx.Subscription;
 public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> implements TrendNavigator {
     private TrendAdapter trendAdapter;
     private TrendPresent present;
+    private int type;
 
-    public static TrendFragment newInstance() {
+    /**
+     *
+     * @param type 1个人  2全部
+     * @return
+     */
+    public static TrendFragment newInstance(int type) {
 
         Bundle args = new Bundle();
 
         TrendFragment fragment = new TrendFragment();
+        args.putInt("type",type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,6 +62,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
+        type = getArguments().getInt("type");
     }
 
     @Override
@@ -73,13 +81,13 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
                 int page = present.getPage();
                 page++;
                 present.setPage(page);
-                present.loadTrendData();
+                present.loadTrendData(type);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 present.setPage(1);
-                present.loadTrendData();
+                present.loadTrendData(type);
             }
         });
 
@@ -103,7 +111,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_linear_transparent));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(trendAdapter);
-        present.loadTrendData();
+        present.loadTrendData(type);
     }
 
     @Override
@@ -151,7 +159,7 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     @Override
     protected void onRefresh() {
         present.setPage(1);
-        present.loadTrendData();
+        present.loadTrendData(type);
     }
 
     @Override

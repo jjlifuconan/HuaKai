@@ -103,7 +103,7 @@ public class UserHomeActivity extends BaseActivity {
                 if(position == 0){
                     return UserInfoShowFragment.newInstance(bean.getData());
                 }else{
-                    return TrendFragment.newInstance();
+                    return TrendFragment.newInstance(1);
                 }
             }
 
