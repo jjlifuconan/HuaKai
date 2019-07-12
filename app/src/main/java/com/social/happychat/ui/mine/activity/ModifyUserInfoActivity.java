@@ -45,6 +45,7 @@ import com.social.happychat.databinding.ActivityModifyUserinfoBinding;
 import com.social.happychat.event.RefreshMineEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.event.UserSingleAttriteEditEvent;
+import com.social.happychat.event.UserTagEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.compose.adapter.ComposePicAdapter;
 import com.social.happychat.ui.compose.bean.ImageBean;
@@ -449,7 +450,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                         .show();
                     break;
                 case R.id.vp_signature:
-                    UserSingleAttributeEditActiviy.action(activity, getResources().getString(R.string.title_signature), 200, 4,binding.tvSignature.getText().toString());
+                    UserSingleAttributeEditActiviy.action(activity, getResources().getString(R.string.title_signature), 200, 4,binding.tvSignature.getText().toString(), true);
                     break;
                 case R.id.vp_hometown:
                     mPicker.showCityPicker();
@@ -488,7 +489,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     map.put("userBirthday", userBean.getUserBirthday());
                     map.put("userProfession", userBean.getUserProfession());
                     map.put("userSign", userBean.getUserSign());
-//                    map.put("userTagDtos", "");
+                    map.put("userTagDtos", userBean.getUserTagDtos());
                     sortImageBeans();
                     map.put("userFileDtos", imageBeans);
 
@@ -570,6 +571,12 @@ public class ModifyUserInfoActivity extends BaseActivity {
             binding.tvSignature.setText(event.value);
             userBean.setUserSign(event.value);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(UserTagEvent event) {
+        binding.tvTag.setText(event.tagsText);
+        userBean.setUserTagDtos(event.selectBeans);
     }
 
 }

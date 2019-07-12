@@ -5,28 +5,25 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.gson.GsonBuilder;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.activity.BaseActivity;
-import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
-import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
-import com.social.happychat.bean.BaseBean;
-import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityMyTagBinding;
-import com.social.happychat.event.RefreshMineEvent;
+import com.social.happychat.event.UserTagEvent;
 import com.social.happychat.http.HttpClient;
-import com.social.happychat.ui.home.bean.GiftShopBean;
 import com.social.happychat.ui.mine.bean.TagListBean;
+
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +40,7 @@ import rx.schedulers.Schedulers;
  */
 public class MyTagActivity extends BaseActivity {
     ActivityMyTagBinding binding;
+    List<TagListBean> listBeans;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +54,30 @@ public class MyTagActivity extends BaseActivity {
         binding.vpClose.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
+                finish();
+            }
+        });
+        binding.save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(binding.flexbox.getChildCount() != 0){
+                    List<TagListBean> selectBeans = new ArrayList<>();
+                    StringBuilder sb = new StringBuilder();
+                    for(int i = 0;i<binding.flexbox.getChildCount();i++){
+                        TextView textView = (TextView) binding.flexbox.getChildAt(i);
+                        if(textView.isSelected()){
+                            selectBeans.add(listBeans.get(i));
+                            sb.append(listBeans.get(i).getClassifyName()).append(",");
+                        }
+                    }
+                    if(selectBeans.size() > 0){
+                        String tagsText = sb.toString();
+                        if(tagsText.endsWith(",")){
+                            tagsText = tagsText.substring(0,tagsText.length() - 1);
+                        }
+                        EventBus.getDefault().post(new UserTagEvent(tagsText, selectBeans));
+                    }
+                }
                 finish();
             }
         });
@@ -80,13 +102,20 @@ public class MyTagActivity extends BaseActivity {
                     @Override
                     public void onNext(TagListBean baseBean) {
                         if (baseBean.isValid()) {
-                            List<TagListBean> listBeans = baseBean.getData();
+                            listBeans = baseBean.getData();
                             if(listBeans != null && listBeans.size() > 0){
-                                    for(TagListBean tag: listBeans){
-                                        TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
-                                        tv_tag.setText(tag.getClassifyName());
-                                        binding.flexbox.addView(tv_tag);
-                                    }
+                                for(TagListBean tag: listBeans){
+                                    TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
+                                    Log.e(TAG,"tv_tag  setOnClickListener");
+                                    tv_tag.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            tv_tag.setSelected(!tv_tag.isSelected());
+                                        }
+                                    });
+                                    tv_tag.setText(tag.getClassifyName());
+                                    binding.flexbox.addView(tv_tag);
+                                }
                             }
                         } else {
                             ToastUtil.show(activity, baseBean.getMsg());
@@ -94,17 +123,6 @@ public class MyTagActivity extends BaseActivity {
                     }
                 });
         addSubscription(subscription);
-
-        String sss = "{\"api\":\"\",\"code\":\"1\",\"data\":[{\"classifyCode\":\"P0001\",\"classifyName\":\"运动健身\",\"id\":1},{\"classifyCode\":\"P0002\",\"classifyName\":\"美食\",\"id\":2},{\"classifyCode\":\"P0003\",\"classifyName\":\"宠物\",\"id\":3},{\"classifyCode\":\"P0004\",\"classifyName\":\"音乐\",\"id\":4},{\"classifyCode\":\"P0004\",\"classifyName\":\"嘻哈\",\"id\":4},{\"classifyCode\":\"P0004\",\"classifyName\":\"电影\",\"id\":4},{\"classifyCode\":\"P0004\",\"classifyName\":\"爱仕达多阿萨德\",\"id\":4},{\"classifyCode\":\"P0004\",\"classifyName\":\"号人发货人\",\"id\":4}],\"msg\":\"操作成功\"}";
-        TagListBean baseBean = new GsonBuilder().serializeNulls().create().fromJson(sss, TagListBean.class);
-        List<TagListBean> listBeans = baseBean.getData();
-        if(listBeans != null && listBeans.size() > 0){
-            for(TagListBean tag: listBeans){
-                TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
-                tv_tag.setText(tag.getClassifyName());
-                binding.flexbox.addView(tv_tag);
-            }
-        }
     }
 
     public static void action(Context context) {

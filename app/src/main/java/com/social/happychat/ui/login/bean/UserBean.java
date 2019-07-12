@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.social.happychat.BR;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
+import com.social.happychat.ui.mine.bean.TagListBean;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class UserBean extends BaseBean<UserBean> {
     private int userSex;
     private int isOpenIm;
     private List<ImageBean> userFileDtos;
-    private List<?> userTagDtos;
+    private List<TagListBean> userTagDtos;
 
     public boolean isOpenIm() {
         //for test
@@ -131,15 +132,23 @@ public class UserBean extends BaseBean<UserBean> {
         }
     }
 
+    public boolean isUserTagDtosEmpty(){
+        if(userTagDtos == null || userTagDtos.size() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public void setUserFileDtos(List<ImageBean> userFileDtos) {
         this.userFileDtos = userFileDtos;
     }
 
-    public List<?> getUserTagDtos() {
+    public List<TagListBean> getUserTagDtos() {
         return userTagDtos;
     }
 
-    public void setUserTagDtos(List<?> userTagDtos) {
+    public void setUserTagDtos(List<TagListBean> userTagDtos) {
         this.userTagDtos = userTagDtos;
     }
 
@@ -184,6 +193,24 @@ public class UserBean extends BaseBean<UserBean> {
         //家乡
         //职业
         //标签
+        if(localBean.isUserTagDtosEmpty() && !isUserTagDtosEmpty()){
+            return true;
+        }
+
+        if(!localBean.isUserTagDtosEmpty() && isUserTagDtosEmpty()){
+            return true;
+        }
+
+        if(!localBean.isUserTagDtosEmpty() && !isUserTagDtosEmpty()){
+            if(localBean.getUserTagDtos().size() != getUserTagDtos().size()){
+                return true;
+            }
+            for(TagListBean tagListBean: localBean.getUserTagDtos()){
+                if(!getUserTagDtos().contains(tagListBean)){
+                    return true;
+                }
+            }
+        }
 
         return false;
     }

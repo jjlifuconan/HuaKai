@@ -47,27 +47,29 @@ public class UserSingleAttributeEditActiviy extends BaseActivity {
                 finish();
             }
         });
-        binding.edtAttr.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        if(!getIntent().getBooleanExtra("supportNullSave", false)){
+            binding.edtAttr.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(TextUtils.isEmpty(editable.toString().trim())){
-                    binding.save.setEnabled(false);
-                }else{
-                    binding.save.setEnabled(true);
                 }
 
-            }
-        });
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    if(TextUtils.isEmpty(editable.toString().trim())){
+                        binding.save.setEnabled(false);
+                    }else{
+                        binding.save.setEnabled(true);
+                    }
+
+                }
+            });
+        }
 
         binding.save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,10 +87,12 @@ public class UserSingleAttributeEditActiviy extends BaseActivity {
         binding.title.setText(getIntent().getStringExtra("attrName"));
         binding.edtAttr.setHint(getIntent().getStringExtra("attrName"));
         binding.edtAttr.setText(getIntent().getStringExtra("value"));
-        if(TextUtils.isEmpty(getIntent().getStringExtra("value"))){
-            binding.save.setEnabled(false);
-        }else{
-            binding.save.setEnabled(true);
+        if(!getIntent().getBooleanExtra("supportNullSave", false)){
+            if(TextUtils.isEmpty(getIntent().getStringExtra("value"))){
+                binding.save.setEnabled(false);
+            }else{
+                binding.save.setEnabled(true);
+            }
         }
         if(getIntent().getIntExtra("minLines", 0) != 0){
             binding.edtAttr.setMinLines(getIntent().getIntExtra("minLines", 0));
@@ -107,12 +111,13 @@ public class UserSingleAttributeEditActiviy extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void action(Context context, String attrName, int maxLength, int minLines, String value){
+    public static void action(Context context, String attrName, int maxLength, int minLines, String value, boolean supportNullSave){
         Intent intent = new Intent(context, UserSingleAttributeEditActiviy.class);
         intent.putExtra("attrName", attrName);
         intent.putExtra("maxLength", maxLength);
         intent.putExtra("minLines", minLines);
         intent.putExtra("value", value);
+        intent.putExtra("supportNullSave", supportNullSave);
         context.startActivity(intent);
     }
 
