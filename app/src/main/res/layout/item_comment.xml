@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.text.TextUtils" />
+        <import type="com.social.happychat.ui.home.utils.CommentUtils" />
         <variable
             name="bean"
             type="com.social.happychat.ui.home.bean.CommentListBean.ListBean"/>
@@ -22,7 +23,7 @@
             android:layout_height="@dimen/dp36"
             android:defaultPicType="@{bean.userSex==1?3:4}"
             android:displayCircle="@{bean.headPhotoUrl}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintBottom_toBottomOf="@+id/content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView15" />
 
@@ -40,17 +41,15 @@
 
 
         <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
+            android:id="@+id/content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text="@{bean.content}"
+            android:text="@{CommentUtils.geCommentText(bean.replyUserName, bean.content)}"
             tools:text="啊实打实大"
             android:textColor="@color/comment_content"
-            android:ellipsize="end"
-            android:maxEms="14"
-            android:singleLine="true"
             android:textSize="@dimen/sp15"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -67,7 +66,7 @@
             android:singleLine="true"
             android:textSize="@dimen/sp13"
             app:layout_constraintStart_toStartOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+            app:layout_constraintTop_toBottomOf="@+id/content" />
 
         <TextView
             android:id="@+id/textView19"

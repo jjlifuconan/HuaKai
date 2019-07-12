@@ -10,7 +10,10 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
+import com.social.basecommon.util.SPUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.adapter.CommentAdapter;
@@ -19,6 +22,7 @@ import com.social.happychat.ui.home.bean.CommentListBean;
 import com.social.happychat.ui.home.interfaces.CommentNavigator;
 import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.happychat.ui.home.present.CommentPresent;
+import com.social.happychat.ui.login.bean.UserBean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -91,7 +95,12 @@ public class CommentListFragment extends BaseFragment<FragmentRefreshListBinding
         CommentAdapter.setOnItemClickListener(new OnItemClickListener<CommentListBean.ListBean>() {
             @Override
             public void onClick(CommentListBean.ListBean item) {
-                dataCallback.alertCommentSbDialog(item.getUserId(),item.getUserName());
+                UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+                if(item.getUserId() == userBean.getId()){
+                    ToastUtil.showShort(activity,"不能给自己评论");
+                }else{
+                  dataCallback.alertCommentSbDialog(item.getUserId(),item.getUserName());
+                }
             }
         });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
