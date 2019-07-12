@@ -69,4 +69,5 @@ dependencies {
 //    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     api 'top.zibin:Luban:1.1.8'
     api 'liji.library.dev:citypickerview:4.3.2'
+    api 'com.github.addappcn:android-pickers:1.0.3'
 }

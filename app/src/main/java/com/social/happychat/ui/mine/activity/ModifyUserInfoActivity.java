@@ -16,6 +16,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -70,6 +71,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cn.addapp.pickers.listeners.OnMoreItemPickListener;
+import cn.addapp.pickers.picker.LinkagePicker;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -579,5 +582,57 @@ public class ModifyUserInfoActivity extends BaseActivity {
         binding.tvTag.setText(event.tagsText);
         userBean.setUserTagDtos(event.selectBeans);
     }
+
+//    public void onLinkagePicker(View view) {
+//        LinkagePicker.DataProvider provider = new LinkagePicker.DataProvider() {
+//
+//            @Override
+//            public boolean isOnlyTwo() {
+//                return true;
+//            }
+//
+//            @Override
+//            public List<String> provideFirstData() {
+//                ArrayList<String> firstList = new ArrayList<>();
+//                firstList.add("12");
+//                firstList.add("24");
+//                return firstList;
+//            }
+//
+//            @Override
+//            public List<String> provideSecondData(int firstIndex) {
+//                ArrayList<String> secondList = new ArrayList<>();
+//                for (int i = 1; i <= (firstIndex == 0 ? 12 : 24); i++) {
+//                    String str = DateUtils.fillZero(i);
+//                    if (firstIndex == 0) {
+//                        str += "￥";
+//                    } else {
+//                        str += "$";
+//                    }
+//                    secondList.add(str);
+//                }
+//                return secondList;
+//            }
+//
+//            @Override
+//            public List<String> provideThirdData(int firstIndex, int secondIndex) {
+//                return null;
+//            }
+//
+//        };
+//        LinkagePicker picker = new LinkagePicker(this, provider);
+//        picker.setCanLoop(false);
+//        picker.setLabel("小时制", "点");
+//        picker.setSelectedIndex(0, 8);
+//        //picker.setSelectedItem("12", "9");
+//        picker.setOnMoreItemPickListener(new OnMoreItemPickListener<String>() {
+//
+//            @Override
+//            public void onItemPicked(String first, String second, String third) {
+//                showToast(first + "-" + second + "-" + third);
+//            }
+//        });
+//        picker.show();
+//    }
 
 }
