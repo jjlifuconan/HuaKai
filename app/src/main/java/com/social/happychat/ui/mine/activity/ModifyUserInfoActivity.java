@@ -132,7 +132,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
         if(userBean.getUserFileDtos() != null && userBean.getUserFileDtos().size()>0){
             imageBeans = userBean.getUserFileDtos();
             List<String> strs = new ArrayList<>();
-            for(ImageBean imageBean : userBean.getUserFileDtos()){
+            for(ImageBean imageBean : imageBeans){
                 //本地地址字段设置和网络地址一样，删除要匹配
                 imageBean.setLocalCompressFileName(imageBean.getFileUrl());
                 strs.add(imageBean.getFileUrl());
@@ -313,13 +313,14 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     @Override
                     public void onNext(ImageBean imageBean) {
 //                        Log.e(TAG, "uploadOnePic onNext");
-                        countReadyToUpload--;
-                        if (countReadyToUpload == 0) {
-                            uploadDialog.dismiss();
-                        }
                         ImageBean imgBean = imageBean.getData();
                         imgBean.setLocalCompressFileName(file.getAbsolutePath());
                         imageBeans.add(imgBean);
+                        countReadyToUpload--;
+                        if (countReadyToUpload == 0) {
+                            uploadDialog.dismiss();
+                            userBean.setUserFileDtos(imageBeans);
+                        }
                     }
                 });
         addSubscription(subscription);
@@ -501,7 +502,6 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     break;
                 case R.id.save:
                     KeyboardUtils.hideSoftInput(activity);
-//                showProgressBar();
                     Map map = new HashMap();
                     map.put("headPhotoUrl", userBean.getHeadPhotoUrl());
                     map.put("nickName", userBean.getNickName());
@@ -511,8 +511,10 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     map.put("emotionStatus", userBean.getEmotionStatus());
                     map.put("userAddress", userBean.getUserAddress());
                     map.put("userTagDtos", userBean.getUserTagDtos());
+                    //排序完成  set  然后最后保存成功要保存登录sp
                     sortImageBeans();
-                    map.put("userFileDtos", imageBeans);
+                    userBean.setUserFileDtos(imageBeans);
+                    map.put("userFileDtos", userBean.getUserFileDtos());
 
                     Subscription subscription = HttpClient.Builder.getRealServer().modifyUser(com.social.happychat.util.RequestBody.as(map))
                             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

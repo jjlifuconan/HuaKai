@@ -210,7 +210,7 @@ public class UserBean extends BaseBean<UserBean> {
                 return true;
             }
             for(ImageBean imageBean: localBean.getUserFileDtos()){
-                if(!getUserFileDtos().contains(imageBean)){
+                if(!isExistFileId(getUserFileDtos(), imageBean)){
                     return true;
                 }
             }
@@ -244,12 +244,32 @@ public class UserBean extends BaseBean<UserBean> {
                 return true;
             }
             for(TagListBean tagListBean: localBean.getUserTagDtos()){
-                if(!getUserTagDtos().contains(tagListBean)){
+                if(!isExistTagId(getUserTagDtos(), tagListBean)){
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    private boolean isExistFileId(List<ImageBean> list, ImageBean tartget){
+        for(ImageBean imageBean:list){
+            if(TextUtils.equals(tartget.getFileId(), imageBean.getFileId())){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    private boolean isExistTagId(List<TagListBean> list, TagListBean tartget){
+        for(TagListBean tagListBean:list){
+            if(tagListBean.getId() == tartget.getId()){
+                return true;
+            }
+        }
+        return false;
+
     }
 }
