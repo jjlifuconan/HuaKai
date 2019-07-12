@@ -332,6 +332,7 @@
                             android:layout_weight="1"
                             android:ellipsize="end"
                             android:gravity="right"
+                            android:text="@{bean.userProfession}"
                             android:includeFontPadding="false"
                             android:singleLine="true"
                             android:textColor="@color/color_c1c1c1"

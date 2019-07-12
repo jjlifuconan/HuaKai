@@ -66,6 +66,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -460,6 +461,7 @@ public class ModifyUserInfoActivity extends BaseActivity {
                     mPicker.showCityPicker();
                     break;
                 case R.id.vp_job:
+                    onLinkagePicker();
                     break;
                 case R.id.vp_tag:
                     MyTagActivity.action(activity, (ArrayList<TagListBean>) userBean.getUserTagDtos());
@@ -583,56 +585,90 @@ public class ModifyUserInfoActivity extends BaseActivity {
         userBean.setUserTagDtos(event.selectBeans);
     }
 
-//    public void onLinkagePicker(View view) {
-//        LinkagePicker.DataProvider provider = new LinkagePicker.DataProvider() {
-//
-//            @Override
-//            public boolean isOnlyTwo() {
-//                return true;
-//            }
-//
-//            @Override
-//            public List<String> provideFirstData() {
-//                ArrayList<String> firstList = new ArrayList<>();
-//                firstList.add("12");
-//                firstList.add("24");
-//                return firstList;
-//            }
-//
-//            @Override
-//            public List<String> provideSecondData(int firstIndex) {
-//                ArrayList<String> secondList = new ArrayList<>();
-//                for (int i = 1; i <= (firstIndex == 0 ? 12 : 24); i++) {
-//                    String str = DateUtils.fillZero(i);
-//                    if (firstIndex == 0) {
-//                        str += "￥";
-//                    } else {
-//                        str += "$";
-//                    }
-//                    secondList.add(str);
-//                }
-//                return secondList;
-//            }
-//
-//            @Override
-//            public List<String> provideThirdData(int firstIndex, int secondIndex) {
-//                return null;
-//            }
-//
-//        };
-//        LinkagePicker picker = new LinkagePicker(this, provider);
-//        picker.setCanLoop(false);
-//        picker.setLabel("小时制", "点");
-//        picker.setSelectedIndex(0, 8);
-//        //picker.setSelectedItem("12", "9");
-//        picker.setOnMoreItemPickListener(new OnMoreItemPickListener<String>() {
-//
-//            @Override
-//            public void onItemPicked(String first, String second, String third) {
-//                showToast(first + "-" + second + "-" + third);
-//            }
-//        });
-//        picker.show();
-//    }
+    /**
+     * 职业选择框
+     */
+    public void onLinkagePicker() {
+        LinkagePicker.DataProvider provider = new LinkagePicker.DataProvider() {
+
+            @Override
+            public boolean isOnlyTwo() {
+                return true;
+            }
+
+            @Override
+            public List<String> provideFirstData() {
+                String[] mainClassifys = activity.getResources().getStringArray(R.array.jobMainClassify);
+                List<String> firstList = Arrays.asList(mainClassifys);
+                return firstList;
+            }
+
+            @Override
+            public List<String> provideSecondData(int firstIndex) {
+                List<String> secondList = null;
+                if(firstIndex == 0){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify1);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 1){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify2);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 2){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify3);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 3){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify4);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 4){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify5);
+                    secondList = Arrays.asList(childClassfys);
+                }
+
+                if(firstIndex == 5){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify6);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 6){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify7);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 7){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify8);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 8){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify9);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                if(firstIndex == 9){
+                    String[] childClassfys = activity.getResources().getStringArray(R.array.jobclassify10);
+                    secondList = Arrays.asList(childClassfys);
+                }
+                return secondList;
+            }
+
+            @Override
+            public List<String> provideThirdData(int firstIndex, int secondIndex) {
+                return null;
+            }
+
+        };
+        LinkagePicker picker = new LinkagePicker(this, provider);
+        picker.setCanLoop(false);
+        picker.setSelectedIndex(0, 0);
+        //picker.setSelectedItem("12", "9");
+        picker.setOnMoreItemPickListener(new OnMoreItemPickListener<String>() {
+
+            @Override
+            public void onItemPicked(String first, String second, String third) {
+                binding.tvJob.setText(second);
+                userBean.setUserProfession(second);
+            }
+        });
+        picker.show();
+    }
 
 }

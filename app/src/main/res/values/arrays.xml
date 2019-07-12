@@ -265,20 +265,107 @@
         <item>资料</item>
         <item>动态</item>
     </string-array>
-    <string-array name="trend_tips">
-        <item>1. 禁止发布色情、性感暴露照片（包含但不限于：禁止上传睡衣/内衣/背心/抹胸/丝袜/露乳沟等暴露照片）；</item>
-        <item>2. 允许上传自己的生活照以及身边风景照（发布照片+有意义的文字，更容易通过哦）；</item>
+    <string-array name="jobMainClassify">
+        <item>信息技术</item>
+        <item>金融保险</item>
+        <item>商业服务</item>
+        <item>工程制造</item>
+        <item>交通运输</item>
+        <item>文化传媒</item>
+        <item>娱乐体育</item>
+        <item>公共事业</item>
+        <item>学生</item>
+        <item>无️</item>
     </string-array>
-    <string-array name="url_list">
-        <item>api1/</item>
-        <item>api2/</item>
-        <item>api3/</item>
-        <item>http://192.168.0.131:11000/api/</item>
-        <item>http://192.168.0.188:11000/api/</item>
-        <item>http://192.168.0.168:11000/api/</item>
-        <item>http://192.168.0.166:11000/api/</item>
-        <item>http://192.168.0.103:11000/api/</item>
-        <item>http://192.168.0.155:11000/api/</item>
-        <item>http://192.168.0.170:11000/api/</item>
+
+    <string-array name="jobclassify1">
+        <item>互联网</item>
+        <item>IT</item>
+        <item>通讯</item>
+        <item>电信运营</item>
+        <item>网络游戏</item>
     </string-array>
+    <string-array name="jobclassify2">
+        <item>投资</item>
+        <item>股票/资金</item>
+        <item>保险</item>
+        <item>银行</item>
+        <item>信托/担保</item>
+    </string-array>
+    <string-array name="jobclassify3">
+        <item>咨询</item>
+        <item>个体经营</item>
+        <item>美容美发</item>
+        <item>旅游</item>
+        <item>酒店餐饮</item>
+        <item>休闲娱乐</item>
+        <item>贸易</item>
+        <item>汽车</item>
+        <item>房地产</item>
+        <item>物业管理</item>
+        <item>装修/装潢</item>
+    </string-array>
+
+    <string-array name="jobclassify4">
+        <item>建筑</item>
+        <item>土木工程</item>
+        <item>机械制造</item>
+        <item>电子</item>
+        <item>生物医药</item>
+        <item>食品</item>
+        <item>服装</item>
+        <item>能源</item>
+    </string-array>
+
+    <string-array name="jobclassify5">
+        <item>航空</item>
+        <item>铁路</item>
+        <item>航运/船舶</item>
+        <item>公共交通</item>
+        <item>物流运输</item>
+    </string-array>
+
+    <string-array name="jobclassify6">
+        <item>媒体出版</item>
+        <item>设计</item>
+        <item>文化传播</item>
+        <item>广告创意</item>
+        <item>动漫</item>
+        <item>公关/会展</item>
+        <item>摄影</item>
+    </string-array>
+
+    <string-array name="jobclassify7">
+        <item>影视</item>
+        <item>运动体育</item>
+        <item>音乐</item>
+        <item>模特</item>
+    </string-array>
+
+    <string-array name="jobclassify8">
+        <item>医疗</item>
+        <item>法律</item>
+        <item>教育</item>
+        <item>政府机关</item>
+        <item>科研</item>
+        <item>公益</item>
+    </string-array>
+
+    <string-array name="jobclassify9">
+        <item>学生</item>
+    </string-array>
+
+    <string-array name="jobclassify10">
+        <item>无</item>
+    </string-array>
+
+
+
+
+
+
+
+
+
+
 </resources>
