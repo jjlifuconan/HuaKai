@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp44"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/vp_close"
+                android:layout_width="@dimen/dp44"
+                android:layout_height="@dimen/dp44">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_toolbar_back_gray_24dp" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="编辑资料"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp16" />
+
+
+            <TextView
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginHorizontal="@dimen/dp14"
+                android:paddingHorizontal="@dimen/dp14"
+                android:paddingVertical="@dimen/dp5"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp13"
+                app:bl_corners_radius="@dimen/dp14"
+                app:bl_enabled_drawable="@color/colorPrimary"
+                app:bl_unEnabled_drawable="@color/colorPrimaryUnable" />
+
+        </LinearLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/vp_inputlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp14"
+            android:layout_marginTop="@dimen/dp14"
+            app:hintTextAppearance="@style/TextInputLayoutStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+            <EditText
+                android:id="@+id/edt_attr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_underline_selector"
+                android:paddingTop="@dimen/dp10"
+                android:paddingBottom="@dimen/dp10"
+                android:gravity="left|top"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp16" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+
+    </LinearLayout>
+</layout>
