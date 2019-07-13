@@ -664,6 +664,7 @@ public class AVChatActivity extends UI implements AVChatVideoUI.TouchZoneCallbac
 
     private void initFaceU() {
         showOrHideFaceULayout(false); // hide default
+        // && FaceU.hasAuthorized()
 
         if (VersionUtil.isCompatible(Build.VERSION_CODES.JELLY_BEAN_MR2)) {
             // async load FaceU
