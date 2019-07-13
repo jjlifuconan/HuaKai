@@ -13,6 +13,7 @@ import com.social.basecommon.util.GlideApp;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.SPUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentMineBinding;
@@ -96,6 +97,12 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
     }
 
     private void setListener() {
+        binding.liCheckupdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.show(activity,"当前已是最新版本");
+            }
+        });
         binding.ivHead.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
