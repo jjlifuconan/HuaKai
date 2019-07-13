@@ -37,8 +37,12 @@ android {
                 includeCompileClasspath true
             }
         }
+        ndk{
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -86,6 +90,7 @@ dependencies {
     implementation project(':uikit')
     implementation project(':avchatkit')
     implementation project(':bdlocation')
+    implementation project(':ocr_ui')
     api('com.github.hotchemi:permissionsdispatcher:3.1.0')
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
 }

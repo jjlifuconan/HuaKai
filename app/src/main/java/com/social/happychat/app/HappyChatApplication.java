@@ -3,7 +3,12 @@ package com.social.happychat.app;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.example.http.HttpUtils;
 import com.mob.MobSDK;
 import com.netease.nim.avchatkit.AVChatKit;
@@ -70,8 +75,10 @@ public class HappyChatApplication extends MultiDexApplication {
             // 初始化音视频模块
             initAVChatKit();
         }
-        // 初始化百度地图SDK
+        //初始化百度地图SDK
         initBaiduLocation();
+        //初始化百度OCR
+        initAccessTokenWithAkSk();
     }
 
     private LoginInfo getLoginInfo() {
@@ -139,6 +146,27 @@ public class HappyChatApplication extends MultiDexApplication {
                 return TeamHelper.getTeamMemberDisplayName(teamId, account);
             }
         });
+    }
+
+    /**
+     * 用明文ak，sk初始化
+     */
+    private void initAccessTokenWithAkSk() {
+        OCR.getInstance(this).initAccessTokenWithAkSk(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                String token = result.getAccessToken();
+                Log.e("FLJ","onResult"+token);
+//                hasGotToken = true;
+            }
+
+            @Override
+            public void onError(OCRError error) {
+                error.printStackTrace();
+                Log.e("FLJ","OCRError"+error.getMessage());
+//                alertText("AK，SK方式获取token失败", error.getMessage());
+            }
+        }, getApplicationContext(),  "bGlDl7F6GW2WYjvkzsCCY4fS", "wnimO8351L7Oh1Aoojuig9pckyAmAx3o");
     }
 
 

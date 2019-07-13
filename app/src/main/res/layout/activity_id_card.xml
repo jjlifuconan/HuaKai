@@ -33,52 +33,56 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="编辑资料"
+                android:text="实名认证"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp16" />
 
-
-            <TextView
-                android:id="@+id/save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginHorizontal="@dimen/dp14"
-                android:paddingHorizontal="@dimen/dp14"
-                android:paddingVertical="@dimen/dp5"
-                android:text="保存"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp13"
-                app:bl_corners_radius="@dimen/dp14"
-                app:bl_enabled_drawable="@color/colorPrimary"
-                app:bl_unEnabled_drawable="@color/colorPrimaryUnable" />
 
         </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/vp_id_front"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#eb413d"
+            android:layout_margin="@dimen/dp14">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/vp_inputlayout"
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/vp_id_back"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#eb413d"
+            android:layout_margin="@dimen/dp14">
+
+
+        </FrameLayout>
+
+
+
+
+        <Button
+            android:id="@+id/commit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp14"
-            android:layout_marginTop="@dimen/dp14"
-            app:hintTextAppearance="@style/TextInputLayoutStyle"
+            android:layout_marginTop="@dimen/dp40"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="立即认证"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16"
+            app:bl_corners_radius="@dimen/dp30"
+            app:bl_enabled_drawable="@color/colorPrimary"
+            app:bl_ripple_color="@color/color_red_ccfa3c55"
+            app:bl_ripple_enable="true"
+            app:bl_unEnabled_drawable="@color/colorPrimaryUnable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title">
-
-            <EditText
-                android:id="@+id/edt_attr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_underline_selector"
-                android:paddingTop="@dimen/dp10"
-                android:paddingBottom="@dimen/dp10"
-                android:gravity="left|top"
-                android:textColor="@color/color_333333"
-                android:textSize="@dimen/sp16" />
-
-        </android.support.design.widget.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/tv_forget" />
 
 
 

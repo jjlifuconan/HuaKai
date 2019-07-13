@@ -24,6 +24,7 @@ import com.social.happychat.ui.login.LoginActivity;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.login.cookie.LoginCookie;
+import com.social.happychat.ui.mine.activity.IDCardActivity;
 import com.social.happychat.ui.mine.activity.ModifyUserInfoActivity;
 import com.social.happychat.ui.mine.activity.MyTrendActiviy;
 import com.social.happychat.util.RequestBody;
@@ -97,6 +98,12 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
     }
 
     private void setListener() {
+        binding.liIdcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IDCardActivity.action(activity);
+            }
+        });
         binding.liCheckupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -185,6 +185,10 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.mine.activity.IDCardActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:screenOrientation="portrait" />
 
 
         <provider
