@@ -12,10 +12,10 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.happychat.R;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.databinding.ActivityMyTrendBinding;
 import com.social.happychat.databinding.ActivityUserSingleattrEditBinding;
 import com.social.happychat.event.UserSingleAttriteEditEvent;
@@ -28,7 +28,7 @@ import org.greenrobot.eventbus.EventBus;
  * @date 2019/7/12 0012
  * @description:
  */
-public class MyTrendActiviy extends BaseActivity {
+public class MyTrendActiviy extends BaseCookieActivity {
     ActivityMyTrendBinding binding;
 
     @Override

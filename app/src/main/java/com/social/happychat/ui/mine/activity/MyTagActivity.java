@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.databinding.ActivityMyTagBinding;
 import com.social.happychat.event.UserTagEvent;
 import com.social.happychat.http.HttpClient;
@@ -38,7 +38,7 @@ import rx.schedulers.Schedulers;
  * @date 2019/7/12 0012
  * @description:
  */
-public class MyTagActivity extends BaseActivity {
+public class MyTagActivity extends BaseCookieActivity {
     ActivityMyTagBinding binding;
     List<TagListBean> listBeans;//接口请求到的总的tags
     List<TagListBean> userTags;//用户选中的数据

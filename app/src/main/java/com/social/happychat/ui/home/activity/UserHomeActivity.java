@@ -15,12 +15,12 @@ import android.widget.ImageView;
 
 import com.google.gson.GsonBuilder;
 import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.databinding.ActivityUserHomeBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.home.bean.UserDetailBean;
@@ -52,7 +52,7 @@ import rx.schedulers.Schedulers;
  * @date 2019/7/5 0005
  * @description:
  */
-public class UserHomeActivity extends BaseActivity {
+public class UserHomeActivity extends BaseCookieActivity {
     ActivityUserHomeBinding binding;
     String[] titles;
     UserDetailBean bean;

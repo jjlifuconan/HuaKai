@@ -138,6 +138,10 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
 
                     @Override
                     public void onError(Throwable e) {
+                        LoginCookie.clearLoginCookie();
+                        Intent intent = new Intent(activity, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
 
                     @Override

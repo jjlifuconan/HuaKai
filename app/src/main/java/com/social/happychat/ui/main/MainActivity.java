@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.databinding.ActivityMainBinding;
 import com.social.happychat.ui.find.fragment.FindFragment;
 import com.social.happychat.ui.home.fragment.HomeFragment;
@@ -24,7 +24,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * @date 2019/6/26 0026
  * @description:
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseCookieActivity {
     ActivityMainBinding binding;
     public static final int FIRST = 0;
     public static final int SECOND = 1;

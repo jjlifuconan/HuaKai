@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.happychat.R;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.databinding.ActivityGiftShopBinding;
 import com.social.happychat.ui.home.fragment.GiftReceiveListFragment;
 import com.social.happychat.ui.home.fragment.GiftSendListFragment;
@@ -19,7 +19,7 @@ import com.social.happychat.ui.home.fragment.GiftShopListFragment;
 /**
  * 礼物商店
  */
-public class GiftShopActivity extends BaseActivity {
+public class GiftShopActivity extends BaseCookieActivity {
     ActivityGiftShopBinding binding;
     public static final int TYPE_SHOP = 0;
     public static final int TYPE_RECEIVE = 1;

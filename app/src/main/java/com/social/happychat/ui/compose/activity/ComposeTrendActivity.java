@@ -24,14 +24,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.gyf.immersionbar.ImmersionBar;
-import com.noober.background.view.Const;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
-import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
 import com.social.happychat.app.HappyChatApplication;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
 import com.social.happychat.event.RefreshTrendListEvent;
@@ -73,7 +71,7 @@ import top.zibin.luban.OnCompressListener;
  * 要保证加载的图片和删除的图片资源一样，就要压缩好了加载到上传ui九宫格内
  * 还要保证的加载的路径每个cell都不一样，这样才知道删除哪一个
  */
-public class ComposeTrendActivity extends BaseActivity {
+public class ComposeTrendActivity extends BaseCookieActivity {
     ActivityComposeTrendBinding binding;
     private ComposePicAdapter adapter;
     private static final int REQUEST_CODE_CHOOSE = 23;

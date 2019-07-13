@@ -3,11 +3,12 @@ package com.social.basecommon.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.gyf.immersionbar.ImmersionBar;
-import com.social.basecommon.event.BaseEvent;
-import com.social.basecommon.util.SPUtils;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.social.basecommon.event.LoginExpireEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -55,7 +56,19 @@ public class BaseActivity extends SupportActivity {
      * 注册了eventbus必须添加一个@Subscriber标记的方法
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(BaseEvent event) {
+    public void Event(LoginExpireEvent event) {
+        new MaterialDialog.Builder(activity).positiveText("确定").onPositive(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                logout();
+            }
+        }).content("当前账号在其他设备登录，请重新登录！").cancelable(false)
+                .show();
+        EventBus.getDefault().cancelEventDelivery(event);
+    }
+
+    protected void logout(){
+
     }
 
 }

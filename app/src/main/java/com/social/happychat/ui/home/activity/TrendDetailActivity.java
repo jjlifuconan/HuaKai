@@ -19,7 +19,6 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.jaeger.ninegridimageview.ItemImageClickListener;
 import com.jaeger.ninegridimageview.ItemImageLongClickListener;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.PerfectClickListener;
@@ -27,6 +26,7 @@ import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
@@ -69,7 +69,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class TrendDetailActivity extends BaseActivity implements DialogFragmentDataCallback {
+public class TrendDetailActivity extends BaseCookieActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
     int position = -1;//标记列表的位置，返回更新数据
     TrendListBean.ListBean bean;

@@ -1,6 +1,5 @@
 package com.social.happychat.ui.login.cookie;
 
-import android.content.Intent;
 
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.AuthService;
@@ -9,8 +8,6 @@ import com.social.happychat.app.HappyChatApplication;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.im.LogoutHelper;
 import com.social.happychat.im.Preferences;
-import com.social.happychat.ui.login.LoginActivity;
-import com.social.happychat.ui.login.bean.UserBean;
 
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
@@ -21,7 +18,7 @@ import cn.sharesdk.wechat.friends.Wechat;
  * @date 2019/7/7
  * @description:
  */
-public class LoginCookie {
+public class LoginCookie{
     public static void clearLoginCookie(){
         //清楚保存的SP
         SPUtils.clearAllByFileName(HappyChatApplication.getInstance(), Constant.SP_HAPPY_CHAT);
@@ -40,4 +37,6 @@ public class LoginCookie {
         LogoutHelper.logout();
         NIMClient.getService(AuthService.class).logout();
     }
+
+
 }

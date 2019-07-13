@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -13,10 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -32,13 +28,12 @@ import com.lljjcoder.bean.DistrictBean;
 import com.lljjcoder.bean.ProvinceBean;
 import com.lljjcoder.citywheel.CityConfig;
 import com.lljjcoder.style.citypickerview.CityPickerView;
-import com.social.basecommon.activity.BaseActivity;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
-import com.social.happychat.app.HappyChatApplication;
+import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityComposeTrendBinding;
@@ -92,7 +87,7 @@ import top.zibin.luban.OnCompressListener;
  * 要保证加载的图片和删除的图片资源一样，就要压缩好了加载到上传ui九宫格内
  * 还要保证的加载的路径每个cell都不一样，这样才知道删除哪一个
  */
-public class ModifyUserInfoActivity extends BaseActivity {
+public class ModifyUserInfoActivity extends BaseCookieActivity {
     ActivityModifyUserinfoBinding binding;
     private ComposePicAdapter adapter;
     private static final int REQUEST_CODE_CHOOSE_LIST = 23;//个人相册图集
