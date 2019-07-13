@@ -18,14 +18,18 @@ import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityLoginBinding;
+import com.social.happychat.event.RefreshMineEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.im.IMConstant;
 import com.social.happychat.im.IMImpl;
 import com.social.happychat.im.IMUtils;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.util.RequestBody;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -185,22 +189,7 @@ public class LoginActivity extends BaseActivity {
             new IMUtils().register(activity, userBean.getUserMobile(), userBean.getNickName(), IMConstant.IM_TOKEN, new IMImpl.IMResisterImpl() {
                 @Override
                 public void success() {
-                    loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
-                        @Override
-                        public void success() {
-                            loginRequest = null;
-                        }
-
-                        @Override
-                        public void fail() {
-                            loginRequest = null;
-                        }
-
-                        @Override
-                        public void exception() {
-                            loginRequest = null;
-                        }
-                    });
+                    updateIsOpenIm(userBean);
                 }
 
                 @Override
@@ -209,5 +198,54 @@ public class LoginActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    /**
+     * 掉保存资料接口更新 isopenim字段
+     */
+    public void updateIsOpenIm(UserBean userBean){
+        KeyboardUtils.hideSoftInput(activity);
+        Map map = new HashMap();
+        map.put("isOpenIm", 1);
+
+        Subscription subscription = HttpClient.Builder.getRealServer().modifyUser(com.social.happychat.util.RequestBody.as(map))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+                        if (baseBean.isValid()) {
+                            userBean.setIsOpenIm(1);
+                            SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean);
+                            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+                                @Override
+                                public void success() {
+                                    loginRequest = null;
+                                }
+
+                                @Override
+                                public void fail() {
+                                    loginRequest = null;
+                                }
+
+                                @Override
+                                public void exception() {
+                                    loginRequest = null;
+                                }
+                            });
+                        } else {
+                            ToastUtil.show(activity, baseBean.getMsg());
+                        }
+                    }
+                });
+        addSubscription(subscription);
+
     }
 }

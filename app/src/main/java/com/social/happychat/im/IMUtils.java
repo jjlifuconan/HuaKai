@@ -11,9 +11,25 @@ import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.social.basecommon.util.SPUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.bean.BaseBean;
+import com.social.happychat.constant.Constant;
+import com.social.happychat.event.RefreshMineEvent;
+import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.login.LoginActivity;
 import com.social.happychat.ui.main.MainActivity;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Administrator
@@ -100,4 +116,5 @@ public class IMUtils {
         Preferences.saveUserAccount(account);
         Preferences.saveUserToken(token);
     }
+
 }

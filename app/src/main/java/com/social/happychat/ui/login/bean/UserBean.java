@@ -70,8 +70,8 @@ public class UserBean extends BaseBean<UserBean> {
 
     public boolean isOpenIm() {
         //for test
-        return true;
-//        return isOpenIm == 1;
+//        return true;
+        return isOpenIm == 1;
     }
 
     public void setIsOpenIm(int isOpenIm) {
