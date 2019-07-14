@@ -80,6 +80,11 @@ public class GiftSendListFragment extends BaseFragment<FragmentRefreshListBindin
     }
 
     @Override
+    public void sendGiftSuccess() {
+
+    }
+
+    @Override
     public void showAdapterView(List<GiftShopBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 

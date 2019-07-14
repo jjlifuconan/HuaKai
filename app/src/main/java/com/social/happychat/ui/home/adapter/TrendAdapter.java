@@ -21,6 +21,7 @@ import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ItemTrendBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
 import com.social.happychat.ui.home.bean.NeteaseList;
@@ -79,7 +80,7 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
         binding.vpGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.TREND, item.getId(), item.getUserId(), getItems().indexOf(item));
             }
         });
         List<TrendListBean.ListBean.UserFilesBean> imagesBeans = item.getUserFiles();

@@ -21,6 +21,7 @@ import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
 import com.social.happychat.base.BaseCookieActivity;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityUserHomeBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.home.bean.UserDetailBean;
@@ -250,7 +251,7 @@ public class UserHomeActivity extends BaseCookieActivity {
         binding.vpSendGift.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP);
+                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.USER_HOME, 9999,9999,9999);
             }
         });
     }

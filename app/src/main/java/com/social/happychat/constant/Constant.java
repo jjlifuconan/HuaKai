@@ -19,4 +19,9 @@ public class Constant {
         public static final String MONTH = "month";
     }
 
+    public static class SendGiftType{
+        public static final int TREND = 1;
+        public static final int USER_HOME = 2;
+    }
+
 }

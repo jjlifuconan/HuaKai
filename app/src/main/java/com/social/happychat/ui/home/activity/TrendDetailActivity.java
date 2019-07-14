@@ -30,6 +30,7 @@ import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityDetailTrendBinding;
+import com.social.happychat.event.GiftSendSuccessEvent;
 import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.event.RefreshPraiseEvent;
 import com.social.happychat.event.RefreshSingleItemEvent;
@@ -58,6 +59,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -140,7 +143,7 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
         binding.layoutBottom.vpGift.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
-                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP);
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.TREND, bean.getId(), bean.getUserId(), position);
             }
         });
     }
@@ -488,5 +491,11 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
             modify_map.put("giftCount",bean.getGiftCount());
             EventBus.getDefault().post(new RefreshSingleItemEvent(position, modify_map));
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(GiftSendSuccessEvent event) {
+        bean.setGiftCount(bean.getGiftCount()+1);
+        updateIndicatorTitle();
     }
 }

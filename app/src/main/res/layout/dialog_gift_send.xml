@@ -65,7 +65,7 @@
             tools:text="啊实打实大" />
 
         <TextView
-            android:id="@+id/button"
+            android:id="@+id/send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp14"

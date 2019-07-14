@@ -16,6 +16,7 @@ import com.social.basecommon.adapter.OnItemClickListener2;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.event.GiftSendSuccessEvent;
 import com.social.happychat.event.RefreshSingleItemEvent;
 import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.ui.home.activity.TrendDetailActivity;
@@ -180,6 +181,12 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
         bean.setCommentCount((Integer) event.modify_map.get("commentCount"));
         bean.setGiftCount((Integer) event.modify_map.get("giftCount"));
         EventBus.getDefault().cancelEventDelivery(event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(GiftSendSuccessEvent event) {
+        TrendListBean.ListBean bean = trendAdapter.getItems().get(event.position);
+        bean.setGiftCount(bean.getGiftCount()+1);
     }
 
 }

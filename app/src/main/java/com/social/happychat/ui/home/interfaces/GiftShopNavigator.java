@@ -21,6 +21,11 @@ public interface GiftShopNavigator {
     void showLoadSuccessView();
 
     /**
+     * 礼物赠送成功
+     */
+    void sendGiftSuccess();
+
+    /**
      * 显示adapter数据
      */
     void showAdapterView(List<GiftShopBean> dataBean);

@@ -119,6 +119,7 @@ public class TrendListBean extends BaseBean<TrendListBean> {
         private String dynamicTitle;
         private int giftCount;
         private int id;
+        private int userId;
         private int isPraise;
         private int praiseCount;
         private String publishLocation;
@@ -136,6 +137,14 @@ public class TrendListBean extends BaseBean<TrendListBean> {
         public void setCommentCount(int commentCount) {
             this.commentCount = commentCount;
             notifyPropertyChanged(BR.commentCount);
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
         }
 
         public String getDynamicInfo() {
@@ -247,11 +256,11 @@ public class TrendListBean extends BaseBean<TrendListBean> {
              * userAge : 0
              * userSex : 0
              */
-
             private String headPhotoUrl;
             private String nickName;
             private int userAge;
             private int userSex;
+
 
             public String getHeadPhotoUrl() {
                 return headPhotoUrl;

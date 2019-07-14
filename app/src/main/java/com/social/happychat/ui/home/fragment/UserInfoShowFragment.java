@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentUserinfoShowBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
 import com.social.happychat.ui.home.bean.UserDetailBean;

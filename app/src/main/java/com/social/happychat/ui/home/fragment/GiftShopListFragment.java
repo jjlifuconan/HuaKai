@@ -17,7 +17,10 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
+import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.DialogGiftSendBinding;
 import com.social.happychat.ui.home.adapter.GiftShopAdapter;
 import com.social.happychat.ui.home.bean.GiftShopBean;
@@ -37,11 +40,15 @@ import rx.Subscription;
 public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftShopNavigator {
     private GiftShopAdapter GiftAdapter;
     private GiftShopPresent present;
+    MaterialDialog dialog;
 
-    public static GiftShopListFragment newInstance() {
+    public static GiftShopListFragment newInstance(int channel, int dynamicId, int userId, int position) {
 
         Bundle args = new Bundle();
-
+        args.putInt("channel",channel);
+        args.putInt("dynamicId",dynamicId);
+        args.putInt("userId",userId);
+        args.putInt("position",position);
         GiftShopListFragment fragment = new GiftShopListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -77,8 +84,17 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
                 DialogGiftSendBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_gift_send, null,false);
                 binding.setBean(item);
 
-                MaterialDialog dialog = new MaterialDialog.Builder(activity).customView(binding.getRoot(),false)
+                dialog = new MaterialDialog.Builder(activity).customView(binding.getRoot(),false)
                         .show();
+                binding.send.setOnClickListener(new PerfectClickListener() {
+                    @Override
+                    protected void onNoDoubleClick(View v) {
+                        int dynamicId = getArguments().getInt("dynamicId", 0);
+                        int userId = getArguments().getInt("userId", 0);
+                        int position = getArguments().getInt("position", 0);
+                        present.sendGift(Constant.SendGiftType.TREND,dynamicId,item.getId(),userId, position);
+                    }
+                });
                 binding.vpClose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -93,6 +109,18 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
     @Override
     public void showLoadSuccessView() {
         showContentView();
+    }
+
+    @Override
+    public void sendGiftSuccess() {
+        ToastUtil.show(activity,"赠送礼物成功");
+        binding.refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                activity.finish();
+            }
+        },500);
     }
 
     @Override
