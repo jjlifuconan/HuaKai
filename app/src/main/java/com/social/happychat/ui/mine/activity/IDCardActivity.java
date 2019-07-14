@@ -22,6 +22,8 @@ import com.baidu.ocr.sdk.model.IDCardResult;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.gyf.immersionbar.ImmersionBar;
+import com.social.basecommon.util.GlideApp;
+import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.KeyboardUtils;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.happychat.R;
@@ -96,6 +98,7 @@ public class IDCardActivity extends BaseCookieActivity {
         binding.imgFront.setColorFilter(Color.parseColor("#50333333"));
     }
 
+
     private void recIDCard(String idCardSide, String filePath) {
         IDCardParams param = new IDCardParams();
         param.setImageFile(new File(filePath));
@@ -127,12 +130,14 @@ public class IDCardActivity extends BaseCookieActivity {
         if (requestCode == REQUEST_CODE_PICK_IMAGE_FRONT && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             String filePath = getRealPathFromURI(uri);
+            GlideApp.with(activity).load(filePath).into(binding.imgFront);
             recIDCard(IDCardParams.ID_CARD_SIDE_FRONT, filePath);
         }
 
         if (requestCode == REQUEST_CODE_PICK_IMAGE_BACK && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
             String filePath = getRealPathFromURI(uri);
+            GlideApp.with(activity).load(filePath).into(binding.imgBack);
             recIDCard(IDCardParams.ID_CARD_SIDE_BACK, filePath);
         }
 
@@ -142,8 +147,10 @@ public class IDCardActivity extends BaseCookieActivity {
                 String filePath = FileUtil.getSaveFile(getApplicationContext()).getAbsolutePath();
                 if (!TextUtils.isEmpty(contentType)) {
                     if (CameraActivity.CONTENT_TYPE_ID_CARD_FRONT.equals(contentType)) {
+                        GlideApp.with(activity).load(filePath).into(binding.imgFront);
                         recIDCard(IDCardParams.ID_CARD_SIDE_FRONT, filePath);
                     } else if (CameraActivity.CONTENT_TYPE_ID_CARD_BACK.equals(contentType)) {
+                        GlideApp.with(activity).load(filePath).into(binding.imgBack);
                         recIDCard(IDCardParams.ID_CARD_SIDE_BACK, filePath);
                     }
                 }
