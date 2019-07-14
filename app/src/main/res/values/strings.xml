@@ -50,7 +50,7 @@
 
 
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
-    <string name="permission_camera_rationale">发布功能需要开启相关权限</string>
+    <string name="permission_camera_rationale">使用乐聊前需要开启相关权限</string>
     <string name="permission_contacts_rationale">Contacts permissions are needed to demonstrate access to the contacts database.</string>
     <string name="permission_camera_denied">相关权限被拒绝，请到设置中开启</string>
     <string name="permission_camera_never_ask_again">Camera permission was denied with never ask again.</string>

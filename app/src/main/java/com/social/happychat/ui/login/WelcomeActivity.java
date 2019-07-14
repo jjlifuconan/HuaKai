@@ -1,13 +1,19 @@
 package com.social.happychat.ui.login;
 
+import android.Manifest;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.social.basecommon.activity.BaseActivity;
@@ -24,6 +30,7 @@ import com.social.happychat.im.DemoCache;
 import com.social.happychat.im.IMConstant;
 import com.social.happychat.im.IMImpl;
 import com.social.happychat.im.IMUtils;
+import com.social.happychat.ui.compose.activity.ComposeTrendActivity;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.main.MainActivity;
@@ -35,10 +42,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.wechat.friends.Wechat;
-import rx.Observer;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * @author Administrator
@@ -114,17 +117,6 @@ public class WelcomeActivity extends BaseActivity {
 
 
     private void playVideo() {
-        UserBean userBean = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
-        if(userBean != null){
-            if (!TextUtils.isEmpty(DemoCache.getAccount())) {
-                //已有IM登录信息，直接进主页
-                startActivity(new Intent(activity, MainActivity.class));
-                finish();
-                return;
-            }else{
-                handleIMAcount(userBean);
-            }
-        }
         binding.videoview.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.loginmovie));
         binding.videoview.start();
         binding.videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -136,92 +128,5 @@ public class WelcomeActivity extends BaseActivity {
         });
     }
 
-    /**
-     * im账户注册或登录
-     */
-    private void handleIMAcount(UserBean userBean){
-        //本地没有IM信息
-        if(userBean.isOpenIm()){
-            //注册过，直接登录IM
-            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
-                @Override
-                public void success() {
-                    loginRequest = null;
-                }
 
-                @Override
-                public void fail() {
-                    loginRequest = null;
-                }
-
-                @Override
-                public void exception() {
-                    loginRequest = null;
-                }
-            });
-        }else{
-            //没注册过，注册IM
-            new IMUtils().register(activity, userBean.getUserMobile(), userBean.getNickName(), IMConstant.IM_TOKEN, new IMImpl.IMResisterImpl() {
-                @Override
-                public void success() {
-                    updateIsOpenIm(userBean);
-                }
-
-                @Override
-                public void failed() {
-
-                }
-            });
-        }
-    }
-
-
-    /**
-     * 掉保存资料接口更新 isopenim字段
-     */
-    public void updateIsOpenIm(UserBean userBean){
-        KeyboardUtils.hideSoftInput(activity);
-        Map map = new HashMap();
-        map.put("isOpenIm", 1);
-
-        Subscription subscription = HttpClient.Builder.getRealServer().modifyUser(com.social.happychat.util.RequestBody.as(map))
-                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseBean>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(BaseBean baseBean) {
-                        if (baseBean.isValid()) {
-                            userBean.setIsOpenIm(1);
-                            SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean);
-                            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
-                                @Override
-                                public void success() {
-                                    loginRequest = null;
-                                }
-
-                                @Override
-                                public void fail() {
-                                    loginRequest = null;
-                                }
-
-                                @Override
-                                public void exception() {
-                                    loginRequest = null;
-                                }
-                            });
-                        } else {
-                            ToastUtil.show(activity, baseBean.getMsg());
-                        }
-                    }
-                });
-        addSubscription(subscription);
-
-    }
 }
