@@ -80,7 +80,7 @@ public class GiftReceiveListFragment extends BaseFragment<FragmentRefreshListBin
     }
 
     @Override
-    public void showAdapterView(List<GiftShopBean.DataBean> dataBeans) {
+    public void showAdapterView(List<GiftShopBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

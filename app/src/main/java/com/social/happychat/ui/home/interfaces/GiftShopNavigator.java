@@ -23,7 +23,7 @@ public interface GiftShopNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<GiftShopBean.DataBean> dataBean);
+    void showAdapterView(List<GiftShopBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局

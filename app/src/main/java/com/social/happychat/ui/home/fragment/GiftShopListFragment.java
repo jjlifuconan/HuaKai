@@ -71,9 +71,9 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));
         binding.recyclerView.addItemDecoration(divider);
         binding.recyclerView.setAdapter(GiftAdapter);
-        GiftAdapter.setOnItemClickListener(new OnItemClickListener<GiftShopBean.DataBean>() {
+        GiftAdapter.setOnItemClickListener(new OnItemClickListener<GiftShopBean>() {
             @Override
-            public void onClick(GiftShopBean.DataBean item) {
+            public void onClick(GiftShopBean item) {
                 DialogGiftSendBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_gift_send, null,false);
                 binding.setBean(item);
 
@@ -96,7 +96,7 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
     }
 
     @Override
-    public void showAdapterView(List<GiftShopBean.DataBean> dataBeans) {
+    public void showAdapterView(List<GiftShopBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

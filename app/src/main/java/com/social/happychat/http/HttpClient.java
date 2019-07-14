@@ -7,6 +7,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.CommentListBean;
+import com.social.happychat.ui.home.bean.GiftShopBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.PraiseListBean;
 import com.social.happychat.ui.home.bean.TrendListBean;
@@ -149,6 +150,12 @@ public interface HttpClient {
      */
     @POST("dynamic/private/dynamicCommentList.do")
     Observable<CommentListBean> dynamicCommentList(@Body JSONObject parmas);
+
+    /**
+     * 礼物列表
+     */
+    @GET("gift/private/giftGoodsList.htm")
+    Observable<GiftShopBean> giftGoodsList();
 
     /**
      * 点赞列表

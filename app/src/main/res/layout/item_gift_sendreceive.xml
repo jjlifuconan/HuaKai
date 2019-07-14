@@ -9,7 +9,7 @@
 
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.GiftShopBean.DataBean" />
+            type="com.social.happychat.ui.home.bean.GiftShopBean" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -27,7 +27,7 @@
             android:layout_height="@dimen/dp44"
             android:adjustViewBounds="true"
             android:defaultPicType="@{2}"
-            android:displayWrapImage="@{bean.photo}"
+            android:displayWrapImage="@{bean.giftIcon}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +56,7 @@
             android:ellipsize="end"
             android:maxEms="14"
             android:singleLine="true"
-            android:text="@{`x`+bean.giftNum}"
+            android:text="@{`x`+bean.giftPrice}"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp13"
             app:layout_constraintTop_toBottomOf="@+id/textView15"
