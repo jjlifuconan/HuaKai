@@ -251,7 +251,7 @@ public class UserHomeActivity extends BaseCookieActivity {
         binding.vpSendGift.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.USER_HOME, 9999,9999,9999);
+                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.USER_HOME, 9999,9999);
             }
         });
     }

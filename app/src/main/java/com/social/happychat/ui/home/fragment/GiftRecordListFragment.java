@@ -10,6 +10,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.ui.home.adapter.GiftRecordAdapter;
 import com.social.happychat.ui.home.bean.GiftRecordBean;
 import com.social.happychat.ui.home.interfaces.GiftRecordNavigator;
@@ -27,10 +28,13 @@ import rx.Subscription;
 public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBinding> implements GiftRecordNavigator {
     private GiftRecordAdapter GiftAdapter;
     private GiftRecordPresent present;
+    private int dynamicId;
 
-    public static GiftRecordListFragment newInstance() {
+
+    public static GiftRecordListFragment newInstance(int dynamicId) {
 
         Bundle args = new Bundle();
+        args.putInt("dynamicId", dynamicId);
 
         GiftRecordListFragment fragment = new GiftRecordListFragment();
         fragment.setArguments(args);
@@ -40,6 +44,7 @@ public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBind
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
+        dynamicId = getArguments().getInt("dynamicId");
         present = new GiftRecordPresent(this);
         binding.refreshLayout.setEnableRefresh(false);
         binding.refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -48,14 +53,14 @@ public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBind
                 int page = present.getPage();
                 page++;
                 present.setPage(page);
-                present.loadGiftData();
+                present.loadGiftData(Constant.SendGiftType.TREND, dynamicId, 0);
             }
         });
 
         GiftAdapter = new GiftRecordAdapter(activity);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         binding.recyclerView.setAdapter(GiftAdapter);
-        present.loadGiftData();
+        present.loadGiftData(Constant.SendGiftType.TREND, dynamicId, 0);
     }
 
     @Override
@@ -98,7 +103,7 @@ public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBind
     @Override
     protected void onRefresh() {
         present.setPage(1);
-        present.loadGiftData();
+        present.loadGiftData(Constant.SendGiftType.TREND, dynamicId, 0);
     }
 
     @Override

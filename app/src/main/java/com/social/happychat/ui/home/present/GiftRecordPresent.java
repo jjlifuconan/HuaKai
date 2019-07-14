@@ -2,6 +2,7 @@ package com.social.happychat.ui.home.present;
 
 
 import com.example.http.HttpUtils;
+import com.social.happychat.constant.Constant;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.GiftRecordBean;
 import com.social.happychat.ui.home.interfaces.GiftRecordNavigator;
@@ -24,25 +25,25 @@ public class GiftRecordPresent {
         mModel = new GiftRecordViewModel();
     }
 
-    public void loadGiftData() {
-        mModel.setData( mPage, HttpUtils.per_page_more);
+    public void loadGiftData(int channel, int dynamicId, int userId) {
+        mModel.setData( mPage, HttpUtils.per_page_more, channel, dynamicId, userId);
         mModel.getGiftData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
-                navigator.showLoadSuccessView();
-                GiftRecordBean GiftListBean = (GiftRecordBean) object;
-                if (mPage == 1) {
-                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
-                        navigator.showLoadFailedView();
-                        return;
-                    }
-                } else {
-                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
-                        navigator.showListNoMoreLoading();
-                        return;
-                    }
-                }
-                navigator.showAdapterView(GiftListBean.getData());
+//                navigator.showLoadSuccessView();
+//                GiftRecordBean GiftListBean = (GiftRecordBean) object;
+//                if (mPage == 1) {
+//                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
+//                        navigator.showLoadFailedView();
+//                        return;
+//                    }
+//                } else {
+//                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
+//                        navigator.showListNoMoreLoading();
+//                        return;
+//                    }
+//                }
+//                navigator.showAdapterView(GiftListBean.getData());
             }
 
             @Override

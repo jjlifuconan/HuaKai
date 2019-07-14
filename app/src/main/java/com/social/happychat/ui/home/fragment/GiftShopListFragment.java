@@ -90,7 +90,6 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
                     protected void onNoDoubleClick(View v) {
                         int dynamicId = getArguments().getInt("dynamicId", 0);
                         int userId = getArguments().getInt("userId", 0);
-                        int position = getArguments().getInt("position", 0);
                         present.sendGift(Constant.SendGiftType.TREND,dynamicId,item.getId(),userId);
                     }
                 });

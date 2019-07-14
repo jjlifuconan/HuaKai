@@ -260,7 +260,7 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
                 }else if(position == 1){
                     return PraiseListFragment.newInstance(bean.getId());
                 }else{
-                    return GiftRecordListFragment.newInstance();
+                    return GiftRecordListFragment.newInstance(bean.getId());
                 }
             }
 

@@ -158,6 +158,12 @@ public interface HttpClient {
     Observable<GiftShopBean> giftGoodsList();
 
     /**
+     * 受赠礼物列表
+     */
+    @POST("gift/private/receiveGiftList.do")
+    Observable<BaseBean> receiveGiftList(@Body JSONObject parmas);
+
+    /**
      * 赠送礼物
      */
     @POST("gift/private/giveGift.do")
