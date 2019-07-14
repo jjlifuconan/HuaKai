@@ -42,13 +42,12 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
     private GiftShopPresent present;
     MaterialDialog dialog;
 
-    public static GiftShopListFragment newInstance(int channel, int dynamicId, int userId, int position) {
+    public static GiftShopListFragment newInstance(int channel, int dynamicId, int userId) {
 
         Bundle args = new Bundle();
         args.putInt("channel",channel);
         args.putInt("dynamicId",dynamicId);
         args.putInt("userId",userId);
-        args.putInt("position",position);
         GiftShopListFragment fragment = new GiftShopListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -92,7 +91,7 @@ public class GiftShopListFragment extends BaseFragment<FragmentRefreshListBindin
                         int dynamicId = getArguments().getInt("dynamicId", 0);
                         int userId = getArguments().getInt("userId", 0);
                         int position = getArguments().getInt("position", 0);
-                        present.sendGift(Constant.SendGiftType.TREND,dynamicId,item.getId(),userId, position);
+                        present.sendGift(Constant.SendGiftType.TREND,dynamicId,item.getId(),userId);
                     }
                 });
                 binding.vpClose.setOnClickListener(new View.OnClickListener() {

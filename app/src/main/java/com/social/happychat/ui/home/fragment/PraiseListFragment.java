@@ -10,11 +10,9 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
-import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.event.RefreshPraiseEvent;
 import com.social.happychat.ui.home.adapter.PraiseAdapter;
 import com.social.happychat.ui.home.bean.PraiseListBean;
-import com.social.happychat.ui.home.interfaces.DialogFragmentDataCallback;
 import com.social.happychat.ui.home.interfaces.PraiseNavigator;
 import com.social.happychat.ui.home.present.PraisePresent;
 

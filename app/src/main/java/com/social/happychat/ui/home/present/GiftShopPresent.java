@@ -6,7 +6,6 @@ import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.app.HappyChatApplication;
 import com.social.happychat.bean.BaseBean;
 import com.social.happychat.event.GiftSendSuccessEvent;
-import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.GiftShopBean;
 import com.social.happychat.ui.home.interfaces.GiftShopNavigator;
@@ -67,7 +66,7 @@ public class GiftShopPresent {
         });
     }
 
-    public void sendGift(int channel, int dynamicId, int giftId, int userId, int position) {
+    public void sendGift(int channel, int dynamicId, int giftId, int userId) {
         mModel.setData(channel, dynamicId, giftId, userId);
         mModel.sendGift(new RequestImpl() {
             @Override
@@ -76,7 +75,7 @@ public class GiftShopPresent {
                 BaseBean baseBean = (BaseBean) object;
                 if(baseBean.isValid()){
                     //刷新礼物数  刷新列表的第几个
-                    EventBus.getDefault().post(new GiftSendSuccessEvent(position));
+                    EventBus.getDefault().post(new GiftSendSuccessEvent(dynamicId));
                     navigator.sendGiftSuccess();
                 }else{
                     ToastUtil.show(HappyChatApplication.getInstance(), baseBean.getMsg());

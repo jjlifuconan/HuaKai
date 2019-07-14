@@ -175,18 +175,23 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(RefreshSingleItemEvent event) {
-        TrendListBean.ListBean bean = trendAdapter.getItems().get(event.position);
-        bean.setPraiseCount((Integer) event.modify_map.get("praiseCount"));
-        bean.setIsPraise((Integer) event.modify_map.get("isPraise"));
-        bean.setCommentCount((Integer) event.modify_map.get("commentCount"));
-        bean.setGiftCount((Integer) event.modify_map.get("giftCount"));
-        EventBus.getDefault().cancelEventDelivery(event);
+        for(TrendListBean.ListBean bean: trendAdapter.getItems()){
+            if(bean.getId() == event.dynamicId){
+                bean.setPraiseCount((Integer) event.modify_map.get("praiseCount"));
+                bean.setIsPraise((Integer) event.modify_map.get("isPraise"));
+                bean.setCommentCount((Integer) event.modify_map.get("commentCount"));
+                bean.setGiftCount((Integer) event.modify_map.get("giftCount"));
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(GiftSendSuccessEvent event) {
-        TrendListBean.ListBean bean = trendAdapter.getItems().get(event.position);
-        bean.setGiftCount(bean.getGiftCount()+1);
+        for(TrendListBean.ListBean bean: trendAdapter.getItems()){
+            if(bean.getId() == event.dynamicId){
+                bean.setGiftCount(bean.getGiftCount()+1);
+            }
+        }
     }
 
 }

@@ -42,8 +42,7 @@ public class GiftShopActivity extends BaseCookieActivity {
             int channel = getIntent().getIntExtra("channel", 0);
             int dynamicId = getIntent().getIntExtra("dynamicId", 0);
             int userId = getIntent().getIntExtra("userId", 0);
-            int position = getIntent().getIntExtra("position", 0);
-            loadRootFragment(R.id.content, GiftShopListFragment.newInstance(channel, dynamicId, userId, position));
+            loadRootFragment(R.id.content, GiftShopListFragment.newInstance(channel, dynamicId, userId));
         }else if(getIntent().getIntExtra("type", GiftShopActivity.TYPE_SHOP) == GiftShopActivity.TYPE_RECEIVE){
             binding.title.setText("收到的礼物");
             loadRootFragment(R.id.content, GiftReceiveListFragment.newInstance());
@@ -59,13 +58,12 @@ public class GiftShopActivity extends BaseCookieActivity {
         context.startActivity(intent);
     }
 
-    public static void action(Context context, int type, int channel, int dynamicId, int userId, int position){
+    public static void action(Context context, int type, int channel, int dynamicId, int userId){
         Intent intent = new Intent(context, GiftShopActivity.class);
         intent.putExtra("type",type);
         intent.putExtra("channel",channel);
         intent.putExtra("dynamicId",dynamicId);
         intent.putExtra("userId",userId);
-        intent.putExtra("position",position);
         context.startActivity(intent);
     }
 }

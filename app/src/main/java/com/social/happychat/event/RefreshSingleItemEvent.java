@@ -10,11 +10,11 @@ import java.util.Map;
  * @description:
  */
 public class RefreshSingleItemEvent extends BaseEvent {
-    public int position;//找第几个
+    public int dynamicId;//找第几个
     public Map modify_map;//需要修改的参数集合
 
-    public RefreshSingleItemEvent(int position, Map modify_map) {
-        this.position = position;
+    public RefreshSingleItemEvent(int dynamicId, Map modify_map) {
+        this.dynamicId = dynamicId;
         this.modify_map = modify_map;
     }
 }

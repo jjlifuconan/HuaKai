@@ -80,7 +80,7 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
         binding.vpGift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.TREND, item.getId(), item.getUserId(), getItems().indexOf(item));
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.TREND, item.getId(), item.getUserId());
             }
         });
         List<TrendListBean.ListBean.UserFilesBean> imagesBeans = item.getUserFiles();

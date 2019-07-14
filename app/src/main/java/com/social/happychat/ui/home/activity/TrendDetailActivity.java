@@ -74,7 +74,6 @@ import rx.schedulers.Schedulers;
 
 public class TrendDetailActivity extends BaseCookieActivity implements DialogFragmentDataCallback {
     ActivityDetailTrendBinding binding;
-    int position = -1;//标记列表的位置，返回更新数据
     TrendListBean.ListBean bean;
     private String commentText = "";
     private int replyUserId = 0;
@@ -98,7 +97,6 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
                 addSubscription(subscription);
             }
         });
-        position = getIntent().getIntExtra("position", -1);
         bean = (TrendListBean.ListBean) getIntent().getSerializableExtra("bean");
         binding.setBean(bean);
         initView();
@@ -143,7 +141,7 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
         binding.layoutBottom.vpGift.setOnClickListener(new PerfectClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
-                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.TREND, bean.getId(), bean.getUserId(), position);
+                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.TREND, bean.getId(), bean.getUserId());
             }
         });
     }
@@ -483,19 +481,19 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
      * 返回上级页面参数变化事件
      */
     public void postItemChangedEvent(){
-        if(position != -1){
-            Map modify_map = new HashMap();
-            modify_map.put("isPraise",bean.getIsPraise());
-            modify_map.put("praiseCount",bean.getPraiseCount());
-            modify_map.put("commentCount",bean.getCommentCount());
-            modify_map.put("giftCount",bean.getGiftCount());
-            EventBus.getDefault().post(new RefreshSingleItemEvent(position, modify_map));
-        }
+        Map modify_map = new HashMap();
+        modify_map.put("isPraise",bean.getIsPraise());
+        modify_map.put("praiseCount",bean.getPraiseCount());
+        modify_map.put("commentCount",bean.getCommentCount());
+        modify_map.put("giftCount",bean.getGiftCount());
+        EventBus.getDefault().post(new RefreshSingleItemEvent(bean.getId(), modify_map));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(GiftSendSuccessEvent event) {
-        bean.setGiftCount(bean.getGiftCount()+1);
-        updateIndicatorTitle();
+        if(event.dynamicId == bean.getUserId()){
+            bean.setGiftCount(bean.getGiftCount()+1);
+            updateIndicatorTitle();
+        }
     }
 }

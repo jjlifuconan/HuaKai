@@ -1,9 +1,9 @@
 package com.social.happychat.event;
 
 public class GiftSendSuccessEvent {
-    public int position;//找列表第几个
+    public int dynamicId;//根据动态id找到更新
 
-    public GiftSendSuccessEvent(int position) {
-        this.position = position;
+    public GiftSendSuccessEvent(int dynamicId) {
+        this.dynamicId = dynamicId;
     }
 }
