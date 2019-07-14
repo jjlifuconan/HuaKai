@@ -45,6 +45,8 @@
     <string name="title_album">个人相册</string>
 
 
+    <string name="add_idcard_hint">请确保头像、姓名、身份证号码清晰完整；\n遮挡、模糊、不完整的身份证照片都将导致审核不通过。</string>
+
     <string name="compose_hint">这一刻，想和大家分享点什么？</string>
     <string name="compose_warning">尊敬的用户，您发布的内容须遵守相关法律法规，请严重遵守相关规定，以免违规。</string>
 

@@ -81,7 +81,7 @@ public class AdvertiseActivity extends BaseActivity {
 
                 }
             }
-        }, 1500);
+        }, 1000);
 
     }
 

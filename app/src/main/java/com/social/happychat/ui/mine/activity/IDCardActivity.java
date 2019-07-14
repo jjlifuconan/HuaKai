@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -91,7 +92,8 @@ public class IDCardActivity extends BaseCookieActivity {
     }
 
     private void initView() {
-
+        binding.imgBack.setColorFilter(Color.parseColor("#50333333"));
+        binding.imgFront.setColorFilter(Color.parseColor("#50333333"));
     }
 
     private void recIDCard(String idCardSide, String filePath) {
