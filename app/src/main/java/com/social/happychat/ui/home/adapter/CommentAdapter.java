@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils;
 import com.social.basecommon.adapter.BaseBindingAdapter;
 import com.social.happychat.R;
 import com.social.happychat.databinding.ItemCommentBinding;
+import com.social.happychat.ui.home.activity.UserHomeActivity;
 import com.social.happychat.ui.home.bean.CommentListBean;
 
 /**
@@ -28,6 +29,12 @@ public class CommentAdapter extends BaseBindingAdapter<CommentListBean.ListBean,
     @Override
     protected void onBindItem(ItemCommentBinding binding, CommentListBean.ListBean item) {
         binding.setBean(item);
+        binding.ivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserHomeActivity.action(context,item.getUserId());
+            }
+        });
         binding.vpPraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

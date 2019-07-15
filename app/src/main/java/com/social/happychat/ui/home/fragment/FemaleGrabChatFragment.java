@@ -66,7 +66,7 @@ public class FemaleGrabChatFragment extends BaseFragment<FragmentRefreshListBind
         grabAdapter.setOnItemClickListener(new OnItemClickListener<GrabListBean.DataBean>() {
             @Override
             public void onClick(GrabListBean.DataBean item) {
-                UserHomeActivity.action(activity,"file_paths_public");
+                UserHomeActivity.action(activity,9999);
             }
         });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));

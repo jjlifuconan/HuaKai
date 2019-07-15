@@ -24,6 +24,7 @@ import com.social.happychat.R;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ItemTrendBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
+import com.social.happychat.ui.home.activity.UserHomeActivity;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.widget.TouchImageView;
@@ -56,6 +57,12 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
     @Override
     protected void onBindItem(ItemTrendBinding binding, TrendListBean.ListBean item) {
         binding.setBean(item);
+        binding.ivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserHomeActivity.action(context,item.getUserId());
+            }
+        });
         binding.vpPraise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

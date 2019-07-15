@@ -272,7 +272,7 @@ public class UserHomeActivity extends BaseCookieActivity {
         }
     }
 
-    public static void action(Context context, String userId){
+    public static void action(Context context, int userId){
         Intent intent = new Intent(context, UserHomeActivity.class);
         intent.putExtra("userId",userId);
         context.startActivity(intent);

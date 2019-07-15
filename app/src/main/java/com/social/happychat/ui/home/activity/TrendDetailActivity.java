@@ -113,6 +113,12 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
             }
         });
 
+        binding.layoutHeader.ivHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserHomeActivity.action(activity,bean.getUserId());
+            }
+        });
         binding.layoutBottom.vpPraise.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {

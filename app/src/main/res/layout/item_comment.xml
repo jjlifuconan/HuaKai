@@ -18,7 +18,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/iv_head"
             android:layout_width="@dimen/dp36"
             android:layout_height="@dimen/dp36"
             android:defaultPicType="@{bean.userSex==1?3:4}"
@@ -36,7 +36,7 @@
             android:textSize="@dimen/sp14"
             android:text="@{bean.userName}"
             tools:text="啊实打实大"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/iv_head"
             app:layout_constraintTop_toTopOf="parent" />
 
 
