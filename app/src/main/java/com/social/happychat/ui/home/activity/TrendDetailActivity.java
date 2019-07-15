@@ -491,7 +491,7 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(GiftSendSuccessEvent event) {
-        if(event.dynamicId == bean.getUserId()){
+        if(event.dynamicId == bean.getId()){
             bean.setGiftCount(bean.getGiftCount()+1);
             updateIndicatorTitle();
         }

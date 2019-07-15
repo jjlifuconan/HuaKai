@@ -40,9 +40,18 @@ public class UserBean extends BaseBean<UserBean> {
     private String emotionStatus;
     private String userAddress;
     private int userSex;
+    private int userAge;
     private int isOpenIm;
     private List<ImageBean> userFileDtos;
     private List<TagListBean> userTagDtos;
+
+    public int getUserAge() {
+        return userAge;
+    }
+
+    public void setUserAge(int userAge) {
+        this.userAge = userAge;
+    }
 
     public String getConstellation() {
         return constellation;

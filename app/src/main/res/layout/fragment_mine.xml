@@ -70,7 +70,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp5"
-                        android:text="12岁"
+                        android:text="@{bean.userAge+`岁`}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp13"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
