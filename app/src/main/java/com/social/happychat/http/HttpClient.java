@@ -7,6 +7,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.CommentListBean;
+import com.social.happychat.ui.home.bean.GiftRecordBean;
 import com.social.happychat.ui.home.bean.GiftShopBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.PraiseListBean;
@@ -161,7 +162,7 @@ public interface HttpClient {
      * 受赠礼物列表
      */
     @POST("gift/private/receiveGiftList.do")
-    Observable<BaseBean> receiveGiftList(@Body JSONObject parmas);
+    Observable<GiftRecordBean> receiveGiftList(@Body JSONObject parmas);
 
     /**
      * 赠送礼物

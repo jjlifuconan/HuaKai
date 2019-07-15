@@ -1,6 +1,7 @@
 package com.social.happychat.ui.home.bean;
 
-import java.io.Serializable;
+import com.social.happychat.bean.BaseBean;
+
 import java.util.List;
 
 /**
@@ -8,90 +9,157 @@ import java.util.List;
  * @date 2019/7/2 0002
  * @description:
  */
-public class GiftRecordBean implements Serializable {
+public class GiftRecordBean extends BaseBean<GiftRecordBean> {
 
     /**
-     * code : 200
-     * data : [{"giftNum":"1","nickName":"形同陌路","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_93814250_1560997114407.png?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"其实我知道的，我在等待着快乐的救赎","sex":"1","age":"24"},{"giftNum":"2","nickName":"孤心","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_56792081_1547782218848.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"亲爱的孤单。。请你祝我生日快乐","sex":"1","age":"26"},{"giftNum":"3","nickName":"作茧自缚","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_79501384_1560704521160.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"明媚的忧伤、以后各自为安","sex":"1","age":"24"},{"giftNum":"4","nickName":"入骨相思","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_93417520_1559667904089.png?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"◇ 悲伤都扎着蝴蝶结。","sex":"1","age":"24"},{"giftNum":"5","nickName":"旧人、","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_58063291_1561161871992.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"最可悲的是，你喜欢的人以为你喜欢着别人","sex":"1","age":"22"},{"giftNum":"6","nickName":"握不住的沙","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_70539826_1556330493275.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"为什么每份爱情结尾，无非别离，总是别离。","sex":"1","age":"21"},{"giftNum":"7","nickName":"悲伤的季节","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_51307692_1558410121242.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"我承认 悲伤是一种致命的情感。","sex":"1","age":"24"},{"giftNum":"8","nickName":"心为你而葬","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_1469257_1561097657704.png?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"别离之夏，甜蜜做序曲，悲伤做结局。","sex":"1","age":"25"},{"giftNum":"9","nickName":"笑如烟霞","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_84752093_1560134862786.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"幸福的花儿，终究有一天陨落成泥滋润着悲伤。","sex":"1","age":"24"},{"giftNum":"10","nickName":"荧光般温柔","photo":"user_header_36527940_1543761913496.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200 (200x200)","giftName":"等爱的人，有最痛苦的希望，和最甜蜜的绝望。","sex":"1","age":"24"},{"giftNum":"11","nickName":"寂静深夜 寂寞如雪","photo":"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_93814250_1560997114407.png?x-oss-process=image/resize,m_mfit,h_200,w_200","giftName":"心到痛处，谁还卑微的挽留。","sex":"1","age":"24"}]
-     * message :
+     * firstPage : true
+     * hasNextPage : false
+     * hasPreviousPage : false
+     * lastPage : false
+     * limit : 20
+     * list : [{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":29,"rewardUserHeadPhotoUrl":"","rewardUserId":28,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":2,"giftName":"西瓜","giftPrice":500,"id":28,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":27,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":26,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":2,"giftName":"西瓜","giftPrice":500,"id":25,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":2,"giftName":"西瓜","giftPrice":500,"id":24,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":2,"giftName":"西瓜","giftPrice":500,"id":23,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":2,"giftName":"西瓜","giftPrice":500,"id":22,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":2,"giftName":"西瓜","giftPrice":500,"id":21,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":20,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":19,"rewardUserHeadPhotoUrl":"http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/4b7546c1ac1f4ec09356806449ce9997.jpeg?Expires=1878275467&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=%2FHbRNmpRZFAwlHgjYMHUEob3ATc%3D","rewardUserId":25,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":18,"rewardUserHeadPhotoUrl":"","rewardUserId":32,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":15,"rewardUserHeadPhotoUrl":"","rewardUserId":32,"userId":25},{"channel":1,"dynamicId":19,"giftCount":1,"giftId":1,"giftName":"守护符","giftPrice":1314,"id":14,"rewardUserHeadPhotoUrl":"","rewardUserId":32,"userId":25}]
+     * pageNumber : 1
+     * pages : 1
+     * total : 14
      */
 
-    private int code;
-    private String message;
-    private List<DataBean> data;
+    private boolean firstPage;
+    private boolean hasNextPage;
+    private boolean hasPreviousPage;
+    private boolean lastPage;
+    private int limit;
+    private int pageNumber;
+    private int pages;
+    private int total;
+    private List<ListBean> list;
 
-    public int getCode() {
-        return code;
+    public boolean isFirstPage() {
+        return firstPage;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setFirstPage(boolean firstPage) {
+        this.firstPage = firstPage;
     }
 
-    public String getMessage() {
-        return message;
+    public boolean isHasNextPage() {
+        return hasNextPage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setHasNextPage(boolean hasNextPage) {
+        this.hasNextPage = hasNextPage;
     }
 
-    public List<DataBean> getData() {
-        return data;
+    public boolean isHasPreviousPage() {
+        return hasPreviousPage;
     }
 
-    public void setData(List<DataBean> data) {
-        this.data = data;
+    public void setHasPreviousPage(boolean hasPreviousPage) {
+        this.hasPreviousPage = hasPreviousPage;
     }
 
-    public static class DataBean {
+    public boolean isLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(boolean lastPage) {
+        this.lastPage = lastPage;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public List<ListBean> getList() {
+        return list;
+    }
+
+    public void setList(List<ListBean> list) {
+        this.list = list;
+    }
+
+    public static class ListBean {
         /**
-         * giftNum : 1
-         * nickName : 形同陌路
-         * photo : http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_93814250_1560997114407.png?x-oss-process=image/resize,m_mfit,h_200,w_200
-         * giftName : 其实我知道的，我在等待着快乐的救赎
-         * sex : 1
-         * age : 24
+         * channel : 1
+         * dynamicId : 19
+         * giftCount : 1
+         * giftId : 1
+         * giftName : 守护符
+         * giftPrice : 1314
+         * id : 29
+         * rewardUserHeadPhotoUrl :
+         * rewardUserId : 28
+         * userId : 25
          */
 
-        private int giftNum;
-        private String nickName;
-        private String photo;
+        private int channel;
+        private int dynamicId;
+        private int giftCount;
+        private int giftId;
         private String giftName;
-        private String sex;
-        private String age;
-        private String time;
+        private int giftPrice;
+        private int id;
+        private String rewardUserHeadPhotoUrl;
+        private int rewardUserId;
+        private int userId;
 
-        public int getGiftNum() {
-            return giftNum;
+        public int getChannel() {
+            return channel;
         }
 
-        public void setGiftNum(int giftNum) {
-            this.giftNum = giftNum;
+        public void setChannel(int channel) {
+            this.channel = channel;
         }
 
-        public String getNickName() {
-            return nickName;
+        public int getDynamicId() {
+            return dynamicId;
         }
 
-        public String getTime() {
-            return time;
+        public void setDynamicId(int dynamicId) {
+            this.dynamicId = dynamicId;
         }
 
-        public void setTime(String time) {
-            this.time = time;
+        public int getGiftCount() {
+            return giftCount;
         }
 
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
+        public void setGiftCount(int giftCount) {
+            this.giftCount = giftCount;
         }
 
-        public String getPhoto() {
-            return photo;
+        public int getGiftId() {
+            return giftId;
         }
 
-        public void setPhoto(String photo) {
-            this.photo = photo;
+        public void setGiftId(int giftId) {
+            this.giftId = giftId;
         }
 
         public String getGiftName() {
@@ -102,20 +170,44 @@ public class GiftRecordBean implements Serializable {
             this.giftName = giftName;
         }
 
-        public String getSex() {
-            return sex;
+        public int getGiftPrice() {
+            return giftPrice;
         }
 
-        public void setSex(String sex) {
-            this.sex = sex;
+        public void setGiftPrice(int giftPrice) {
+            this.giftPrice = giftPrice;
         }
 
-        public String getAge() {
-            return age;
+        public int getId() {
+            return id;
         }
 
-        public void setAge(String age) {
-            this.age = age;
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getRewardUserHeadPhotoUrl() {
+            return rewardUserHeadPhotoUrl;
+        }
+
+        public void setRewardUserHeadPhotoUrl(String rewardUserHeadPhotoUrl) {
+            this.rewardUserHeadPhotoUrl = rewardUserHeadPhotoUrl;
+        }
+
+        public int getRewardUserId() {
+            return rewardUserId;
+        }
+
+        public void setRewardUserId(int rewardUserId) {
+            this.rewardUserId = rewardUserId;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
         }
     }
 }

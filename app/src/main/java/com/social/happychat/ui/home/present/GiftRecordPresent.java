@@ -5,6 +5,7 @@ import com.example.http.HttpUtils;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.GiftRecordBean;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.interfaces.GiftRecordNavigator;
 import com.social.happychat.ui.home.model.GiftRecordViewModel;
 
@@ -30,20 +31,26 @@ public class GiftRecordPresent {
         mModel.getGiftData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
-//                navigator.showLoadSuccessView();
-//                GiftRecordBean GiftListBean = (GiftRecordBean) object;
-//                if (mPage == 1) {
-//                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
-//                        navigator.showLoadFailedView();
-//                        return;
-//                    }
-//                } else {
-//                    if (GiftListBean == null || GiftListBean.getData() == null || GiftListBean.getData().size() <= 0) {
-//                        navigator.showListNoMoreLoading();
-//                        return;
-//                    }
-//                }
-//                navigator.showAdapterView(GiftListBean.getData());
+                navigator.showLoadSuccessView();
+
+                GiftRecordBean giftRecordBean = (GiftRecordBean) object;
+                if (mPage == 1) {
+                    if (giftRecordBean == null || !giftRecordBean.isValid() ||  giftRecordBean.getData() == null
+                            || giftRecordBean.getData().getList() == null || giftRecordBean.getData().getList().size() <= 0) {
+                        navigator.showLoadFailedView();
+                        return;
+                    }
+                } else {
+                    if (giftRecordBean == null || !giftRecordBean.isValid() ||  giftRecordBean.getData() == null
+                            || giftRecordBean.getData().getList() == null || giftRecordBean.getData().getList().size() <= 0) {
+                        navigator.showListNoMoreLoading();
+                        return;
+                    }
+                }
+                if(giftRecordBean != null && !giftRecordBean.isHasNextPage()){
+                    navigator.showListNoMoreLoading();
+                }
+                navigator.showAdapterView(giftRecordBean.getData().getList());
             }
 
             @Override

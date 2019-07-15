@@ -69,7 +69,7 @@ public class GiftRecordListFragment extends BaseFragment<FragmentRefreshListBind
     }
 
     @Override
-    public void showAdapterView(List<GiftRecordBean.DataBean> dataBeans) {
+    public void showAdapterView(List<GiftRecordBean.ListBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

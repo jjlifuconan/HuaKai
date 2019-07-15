@@ -6,7 +6,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.GiftRecordBean.DataBean"/>
+            type="com.social.happychat.ui.home.bean.GiftRecordBean.ListBean"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
             android:id="@+id/imageView5"
             android:layout_width="@dimen/dp36"
             android:layout_height="@dimen/dp36"
-            android:defaultPicType="@{TextUtils.equals(bean.sex,`1`)?4:3}"
-            android:displayCircle="@{bean.photo}"
+            android:defaultPicType="@{4}"
+            android:displayCircle="@{bean.rewardUserHeadPhotoUrl}"
             app:layout_constraintBottom_toBottomOf="@+id/textView17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -33,7 +33,7 @@
             android:layout_marginLeft="@dimen/dp14"
             android:textColor="@color/comment_title"
             android:textSize="@dimen/sp14"
-            android:text="@{bean.nickName}"
+            android:text="@{`缺少用户名`}"
             tools:text="啊实打实大"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text="@{bean.time}"
+            android:text="@{`缺少送礼物时间`}"
             tools:text="啊实打实大"
             android:textColor="@color/comment_time"
             android:ellipsize="end"
@@ -95,7 +95,7 @@
             android:layout_marginLeft="@dimen/dp3"
             android:textColor="@color/comment_title"
             android:textSize="@dimen/sp13"
-            android:text="@{`X`+bean.giftNum}"
+            android:text="@{`X`+bean.giftCount}"
             app:layout_constraintBottom_toBottomOf="@+id/textView20"
             app:layout_constraintStart_toEndOf="@+id/textView21"
             app:layout_constraintTop_toTopOf="@+id/textView20" />

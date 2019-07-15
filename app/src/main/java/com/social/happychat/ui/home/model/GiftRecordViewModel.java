@@ -51,7 +51,7 @@ public class GiftRecordViewModel {
         }
         Subscription subscription = HttpClient.Builder.getRealServer().receiveGiftList(RequestBody.as(map))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseBean>() {
+                .subscribe(new Observer<GiftRecordBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -63,7 +63,7 @@ public class GiftRecordViewModel {
                     }
 
                     @Override
-                    public void onNext(BaseBean baseBean) {
+                    public void onNext(GiftRecordBean baseBean) {
                         listener.loadSuccess(baseBean);
 
                     }

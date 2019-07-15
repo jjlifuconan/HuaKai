@@ -23,7 +23,7 @@ public interface GiftRecordNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<GiftRecordBean.DataBean> dataBean);
+    void showAdapterView(List<GiftRecordBean.ListBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局
