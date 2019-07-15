@@ -549,7 +549,7 @@ public class ModifyUserInfoActivity extends BaseCookieActivity {
         mPicker.init(this);
         //添加默认的配置，不需要自己定义，当然也可以自定义相关熟悉，详细属性请看demo
         CityConfig cityConfig = new CityConfig.Builder()
-                .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)
+                .setCityWheelType(CityConfig.WheelType.PRO_CITY)
                 //确认按钮文字颜色
                 .confirTextColor("#fff05c5c")
                 //默认显示的省份
@@ -557,7 +557,7 @@ public class ModifyUserInfoActivity extends BaseCookieActivity {
                 //默认显示省份下面的城市
                 .city("南京市")
                 //默认显示省份下面的城市的区
-                .district("建邺区")
+//                .district("建邺区")
                 .provinceCyclic(false)
                 .cityCyclic(false)
                 .districtCyclic(false)

@@ -15,6 +15,7 @@ import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentUserinfoShowBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
 import com.social.happychat.ui.home.bean.UserDetailBean;
+import com.social.happychat.ui.login.bean.UserBean;
 
 /**
  * @author Administrator
@@ -23,7 +24,7 @@ import com.social.happychat.ui.home.bean.UserDetailBean;
  */
 public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBinding> {
 
-    public static UserInfoShowFragment newInstance(UserDetailBean.DataBean bean) {
+    public static UserInfoShowFragment newInstance(UserBean bean) {
 
         Bundle args = new Bundle();
         args.putSerializable("bean",bean);
@@ -42,26 +43,26 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         showContentView();
-        UserDetailBean.DataBean bean = (UserDetailBean.DataBean) getArguments().getSerializable("bean");
+        UserBean bean = (UserBean) getArguments().getSerializable("bean");
         binding.setBean(bean);
 
-        if(bean.getTags()!=null && !bean.getTags().isEmpty()){
-            for(String tag: bean.getTags()){
-                TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
-                tv_tag.setText(tag);
-                binding.flexbox.addView(tv_tag);
-            }
-        }
+//        if(bean.getTags()!=null && !bean.getTags().isEmpty()){
+//            for(String tag: bean.getTags()){
+//                TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
+//                tv_tag.setText(tag);
+//                binding.flexbox.addView(tv_tag);
+//            }
+//        }
 
-        if(bean.getReceiveList()!=null && !bean.getReceiveList().isEmpty()){
-            for(String url: bean.getReceiveList()){
-                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
-                ImageLoadUtil.displayCircle(img,url,2);
-                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
-                binding.liReceive.addView(img,lp);
-            }
-        }
+//        if(bean.getReceiveList()!=null && !bean.getReceiveList().isEmpty()){
+//            for(String url: bean.getReceiveList()){
+//                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
+//                ImageLoadUtil.displayCircle(img,url,2);
+//                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
+//                binding.liReceive.addView(img,lp);
+//            }
+//        }
         binding.liReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,15 +70,15 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
             }
         });
 
-        if(bean.getSendList()!=null && !bean.getSendList().isEmpty()){
-            for(String url: bean.getSendList()){
-                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
-                ImageLoadUtil.displayCircle(img,url,2);
-                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
-                binding.liSend.addView(img,lp);
-            }
-        }
+//        if(bean.getSendList()!=null && !bean.getSendList().isEmpty()){
+//            for(String url: bean.getSendList()){
+//                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
+//                ImageLoadUtil.displayCircle(img,url,2);
+//                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
+//                binding.liSend.addView(img,lp);
+//            }
+//        }
         binding.liSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,15 +86,15 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
             }
         });
 
-        if(bean.getVisitorList()!=null && !bean.getVisitorList().isEmpty()){
-            for(String url: bean.getVisitorList()){
-                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
-                ImageLoadUtil.displayCircle(img,url,2);
-                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
-                binding.liVisitor.addView(img,lp);
-            }
-        }
+//        if(bean.getVisitorList()!=null && !bean.getVisitorList().isEmpty()){
+//            for(String url: bean.getVisitorList()){
+//                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
+//                ImageLoadUtil.displayCircle(img,url,2);
+//                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
+//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
+//                binding.liVisitor.addView(img,lp);
+//            }
+//        }
 
 
 

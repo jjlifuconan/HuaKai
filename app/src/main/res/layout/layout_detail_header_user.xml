@@ -6,7 +6,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.UserDetailBean.DataBean"/>
+            type="com.social.happychat.ui.login.bean.UserBean"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -42,7 +42,7 @@
             android:layout_width="@dimen/dp18"
             android:layout_height="@dimen/dp18"
             android:layout_marginTop="@dimen/dp5"
-            android:src="@{TextUtils.equals(bean.sex,`1`)?@drawable/ic_mine_female:@drawable/ic_mine_male}"
+            android:src="@{bean.userSex == 2?@drawable/ic_mine_female:@drawable/ic_mine_male}"
             app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp5"
-            android:text="@{bean.age+`岁`}"
+            android:text="@{bean.userAge+`岁`}"
             android:textColor="@color/normal_txt_black"
             android:textSize="@dimen/sp14"
             app:layout_constraintBottom_toBottomOf="@+id/sex"

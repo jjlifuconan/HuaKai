@@ -5,7 +5,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.UserDetailBean.DataBean" />
+            type="com.social.happychat.ui.login.bean.UserBean" />
     </data>
 
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,11 +26,11 @@
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/social_id(bean.socialId)}" />
+                android:text="@{@string/social_id(`缺少socialid`)}" />
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/registerTime(bean.registerTime)}" />
+                android:text="@{@string/registerTime(`缺少注册时间`)}" />
 
             <TextView
                 style="@style/userClassifyStyle"
@@ -38,12 +38,12 @@
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/homeTown(bean.homeTown)}" />
+                android:text="@{@string/homeTown(bean.userAddress)}" />
 
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/emotion(bean.emotion)}" />
+                android:text="@{@string/emotion(bean.emotionStatus)}" />
 
 
             <TextView
@@ -52,11 +52,11 @@
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/job(bean.job)}" />
+                android:text="@{@string/job(bean.userProfession)}" />
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/signature(bean.signature)}" />
+                android:text="@{@string/signature(bean.userSign)}" />
 
             <TextView
                 style="@style/userClassifyStyle"
@@ -76,7 +76,7 @@
 
             <TextView
                 style="@style/userClassifyStyle"
-                android:text="@{@string/user_info_receive(bean.receiveNum)}" />
+                android:text="@{@string/user_info_receive(`缺少收到礼物总数`)}" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
 
             <TextView
                 style="@style/userClassifyStyle"
-                android:text="@{@string/user_info_send(bean.sendNum)}" />
+                android:text="@{@string/user_info_send(`缺少送出礼物总数`)}" />
 
 
             <FrameLayout
@@ -130,7 +130,7 @@
 
             <TextView
                 style="@style/userClassifyStyle"
-                android:text="@{TextUtils.equals(bean.sex,`1`)?@string/visitor_of_her:@string/visitor_of_his}" />
+                android:text="@{bean.userSex==2?@string/visitor_of_her:@string/visitor_of_his}" />
 
             <FrameLayout
                 android:layout_width="match_parent"

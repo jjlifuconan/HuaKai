@@ -74,6 +74,12 @@ public interface HttpClient {
     /**
      * 获取验证码
      */
+    @GET("user/private/detail.htm")
+    Observable<UserBean> userDetail(@Query("userId") int userId);
+
+    /**
+     * 获取验证码
+     */
     @POST("user/getValidateCode.do")
     Observable<Object> getValidateCode(@Body JSONObject parmas);
 

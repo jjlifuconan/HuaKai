@@ -24,9 +24,11 @@ import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityUserHomeBinding;
 import com.social.happychat.http.HttpClient;
+import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.home.bean.UserDetailBean;
 import com.social.happychat.ui.home.fragment.TrendFragment;
 import com.social.happychat.ui.home.fragment.UserInfoShowFragment;
+import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.widget.ScaleTransitionPagerTitleView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -42,6 +44,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observer;
 import rx.Subscription;
@@ -57,6 +60,7 @@ public class UserHomeActivity extends BaseCookieActivity {
     ActivityUserHomeBinding binding;
     String[] titles;
     UserDetailBean bean;
+    private int userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,15 +68,16 @@ public class UserHomeActivity extends BaseCookieActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_home);
         ImmersionBar.with(this).init();
         ImmersionBar.setTitleBar(this, binding.toolbar);
+        userId = getIntent().getIntExtra("userId",0);
         initView();
         setListener();
         getUserData();
     }
 
     private void getUserData() {
-        Subscription subscription = HttpClient.Builder.getNeteaseServer().getNeteaseList(1, 10)
+        Subscription subscription = HttpClient.Builder.getRealServer().userDetail(userId)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Object>() {
+                .subscribe(new Observer<UserBean>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -82,27 +87,34 @@ public class UserHomeActivity extends BaseCookieActivity {
                     }
 
                     @Override
-                    public void onNext(Object object) {
-                        String sss = "{\"code\":200,\"data\":{\"tags\":[\"音乐\",\"健身\",\"美食\",\"交友\",\"看电影\"],\"receiveList\":[\"http://pic112.huitu.com/pic/20181209/1367568_20181209204106498015_0.jpg\",\"http://pic123.huitu.com/pic/20190622/1875964_20190622164913023060_0.jpg\",\"http://pic111.huitu.com/pic/20181117/21146_20181117084504603070_0.jpg\",\"http://pic0.huitu.com/pic/20190610/1028527_20190610221750779144_0.jpg\"],\"sendList\":[\"http://pic0.huitu.com/pic/20190624/1912_20190624130041628140_0.jpg\",\"http://pic192.nipic.com/pic/20181117/27018288_133229104081_4.jpg\",\"http://pic0.huitu.com/pic/20190602/1827356_20190602215214715149_0.jpg\",\"http://pic117.huitu.com/pic/20190413/1825142_20190413133218311020_0.jpg\"],\"visitorList\":[\"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_50832164_1561163576484.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200\",\"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_93814250_1560997114407.png?x-oss-process=image/resize,m_mfit,h_200,w_200\",\"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_92364017_1549162345087.png?x-oss-process=image/resize,m_mfit,h_200,w_200\",\"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_15472389_1548875114076.png?x-oss-process=image/resize,m_mfit,h_200,w_200\"],\"images\":[\"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3473128871,1574804327&fm=27&gp=0.jpg\",\"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=268042761,1199832267&fm=27&gp=0.jpg\",\"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1487351610,315303232&fm=27&gp=0.jpg\",\"https://pics0.baidu.com/feed/b7fd5266d016092407882342bd2c20ffe7cd34ee.jpeg?token=465f69938285f98e4a70fc64b6cb7258&s=FB84DF08F4C036FEDF125D870300F088\",\"https://pics0.baidu.com/feed/a71ea8d3fd1f4134b75026134c3480cfd1c85e23.jpeg?token=5b163d06e91c7836d33fff7269ec545b&s=F100DF158D53F6C4CE8394C3030060B9\"],\"receiveNum\":16,\"sendNum\":13,\"praiseNum\":1,\"nickName\":\"单身闯天下\",\"photo\":\"http://huakai-api.oss-cn-shenzhen.aliyuncs.com/user_header/user_header_50832164_1561163576484.jpeg?x-oss-process=image/resize,m_mfit,h_200,w_200\",\"signature\":\"世界背叛了沵，我为沵背叛世界\",\"sex\":\"0\",\"socialId\":\"1968234653\",\"registerTime\":\"2017-10-13\",\"job\":\"银行职员\",\"age\":\"24\",\"constellation\":\"白羊座\",\"homeTown\":\"江苏南京\",\"emotion\":\"单身\"},\"message\":\"\"}";
-                        bean = new GsonBuilder().serializeNulls().create().fromJson(sss, UserDetailBean.class);
-                        setData(bean);
+                    public void onNext(UserBean userBean) {
+                        if(userBean.getData() != null){
+                            setData(userBean.getData());
+                        }
                     }
                 });
         addSubscription(subscription);
     }
 
-    private void setData(UserDetailBean bean){
+    private void setData(UserBean bean){
         //设置图片集合
-        binding.layoutHeader.banner.setImages(bean.getData().getImages());
-//        //banner设置方法全部调用完毕时最后调用
-        binding.layoutHeader.banner.start();
-        binding.layoutHeader.setBean(bean.getData());
+        if(bean.getUserFileDtos() != null && bean.getUserFileDtos().size()>0){
+            List<ImageBean> imageBeans = bean.getUserFileDtos();
+            List<String> strs = new ArrayList<>();
+            for(ImageBean imageBean : imageBeans){
+                strs.add(imageBean.getFileUrl());
+            }
+            binding.layoutHeader.banner.setImages(strs);
+            //banner设置方法全部调用完毕时最后调用
+            binding.layoutHeader.banner.start();
+        }
+        binding.layoutHeader.setBean(bean);
 
         binding.viewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 if(position == 0){
-                    return UserInfoShowFragment.newInstance(bean.getData());
+                    return UserInfoShowFragment.newInstance(bean);
                 }else{
                     return TrendFragment.newInstance(1);
                 }
