@@ -24,6 +24,7 @@ import com.social.happychat.base.BaseCookieActivity;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityUserHomeBinding;
 import com.social.happychat.http.HttpClient;
+import com.social.happychat.im.SessionHelper;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.home.bean.UserDetailBean;
 import com.social.happychat.ui.home.fragment.TrendFragment;
@@ -59,8 +60,8 @@ import rx.schedulers.Schedulers;
 public class UserHomeActivity extends BaseCookieActivity {
     ActivityUserHomeBinding binding;
     String[] titles;
-    UserDetailBean bean;
     private int userId;
+    private UserBean userBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,9 +88,10 @@ public class UserHomeActivity extends BaseCookieActivity {
                     }
 
                     @Override
-                    public void onNext(UserBean userBean) {
-                        if(userBean.getData() != null){
-                            setData(userBean.getData());
+                    public void onNext(UserBean baseBean) {
+                        if(baseBean.getData() != null){
+                            userBean = baseBean.getData();
+                            setData(userBean);
                         }
                     }
                 });
@@ -106,6 +108,9 @@ public class UserHomeActivity extends BaseCookieActivity {
             }
             binding.layoutHeader.banner.setImages(strs);
             //banner设置方法全部调用完毕时最后调用
+            binding.layoutHeader.banner.start();
+        }else{
+            //设置为空 默认占位图才会出现
             binding.layoutHeader.banner.start();
         }
         binding.layoutHeader.setBean(bean);
@@ -256,14 +261,26 @@ public class UserHomeActivity extends BaseCookieActivity {
         binding.layoutHeader.banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ViewBigImageActivity.startImageList(activity, position, (ArrayList<String>) bean.getData().getImages(), null);
+                List<ImageBean> imageBeans = userBean.getUserFileDtos();
+                List<String> strs = new ArrayList<>();
+                for(ImageBean imageBean : imageBeans){
+                    strs.add(imageBean.getFileUrl());
+                }
+                ViewBigImageActivity.startImageList(activity, position, (ArrayList<String>) strs, null);
             }
         });
 
         binding.vpSendGift.setOnClickListener(new PerfectClickListener() {
             @Override
             protected void onNoDoubleClick(View v) {
-                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.USER_HOME, 9999,9999);
+                GiftShopActivity.action(v.getContext(), GiftShopActivity.TYPE_SHOP, Constant.SendGiftType.USER_HOME, 0,userId);
+            }
+        });
+
+        binding.vpChat.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                SessionHelper.startP2PSession(activity, userBean.getUserMobile());
             }
         });
     }

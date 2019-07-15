@@ -2,6 +2,7 @@ package com.social.happychat.ui.home.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import com.social.happychat.databinding.FragmentUserinfoShowBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
 import com.social.happychat.ui.home.bean.UserDetailBean;
 import com.social.happychat.ui.login.bean.UserBean;
+import com.social.happychat.ui.mine.bean.TagListBean;
 
 /**
  * @author Administrator
@@ -46,13 +48,13 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
         UserBean bean = (UserBean) getArguments().getSerializable("bean");
         binding.setBean(bean);
 
-//        if(bean.getTags()!=null && !bean.getTags().isEmpty()){
-//            for(String tag: bean.getTags()){
-//                TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
-//                tv_tag.setText(tag);
-//                binding.flexbox.addView(tv_tag);
-//            }
-//        }
+        if(bean.getUserTagDtos()!=null && !bean.getUserTagDtos().isEmpty()){
+            for(TagListBean tag: bean.getUserTagDtos()){
+                TextView tv_tag= (TextView) LayoutInflater.from(activity).inflate(R.layout.cell_tag, null);
+                tv_tag.setText(tag.getClassifyName());
+                binding.flexbox.addView(tv_tag);
+            }
+        }
 
 //        if(bean.getReceiveList()!=null && !bean.getReceiveList().isEmpty()){
 //            for(String url: bean.getReceiveList()){

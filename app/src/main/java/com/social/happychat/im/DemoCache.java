@@ -1,6 +1,7 @@
 package com.social.happychat.im;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.netease.nim.avchatkit.AVChatKit;
 import com.netease.nim.uikit.api.NimUIKit;
@@ -28,6 +29,7 @@ public class DemoCache {
     private static boolean mainTaskLaunching;
 
     public static void setAccount(String account) {
+        Log.e("FLJ", "IM setAccount->"+account);
         DemoCache.account = account;
         NimUIKit.setAccount(account);
         AVChatKit.setAccount(account);

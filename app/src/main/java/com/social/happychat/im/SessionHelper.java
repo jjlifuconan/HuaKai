@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.netease.nim.uikit.api.NimUIKit;
@@ -109,6 +110,7 @@ public class SessionHelper {
     }
 
     public static void startP2PSession(Context context, String account, IMMessage anchor) {
+        Log.e("FLJ", "IM Session begin,DemoCache.getAccount()->"+DemoCache.getAccount());
         if (!DemoCache.getAccount().equals(account)) {
             if (NimUIKit.getRobotInfoProvider().getRobotByAccount(account) != null) {
                 NimUIKit.startChatting(context, account, SessionTypeEnum.P2P, getRobotCustomization(), anchor);
