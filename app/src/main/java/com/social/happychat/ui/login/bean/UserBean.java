@@ -46,7 +46,7 @@ public class UserBean extends BaseBean<UserBean> {
     private int giveGiftSum;
     private int receiveGiftSum;
     private int dynamicNum;
-    private int socialNumber;
+    private String socialNumber;
 
 
     private List<ImageBean> userFileDtos;
@@ -82,11 +82,11 @@ public class UserBean extends BaseBean<UserBean> {
         this.receiveGiftSum = receiveGiftSum;
     }
 
-    public int getSocialNumber() {
+    public String getSocialNumber() {
         return socialNumber;
     }
 
-    public void setSocialNumber(int socialNumber) {
+    public void setSocialNumber(String socialNumber) {
         this.socialNumber = socialNumber;
     }
 

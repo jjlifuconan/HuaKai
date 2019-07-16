@@ -85,6 +85,7 @@ public class UserHomeActivity extends BaseCookieActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        int i =0;
                     }
 
                     @Override
