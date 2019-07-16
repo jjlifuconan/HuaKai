@@ -13,7 +13,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.google.gson.GsonBuilder;
 import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
@@ -26,7 +25,6 @@ import com.social.happychat.databinding.ActivityUserHomeBinding;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.im.SessionHelper;
 import com.social.happychat.ui.compose.bean.ImageBean;
-import com.social.happychat.ui.home.bean.UserDetailBean;
 import com.social.happychat.ui.home.fragment.TrendFragment;
 import com.social.happychat.ui.home.fragment.UserInfoShowFragment;
 import com.social.happychat.ui.login.bean.UserBean;
@@ -62,6 +60,8 @@ public class UserHomeActivity extends BaseCookieActivity {
     String[] titles;
     private int userId;
     private UserBean userBean;
+    private CommonNavigator commonNavigator;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,6 +91,7 @@ public class UserHomeActivity extends BaseCookieActivity {
                     public void onNext(UserBean baseBean) {
                         if(baseBean.getData() != null){
                             userBean = baseBean.getData();
+                            updateIndicatorTitle();
                             setData(userBean);
                         }
                     }
@@ -139,7 +140,7 @@ public class UserHomeActivity extends BaseCookieActivity {
     private void initIndicator(){
         titles = getResources().getStringArray(R.array.userHomeTabTitle);
 
-        CommonNavigator commonNavigator = new CommonNavigator(activity);
+        commonNavigator = new CommonNavigator(activity);
         commonNavigator.setScrollPivotX(0.8f);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
 
@@ -154,7 +155,7 @@ public class UserHomeActivity extends BaseCookieActivity {
                 if(index == 0){
                     colorTransitionPagerTitleView.setText(titles[index]);
                 }else if(index == 1){
-                    colorTransitionPagerTitleView.setText(titles[index]+"14");
+                    colorTransitionPagerTitleView.setText(titles[index]);
                 }
                 colorTransitionPagerTitleView.setTextSize(18f);
                 colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
@@ -204,6 +205,58 @@ public class UserHomeActivity extends BaseCookieActivity {
             }
         });
     }
+
+    private void updateIndicatorTitle(){
+        titles = getResources().getStringArray(R.array.userHomeTabTitle);
+
+        commonNavigator = new CommonNavigator(activity);
+        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+
+            @Override
+            public int getCount() {
+                return titles.length;
+            }
+
+            @Override
+            public IPagerTitleView getTitleView(Context context, final int index) {
+                ScaleTransitionPagerTitleView colorTransitionPagerTitleView = new ScaleTransitionPagerTitleView(context);
+                if(index == 0){
+                    colorTransitionPagerTitleView.setText(titles[index]);
+                }else if(index == 1){
+                    colorTransitionPagerTitleView.setText(titles[index]+(userBean.getDynamicNum()>0?userBean.getDynamicNum():""));
+                }
+                colorTransitionPagerTitleView.setTextSize(18f);
+                colorTransitionPagerTitleView.setPadding(DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3),DensityUtil.dip2px(activity,3));
+                colorTransitionPagerTitleView.setNormalColor(getResources().getColor(R.color.main_text_grey));
+                colorTransitionPagerTitleView.setSelectTypeBold(true);
+                colorTransitionPagerTitleView.setSelectedColor(getResources().getColor(R.color.main_text_black));
+
+                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        binding.viewpager.setCurrentItem(index);
+                    }
+                });
+                return colorTransitionPagerTitleView;
+            }
+
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+
+                indicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
+                indicator.setLineHeight((float) UIUtil.dip2px(context, 3.0d));
+                indicator.setLineWidth((float) UIUtil.dip2px(context, 16.0d));
+                indicator.setRoundRadius((float) UIUtil.dip2px(context, 3.0d));
+                indicator.setStartInterpolator(new AccelerateInterpolator());
+                indicator.setEndInterpolator(new DecelerateInterpolator(2.0f));
+                indicator.setColors(new Integer[]{Integer.valueOf(getResources().getColor(R.color.child_tab_yellow))});
+                return indicator;
+            }
+        });
+    }
+
+
 
 
     private void initView() {

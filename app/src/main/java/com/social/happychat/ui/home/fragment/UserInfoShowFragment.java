@@ -56,15 +56,15 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
             }
         }
 
-//        if(bean.getReceiveList()!=null && !bean.getReceiveList().isEmpty()){
-//            for(String url: bean.getReceiveList()){
-//                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
-//                ImageLoadUtil.displayCircle(img,url,2);
-//                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
-//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
-//                binding.liReceive.addView(img,lp);
-//            }
-//        }
+        if(bean.getReceiveGiftList()!=null && !bean.getReceiveGiftList().isEmpty()){
+            for(UserBean.ReceiveGiftListBean gift: bean.getReceiveGiftList()){
+                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
+                ImageLoadUtil.displayCircle(img,gift.getGiftIcon(),2);
+                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
+                binding.liReceive.addView(img,lp);
+            }
+        }
         binding.liReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,15 +72,15 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
             }
         });
 
-//        if(bean.getSendList()!=null && !bean.getSendList().isEmpty()){
-//            for(String url: bean.getSendList()){
-//                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
-//                ImageLoadUtil.displayCircle(img,url,2);
-//                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
-//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
-//                binding.liSend.addView(img,lp);
-//            }
-//        }
+        if(bean.getGiveGiftList()!=null && !bean.getGiveGiftList().isEmpty()){
+            for(UserBean.GiveGiftListBean gift: bean.getGiveGiftList()){
+                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
+                ImageLoadUtil.displayCircle(img,gift.getGiftIcon(),2);
+                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
+                binding.liSend.addView(img,lp);
+            }
+        }
         binding.liSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,15 +88,15 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
             }
         });
 
-//        if(bean.getVisitorList()!=null && !bean.getVisitorList().isEmpty()){
-//            for(String url: bean.getVisitorList()){
-//                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
-//                ImageLoadUtil.displayCircle(img,url,2);
-//                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
-//                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
-//                binding.liVisitor.addView(img,lp);
-//            }
-//        }
+        if(bean.getBrowseInfoDtoList()!=null && !bean.getBrowseInfoDtoList().isEmpty()){
+            for(UserBean.BrowseInfoDtoListBean vistor: bean.getBrowseInfoDtoList()){
+                ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
+                ImageLoadUtil.displayCircle(img,vistor.getBrowseHeadPhotoUrl(),vistor.getBrowseUserSex() == 1?3:4);
+                int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
+                binding.liVisitor.addView(img,lp);
+            }
+        }
 
 
 

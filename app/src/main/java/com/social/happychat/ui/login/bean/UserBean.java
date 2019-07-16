@@ -8,6 +8,7 @@ import com.social.happychat.bean.BaseBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.mine.bean.TagListBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -42,8 +43,52 @@ public class UserBean extends BaseBean<UserBean> {
     private int userSex;
     private int userAge;
     private int isOpenIm;
+    private int giveGiftSum;
+    private int receiveGiftSum;
+    private int dynamicNum;
+    private int socialNumber;
+
+
     private List<ImageBean> userFileDtos;
     private List<TagListBean> userTagDtos;
+
+
+    private String registTime;
+    private List<BrowseInfoDtoListBean> browseInfoDtoList;
+    private List<GiveGiftListBean> giveGiftList;
+    private List<ReceiveGiftListBean> receiveGiftList;
+
+    public int getDynamicNum() {
+        return dynamicNum;
+    }
+
+    public void setDynamicNum(int dynamicNum) {
+        this.dynamicNum = dynamicNum;
+    }
+
+    public int getGiveGiftSum() {
+        return giveGiftSum;
+    }
+
+    public void setGiveGiftSum(int giveGiftSum) {
+        this.giveGiftSum = giveGiftSum;
+    }
+
+    public int getReceiveGiftSum() {
+        return receiveGiftSum;
+    }
+
+    public void setReceiveGiftSum(int receiveGiftSum) {
+        this.receiveGiftSum = receiveGiftSum;
+    }
+
+    public int getSocialNumber() {
+        return socialNumber;
+    }
+
+    public void setSocialNumber(int socialNumber) {
+        this.socialNumber = socialNumber;
+    }
 
     public int getUserAge() {
         return userAge;
@@ -281,5 +326,185 @@ public class UserBean extends BaseBean<UserBean> {
         }
         return false;
 
+    }
+
+    public String getRegistTime() {
+        return registTime;
+    }
+
+    public void setRegistTime(String registTime) {
+        this.registTime = registTime;
+    }
+
+    public List<BrowseInfoDtoListBean> getBrowseInfoDtoList() {
+        return browseInfoDtoList;
+    }
+
+    public void setBrowseInfoDtoList(List<BrowseInfoDtoListBean> browseInfoDtoList) {
+        this.browseInfoDtoList = browseInfoDtoList;
+    }
+
+    public List<GiveGiftListBean> getGiveGiftList() {
+        return giveGiftList;
+    }
+
+    public void setGiveGiftList(List<GiveGiftListBean> giveGiftList) {
+        this.giveGiftList = giveGiftList;
+    }
+
+    public List<ReceiveGiftListBean> getReceiveGiftList() {
+        return receiveGiftList;
+    }
+
+    public void setReceiveGiftList(List<ReceiveGiftListBean> receiveGiftList) {
+        this.receiveGiftList = receiveGiftList;
+    }
+
+    public static class BrowseInfoDtoListBean implements Serializable {
+        /**
+         * browseHeadPhotoUrl : http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/3640665809504d7996ec4277d23fbdd7.jpeg?Expires=1878519205&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=8sXTvLYqBoNUZfqbsF5thpjzuGA%3D
+         * browseTime : 2019-07-16
+         * browseUserId : 21
+         * browseUserSex : 2
+         * userId : 25
+         */
+
+        private String browseHeadPhotoUrl;
+        private String browseTime;
+        private int browseUserId;
+        private int browseUserSex;
+        private int userId;
+
+        public String getBrowseHeadPhotoUrl() {
+            return browseHeadPhotoUrl;
+        }
+
+        public void setBrowseHeadPhotoUrl(String browseHeadPhotoUrl) {
+            this.browseHeadPhotoUrl = browseHeadPhotoUrl;
+        }
+
+        public String getBrowseTime() {
+            return browseTime;
+        }
+
+        public void setBrowseTime(String browseTime) {
+            this.browseTime = browseTime;
+        }
+
+        public int getBrowseUserId() {
+            return browseUserId;
+        }
+
+        public void setBrowseUserId(int browseUserId) {
+            this.browseUserId = browseUserId;
+        }
+
+        public int getBrowseUserSex() {
+            return browseUserSex;
+        }
+
+        public void setBrowseUserSex(int browseUserSex) {
+            this.browseUserSex = browseUserSex;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+    }
+
+    public static class GiveGiftListBean implements Serializable{
+        /**
+         * giftCount : 8
+         * giftIcon : http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/e43c53d2a5dc47e0854541219dc580e8.jpeg?Expires=1878218360&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=oaPyR3THV6lqBIH4ymo9Umr00%2Fw%3D
+         * giftId : 1
+         * giftName : 守护符
+         */
+
+        private int giftCount;
+        private String giftIcon;
+        private int giftId;
+        private String giftName;
+
+        public int getGiftCount() {
+            return giftCount;
+        }
+
+        public void setGiftCount(int giftCount) {
+            this.giftCount = giftCount;
+        }
+
+        public String getGiftIcon() {
+            return giftIcon;
+        }
+
+        public void setGiftIcon(String giftIcon) {
+            this.giftIcon = giftIcon;
+        }
+
+        public int getGiftId() {
+            return giftId;
+        }
+
+        public void setGiftId(int giftId) {
+            this.giftId = giftId;
+        }
+
+        public String getGiftName() {
+            return giftName;
+        }
+
+        public void setGiftName(String giftName) {
+            this.giftName = giftName;
+        }
+    }
+
+    public static class ReceiveGiftListBean implements Serializable{
+        /**
+         * giftCount : 14
+         * giftIcon : http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/e43c53d2a5dc47e0854541219dc580e8.jpeg?Expires=1878218360&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=oaPyR3THV6lqBIH4ymo9Umr00%2Fw%3D
+         * giftId : 1
+         * giftName : 守护符
+         */
+
+        private int giftCount;
+        private String giftIcon;
+        private int giftId;
+        private String giftName;
+
+        public int getGiftCount() {
+            return giftCount;
+        }
+
+        public void setGiftCount(int giftCount) {
+            this.giftCount = giftCount;
+        }
+
+        public String getGiftIcon() {
+            return giftIcon;
+        }
+
+        public void setGiftIcon(String giftIcon) {
+            this.giftIcon = giftIcon;
+        }
+
+        public int getGiftId() {
+            return giftId;
+        }
+
+        public void setGiftId(int giftId) {
+            this.giftId = giftId;
+        }
+
+        public String getGiftName() {
+            return giftName;
+        }
+
+        public void setGiftName(String giftName) {
+            this.giftName = giftName;
+        }
     }
 }

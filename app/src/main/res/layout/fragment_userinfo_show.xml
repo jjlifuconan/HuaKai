@@ -26,11 +26,11 @@
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/social_id(`缺少socialid`)}" />
+                android:text="@{@string/social_id(bean.socialNumber+``)}" />
 
             <TextView
                 style="@style/userContentStyle"
-                android:text="@{@string/registerTime(`缺少注册时间`)}" />
+                android:text="@{@string/registerTime(bean.registTime)}" />
 
             <TextView
                 style="@style/userClassifyStyle"
@@ -76,7 +76,7 @@
 
             <TextView
                 style="@style/userClassifyStyle"
-                android:text="@{@string/user_info_receive(`缺少收到礼物总数`)}" />
+                android:text="@{@string/user_info_receive(bean.receiveGiftSum+``)}" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
 
             <TextView
                 style="@style/userClassifyStyle"
-                android:text="@{@string/user_info_send(`缺少送出礼物总数`)}" />
+                android:text="@{@string/user_info_send(bean.giveGiftSum+``)}" />
 
 
             <FrameLayout
