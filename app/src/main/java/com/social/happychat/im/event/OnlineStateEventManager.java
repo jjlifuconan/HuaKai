@@ -443,7 +443,8 @@ public class OnlineStateEventManager {
      * 允许在线状态事件,开发者开通在线状态后修改此处直接返回true
      */
     private static boolean enableOnlineStateEvent() {
-        String packageName = DemoCache.getContext().getPackageName();
-        return enable = (packageName != null && packageName.equals("com.netease.nim.demo"));
+//        String packageName = DemoCache.getContext().getPackageName();
+//        return enable = (packageName != null && packageName.equals("com.netease.nim.demo"));
+        return true;
     }
 }

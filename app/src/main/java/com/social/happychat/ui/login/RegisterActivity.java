@@ -114,7 +114,7 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 }
                 Map map = new HashMap();
-                map.put("loginName",binding.edtPhone.getText().toString());
+                map.put("loginName",binding.edtPhone.getText().toString().trim());
                 map.put("loginType","1");
                 map.put("userSex",binding.sex.getstatu());
                 map.put("password",binding.edtPassword.getText().toString());

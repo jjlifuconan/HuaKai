@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.alibaba.fastjson.JSONObject;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.social.happychat.im.DemoCache;
 
 /**
  * Created by hzxuwen on 2015/4/13.

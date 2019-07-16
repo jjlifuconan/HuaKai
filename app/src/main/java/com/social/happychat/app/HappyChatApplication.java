@@ -16,6 +16,9 @@ import com.netease.nim.avchatkit.config.AVChatOptions;
 import com.netease.nim.avchatkit.model.ITeamDataProvider;
 import com.netease.nim.avchatkit.model.IUserInfoProvider;
 import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.api.UIKitOptions;
+import com.netease.nim.uikit.business.contact.core.query.PinYin;
+import com.netease.nim.uikit.business.contact.core.util.ContactHelper;
 import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
 import com.netease.nimlib.sdk.NIMClient;
@@ -30,7 +33,10 @@ import com.social.happychat.im.NimSDKOptionConfig;
 import com.social.happychat.im.Preferences;
 import com.social.happychat.im.SessionHelper;
 import com.social.happychat.im.UserPreferences;
+import com.social.happychat.im.event.DemoOnlineStateContentProvider;
+import com.social.happychat.im.mixpush.DemoPushContentProvider;
 import com.social.happychat.im.util.LogHelper;
+import com.social.happychat.im.util.crash.AppCrashHandler;
 import com.social.happychat.ui.login.WelcomeActivity;
 import com.social.happychat.ui.login.cookie.LoginCookie;
 import com.social.happychat.ui.main.MainActivity;
@@ -60,10 +66,16 @@ public class HappyChatApplication extends MultiDexApplication {
         HttpUtils.getInstance().init(this, DebugUtil.DEBUG);
         // 初始化云信SDK
         DemoCache.setContext(this);
+        // 4.6.0 开始，第三方推送配置入口改为 SDKOption#mixPushConfig，旧版配置方式依旧支持。
         NIMClient.init(this, getLoginInfo(), NimSDKOptionConfig.getSDKOptions(this));
+        // crash handler
+        AppCrashHandler.getInstance(this);
 
         // 以下逻辑只在主进程初始化时执行
         if (NIMUtil.isMainProcess(this)) {
+            // init pinyin
+            PinYin.init(this);
+            PinYin.validate();
             // 在主进程中初始化UI组件，判断所属进程方法请参见demo源码。
             initUiKit();
             // 初始化消息提醒
@@ -95,9 +107,24 @@ public class HappyChatApplication extends MultiDexApplication {
 
     private void initUiKit() {
         // 初始化
-        NimUIKit.init(this);
+        NimUIKit.init(this, buildUIKitOptions());
+
+        // 设置地理位置提供者。如果需要发送地理位置消息，该参数必须提供。如果不需要，可以忽略。
+//        NimUIKit.setLocationProvider(new NimDemoLocationProvider());
+
         // IM 会话窗口的定制初始化。
         SessionHelper.init();
+
+        // 聊天室聊天窗口的定制初始化。
+//        ChatRoomSessionHelper.init();
+
+        // 通讯录列表定制初始化
+//        ContactHelper.init();
+
+        // 添加自定义推送文案以及选项，请开发者在各端（Android、IOS、PC、Web）消息发送时保持一致，以免出现通知不一致的情况
+        NimUIKit.setCustomPushContentProvider(new DemoPushContentProvider());
+
+        NimUIKit.setOnlineStateContentProvider(new DemoOnlineStateContentProvider());
 
     }
 
@@ -167,6 +194,13 @@ public class HappyChatApplication extends MultiDexApplication {
 //                alertText("AK，SK方式获取token失败", error.getMessage());
             }
         }, getApplicationContext(),  "bGlDl7F6GW2WYjvkzsCCY4fS", "wnimO8351L7Oh1Aoojuig9pckyAmAx3o");
+    }
+
+    private UIKitOptions buildUIKitOptions() {
+        UIKitOptions options = new UIKitOptions();
+        // 设置app图片/音频/日志等缓存目录
+        options.appCacheDir = NimSDKOptionConfig.getAppCacheDir(this) + "/app";
+        return options;
     }
 
 

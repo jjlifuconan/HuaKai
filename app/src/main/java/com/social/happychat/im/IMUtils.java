@@ -76,7 +76,7 @@ public class IMUtils {
 
     public AbortableFuture<LoginInfo> login(Context context, String account, String token, IMImpl.IMLoginImpl listener){
         Log.e("FLJ", "IM login begin");
-        AbortableFuture<LoginInfo> loginRequest = NimUIKit.login(new LoginInfo(account, MD5.getStringMD5(token)), new RequestCallback<LoginInfo>() {
+        AbortableFuture<LoginInfo> loginRequest = NimUIKit.login(new LoginInfo(account,"626d6c702070f6abd83cfa178ef08319"), new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
                 Log.e("FLJ", "IM login success");

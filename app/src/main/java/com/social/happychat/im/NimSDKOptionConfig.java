@@ -1,6 +1,7 @@
 package com.social.happychat.im;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
 
@@ -9,9 +10,13 @@ import com.netease.nim.uikit.api.wrapper.NimUserInfoProvider;
 import com.netease.nim.uikit.business.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nimlib.sdk.NosTokenSceneConfig;
 import com.netease.nimlib.sdk.SDKOptions;
+import com.netease.nimlib.sdk.ServerAddresses;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.mixpush.MixPushConfig;
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.social.happychat.R;
+import com.social.happychat.ui.main.MainActivity;
 
 import java.io.IOException;
 
@@ -27,7 +32,7 @@ public class NimSDKOptionConfig {
         SDKOptions options = new SDKOptions();
 
         // 如果将新消息通知提醒托管给SDK完成，需要添加以下配置。
-//        initStatusBarNotificationConfig(options);
+        initStatusBarNotificationConfig(options);
 
         // 配置 APP 保存图片/语音/文件/log等数据的目录
         options.sdkStorageRootPath = getAppCacheDir(context) + "/nim"; // 可以不设置，那么将采用默认路径
@@ -58,7 +63,7 @@ public class NimSDKOptionConfig {
         options.reducedIM = false;
 
         // 是否检查manifest 配置，调试阶段打开，调试通过之后请关掉
-        options.checkManifestConfig = true;
+        options.checkManifestConfig = false;
 
         // 是否启用群消息已读功能，默认关闭
         options.enableTeamMsgAck = true;
@@ -68,7 +73,7 @@ public class NimSDKOptionConfig {
         options.shouldConsiderRevokedMessageUnreadCount = true;
 
         // 云信私有化配置项
-//        configServerAddress(options, context);
+        configServerAddress(options, context);
 
         options.mixPushConfig = buildMixPushConfig();
 
@@ -96,7 +101,7 @@ public class NimSDKOptionConfig {
      * 配置 APP 保存图片/语音/文件/log等数据的目录
      * 这里示例用SD卡的应用扩展存储目录
      */
-    static String getAppCacheDir(Context context) {
+    public static String getAppCacheDir(Context context) {
         String storageRootPath = null;
         try {
             // SD卡应用扩展存储区(APP卸载后，该目录下被清除，用户也可以在设置界面中手动清除)，请根据APP对数据缓存的重要性及生命周期来决定是否采用此缓存目录.
@@ -115,64 +120,64 @@ public class NimSDKOptionConfig {
         return storageRootPath;
     }
 
-//    private static void configServerAddress(final SDKOptions options, Context context) {
-//
-//        ServerAddresses serverConfig = DemoPrivatizationConfig.getServerAddresses(context);
-//        if (serverConfig != null) {
-//            options.serverConfig = serverConfig;
-//        }
-//
-//        String appKey = DemoPrivatizationConfig.getAppKey(context);
-//        if (!TextUtils.isEmpty(appKey)) {
-//            options.appKey = appKey;
-//        }
-//    }
+    private static void configServerAddress(final SDKOptions options, Context context) {
 
-//    private static void initStatusBarNotificationConfig(SDKOptions options) {
-//        // load 应用的状态栏配置
-//        StatusBarNotificationConfig config = loadStatusBarNotificationConfig();
-//
-//        // load 用户的 StatusBarNotificationConfig 设置项
-//        StatusBarNotificationConfig userConfig = UserPreferences.getStatusConfig();
-//        if (userConfig == null) {
-//            userConfig = config;
-//        } else {
-//            // 新增的 UserPreferences 存储项更新，兼容 3.4 及以前版本
-//            // 新增 notificationColor 存储，兼容3.6以前版本
-//            // APP默认 StatusBarNotificationConfig 配置修改后，使其生效
-//            userConfig.notificationEntrance = config.notificationEntrance;
-//            userConfig.notificationFolded = config.notificationFolded;
-//            userConfig.notificationColor = config.notificationColor;
-//        }
-//        // 持久化生效
-//        UserPreferences.setStatusConfig(userConfig);
-//        // SDK statusBarNotificationConfig 生效
-//        options.statusBarNotificationConfig = userConfig;
-//    }
+        ServerAddresses serverConfig = DemoPrivatizationConfig.getServerAddresses(context);
+        if (serverConfig != null) {
+            options.serverConfig = serverConfig;
+        }
+
+        String appKey = DemoPrivatizationConfig.getAppKey(context);
+        if (!TextUtils.isEmpty(appKey)) {
+            options.appKey = appKey;
+        }
+    }
+
+    private static void initStatusBarNotificationConfig(SDKOptions options) {
+        // load 应用的状态栏配置
+        StatusBarNotificationConfig config = loadStatusBarNotificationConfig();
+
+        // load 用户的 StatusBarNotificationConfig 设置项
+        StatusBarNotificationConfig userConfig = UserPreferences.getStatusConfig();
+        if (userConfig == null) {
+            userConfig = config;
+        } else {
+            // 新增的 UserPreferences 存储项更新，兼容 3.4 及以前版本
+            // 新增 notificationColor 存储，兼容3.6以前版本
+            // APP默认 StatusBarNotificationConfig 配置修改后，使其生效
+            userConfig.notificationEntrance = config.notificationEntrance;
+            userConfig.notificationFolded = config.notificationFolded;
+            userConfig.notificationColor = config.notificationColor;
+        }
+        // 持久化生效
+        UserPreferences.setStatusConfig(userConfig);
+        // SDK statusBarNotificationConfig 生效
+        options.statusBarNotificationConfig = userConfig;
+    }
 
     // 这里开发者可以自定义该应用初始的 StatusBarNotificationConfig
-//    private static StatusBarNotificationConfig loadStatusBarNotificationConfig() {
-//        StatusBarNotificationConfig config = new StatusBarNotificationConfig();
-//        // 点击通知需要跳转到的界面
-//        config.notificationEntrance = WelcomeActivity.class;
-//        config.notificationSmallIconId = R.drawable.ic_stat_notify_msg;
-//        config.notificationColor = DemoCache.getContext().getResources().getColor(R.color.color_blue_3a9efb);
-//        // 通知铃声的uri字符串
-//        config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg";
-//        config.notificationFolded = true;
-////        config.notificationFolded = false;
-//        config.downTimeEnableNotification = true;
-//        // 呼吸灯配置
-//        config.ledARGB = Color.GREEN;
-//        config.ledOnMs = 1000;
-//        config.ledOffMs = 1500;
-//        // 是否APP ICON显示未读数红点(Android O有效)
-//        config.showBadge = true;
-//
-//        // save cache，留做切换账号备用
-//        DemoCache.setNotificationConfig(config);
-//        return config;
-//    }
+    private static StatusBarNotificationConfig loadStatusBarNotificationConfig() {
+        StatusBarNotificationConfig config = new StatusBarNotificationConfig();
+        // 点击通知需要跳转到的界面
+        config.notificationEntrance = MainActivity.class;
+        config.notificationSmallIconId = R.mipmap.ic_launcher;
+        config.notificationColor = DemoCache.getContext().getResources().getColor(R.color.colorPrimary);
+        // 通知铃声的uri字符串
+        config.notificationSound = "android.resource://com.social.happychat/raw/msg";
+        config.notificationFolded = true;
+//        config.notificationFolded = false;
+        config.downTimeEnableNotification = true;
+        // 呼吸灯配置
+        config.ledARGB = Color.GREEN;
+        config.ledOnMs = 1000;
+        config.ledOffMs = 1500;
+        // 是否APP ICON显示未读数红点(Android O有效)
+        config.showBadge = true;
+
+        // save cache，留做切换账号备用
+        DemoCache.setNotificationConfig(config);
+        return config;
+    }
 
     private static MessageNotifierCustomization messageNotifierCustomization = new MessageNotifierCustomization() {
         @Override

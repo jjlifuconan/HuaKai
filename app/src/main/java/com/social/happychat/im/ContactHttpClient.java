@@ -11,6 +11,7 @@ import com.netease.nim.uikit.common.util.string.MD5;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class ContactHttpClient {
     private static final int RESULT_CODE_SUCCESS = 200;
 
     // api
-    private static final String API_NAME_REGISTER = "createDemoUser";
+    private static final String API_NAME_REGISTER = "user/create.action";
 
     // header
     private static final String HEADER_KEY_APP_KEY = "appkey";
@@ -37,6 +38,7 @@ public class ContactHttpClient {
     private static final String REQUEST_USER_NAME = "username";
     private static final String REQUEST_NICK_NAME = "nickname";
     private static final String REQUEST_PASSWORD = "password";
+    private static final String REQUEST_ACCID = "accid";
 
     // result
     private static final String RESULT_KEY_RES = "res";
@@ -80,13 +82,11 @@ public class ContactHttpClient {
         Map<String, String> headers = new HashMap<>(1);
         String appKey = readAppKey();
         headers.put(HEADER_CONTENT_TYPE, "application/x-www-form-urlencoded; charset=utf-8");
-        headers.put(HEADER_USER_AGENT, "nim_demo_android");
+//        headers.put(HEADER_USER_AGENT, "nim_demo_android");
         headers.put(HEADER_KEY_APP_KEY, appKey);
 
         StringBuilder body = new StringBuilder();
-        body.append(REQUEST_USER_NAME).append("=").append(account.toLowerCase()).append("&")
-                .append(REQUEST_NICK_NAME).append("=").append(nickName).append("&")
-                .append(REQUEST_PASSWORD).append("=").append(password);
+        body.append(REQUEST_ACCID).append("=").append(account.trim());
         String bodyString = body.toString();
 
         NimHttpClient.getInstance().execute(url, headers, bodyString, new NimHttpClient.NimHttpCallback() {
