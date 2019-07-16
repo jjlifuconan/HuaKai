@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.http.HttpUtils;
 import com.example.http.utils.BuildFactory;
 import com.social.happychat.bean.BaseBean;
+import com.social.happychat.im.RegisterImBean;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.CommentListBean;
@@ -24,6 +25,8 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -70,6 +73,13 @@ public interface HttpClient {
             "channel=T1534831577502&subtab=RA_RECOM&fn=3&passport=&devId=cboONcMHVZDeIk" +
             "rlwhpANg%3D%3D&lat=9qRvioR8fQD9fP1NUn6U%2FA%3D%3D&version=57.3")
     Observable<NeteaseList> getNeteaseList(@Query("offset") int page, @Query("size") int size);
+
+    /**
+     * 注册IM
+     */
+    @FormUrlEncoded
+    @POST("user/create.action")
+    Observable<RegisterImBean> createIM(@Header("AppKey") String appKey , @Header("Content-Type") String contentType, @Header("Nonce") String Nonce, @Header("CurTime") String CurTime, @Header("CheckSum") String CheckSum , @Field("accid") String accid, @Field("token") String token);
 
     /**
      * 获取验证码

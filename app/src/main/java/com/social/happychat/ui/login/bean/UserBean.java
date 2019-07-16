@@ -79,9 +79,9 @@ public class UserBean extends BaseBean<UserBean> {
 
     public boolean isOpenIm() {
         //for test
-        return true;
+//        return true;
         //注册流程变成服务端注册
-//        return isOpenIm == 1;
+        return isOpenIm == 1;
     }
 
     public void setIsOpenIm(int isOpenIm) {

@@ -265,7 +265,7 @@ public class RegisterActivity extends BaseActivity {
         //本地没有IM信息
         if(userBean.isOpenIm()){
             //注册过，直接登录IM
-            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), new IMImpl.IMLoginImpl() {
                 @Override
                 public void success() {
                     loginRequest = null;
@@ -283,7 +283,7 @@ public class RegisterActivity extends BaseActivity {
             });
         }else{
             //没注册过，注册IM
-            new IMUtils().register(activity, userBean.getUserMobile(), userBean.getNickName(), IMConstant.IM_TOKEN, new IMImpl.IMResisterImpl() {
+            new IMUtils().register(activity, userBean.getUserMobile(), new IMImpl.IMResisterImpl() {
                 @Override
                 public void success() {
                     updateIsOpenIm(userBean);
@@ -321,7 +321,7 @@ public class RegisterActivity extends BaseActivity {
                         if (baseBean.isValid()) {
                             userBean.setIsOpenIm(1);
                             SPUtils.saveObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, userBean);
-                            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), IMConstant.IM_TOKEN, new IMImpl.IMLoginImpl() {
+                            loginRequest = new IMUtils().login(activity, userBean.getUserMobile(), new IMImpl.IMLoginImpl() {
                                 @Override
                                 public void success() {
                                     loginRequest = null;
