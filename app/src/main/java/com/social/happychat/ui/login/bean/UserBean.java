@@ -55,8 +55,8 @@ public class UserBean extends BaseBean<UserBean> {
 
     private String registTime;
     private List<BrowseInfoDtoListBean> browseInfoDtoList;
-    private List<GiveGiftListBean> giveGiftList;
-    private List<ReceiveGiftListBean> receiveGiftList;
+    private List<GiftListBean> giveGiftList;
+    private List<GiftListBean> receiveGiftList;
 
     public int getDynamicNum() {
         return dynamicNum;
@@ -344,19 +344,19 @@ public class UserBean extends BaseBean<UserBean> {
         this.browseInfoDtoList = browseInfoDtoList;
     }
 
-    public List<GiveGiftListBean> getGiveGiftList() {
+    public List<GiftListBean> getGiveGiftList() {
         return giveGiftList;
     }
 
-    public void setGiveGiftList(List<GiveGiftListBean> giveGiftList) {
+    public void setGiveGiftList(List<GiftListBean> giveGiftList) {
         this.giveGiftList = giveGiftList;
     }
 
-    public List<ReceiveGiftListBean> getReceiveGiftList() {
+    public List<GiftListBean> getReceiveGiftList() {
         return receiveGiftList;
     }
 
-    public void setReceiveGiftList(List<ReceiveGiftListBean> receiveGiftList) {
+    public void setReceiveGiftList(List<GiftListBean> receiveGiftList) {
         this.receiveGiftList = receiveGiftList;
     }
 
@@ -416,7 +416,7 @@ public class UserBean extends BaseBean<UserBean> {
         }
     }
 
-    public static class GiveGiftListBean implements Serializable{
+    public static class GiftListBean implements Serializable{
         /**
          * giftCount : 8
          * giftIcon : http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/e43c53d2a5dc47e0854541219dc580e8.jpeg?Expires=1878218360&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=oaPyR3THV6lqBIH4ymo9Umr00%2Fw%3D
@@ -462,49 +462,4 @@ public class UserBean extends BaseBean<UserBean> {
         }
     }
 
-    public static class ReceiveGiftListBean implements Serializable{
-        /**
-         * giftCount : 14
-         * giftIcon : http://happychat-pic.oss-cn-hangzhou.aliyuncs.com/e43c53d2a5dc47e0854541219dc580e8.jpeg?Expires=1878218360&OSSAccessKeyId=LTAIDqmQs3MHEI7Q&Signature=oaPyR3THV6lqBIH4ymo9Umr00%2Fw%3D
-         * giftId : 1
-         * giftName : 守护符
-         */
-
-        private int giftCount;
-        private String giftIcon;
-        private int giftId;
-        private String giftName;
-
-        public int getGiftCount() {
-            return giftCount;
-        }
-
-        public void setGiftCount(int giftCount) {
-            this.giftCount = giftCount;
-        }
-
-        public String getGiftIcon() {
-            return giftIcon;
-        }
-
-        public void setGiftIcon(String giftIcon) {
-            this.giftIcon = giftIcon;
-        }
-
-        public int getGiftId() {
-            return giftId;
-        }
-
-        public void setGiftId(int giftId) {
-            this.giftId = giftId;
-        }
-
-        public String getGiftName() {
-            return giftName;
-        }
-
-        public void setGiftName(String giftName) {
-            this.giftName = giftName;
-        }
-    }
 }

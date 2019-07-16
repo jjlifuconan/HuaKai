@@ -14,6 +14,10 @@ import com.social.happychat.databinding.ActivityGiftShopBinding;
 import com.social.happychat.ui.home.fragment.GiftReceiveListFragment;
 import com.social.happychat.ui.home.fragment.GiftSendListFragment;
 import com.social.happychat.ui.home.fragment.GiftShopListFragment;
+import com.social.happychat.ui.login.bean.UserBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -52,9 +56,10 @@ public class GiftShopActivity extends BaseCookieActivity {
         }
     }
 
-    public static void action(Context context, int type){
+    public static void action(Context context, int type, ArrayList<UserBean.GiftListBean> giftListBeanList){
         Intent intent = new Intent(context, GiftShopActivity.class);
         intent.putExtra("type",type);
+        intent.putExtra("giftListBeanList",giftListBeanList);
         context.startActivity(intent);
     }
 

@@ -148,11 +148,6 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
-                    android:src="@mipmap/right_going"/>
             </FrameLayout>
 
 

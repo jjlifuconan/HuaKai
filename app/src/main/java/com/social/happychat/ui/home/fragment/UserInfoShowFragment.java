@@ -2,7 +2,6 @@ package com.social.happychat.ui.home.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,12 +11,12 @@ import android.widget.TextView;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.happychat.R;
-import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentUserinfoShowBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
-import com.social.happychat.ui.home.bean.UserDetailBean;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.mine.bean.TagListBean;
+
+import java.util.ArrayList;
 
 /**
  * @author Administrator
@@ -56,35 +55,48 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
             }
         }
 
+
         if(bean.getReceiveGiftList()!=null && !bean.getReceiveGiftList().isEmpty()){
-            for(UserBean.ReceiveGiftListBean gift: bean.getReceiveGiftList()){
+            for(int i = 0;i < bean.getReceiveGiftList().size();i++){
+                UserBean.GiftListBean gift = bean.getReceiveGiftList().get(i);
                 ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
                 ImageLoadUtil.displayCircle(img,gift.getGiftIcon(),2);
                 int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
                 binding.liReceive.addView(img,lp);
+                if(i == 4){
+                    break;
+                }
             }
         }
         binding.liReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_RECEIVE);
+                if(bean.getReceiveGiftList()!=null && !bean.getReceiveGiftList().isEmpty()){
+                    GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_RECEIVE, (ArrayList<UserBean.GiftListBean>) bean.getReceiveGiftList());
+                }
             }
         });
 
         if(bean.getGiveGiftList()!=null && !bean.getGiveGiftList().isEmpty()){
-            for(UserBean.GiveGiftListBean gift: bean.getGiveGiftList()){
+            for(int i = 0;i < bean.getGiveGiftList().size();i++){
+                UserBean.GiftListBean gift = bean.getGiveGiftList().get(i);
                 ImageView img = (ImageView) LayoutInflater.from(activity).inflate(R.layout.cell_gift, null);
                 ImageLoadUtil.displayCircle(img,gift.getGiftIcon(),2);
                 int dp40 = (int) activity.getResources().getDimension(R.dimen.dp40);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp40,dp40);
                 binding.liSend.addView(img,lp);
+                if(i == 4){
+                    break;
+                }
             }
         }
         binding.liSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SEND);
+                if(bean.getGiveGiftList()!=null && !bean.getGiveGiftList().isEmpty()){
+                    GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SEND, (ArrayList<UserBean.GiftListBean>) bean.getGiveGiftList());
+                }
             }
         });
 
