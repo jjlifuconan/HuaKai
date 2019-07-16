@@ -5,15 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.happychat.R;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentRankListBinding;
+import com.social.happychat.ui.home.activity.UserHomeActivity;
 import com.social.happychat.ui.rank.adapter.RankAdapter;
 import com.social.happychat.ui.rank.bean.RankListBean;
 import com.social.happychat.ui.rank.interfaces.RankNavigator;
@@ -33,6 +37,7 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     private RankPresent present;
     private String tabType;
     private String radioType = Constant.RadioType.DAY;
+    private static final int NO_USERID = 0;
 
 
     public static RankListFragment newInstance(String tabType) {
@@ -72,9 +77,44 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
             }
         });
         rankAdapter = new RankAdapter(activity);
+        rankAdapter.setOnItemClickListener(new OnItemClickListener<RankListBean>() {
+            @Override
+            public void onClick(RankListBean item) {
+                UserHomeActivity.action(activity,item.getUserId());
+            }
+        });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         binding.recyclerView.setAdapter(rankAdapter);
         present.loadRankData(tabType, radioType);
+        binding.liTop1.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                if(getIntTag(binding.liTop1.getTag().toString()) != NO_USERID){
+                    UserHomeActivity.action(activity,getIntTag(binding.liTop1.getTag().toString()));
+                }
+
+            }
+        });
+
+        binding.liTop2.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                if(getIntTag(binding.liTop2.getTag().toString()) != NO_USERID){
+                    UserHomeActivity.action(activity,getIntTag(binding.liTop2.getTag().toString()));
+                }
+            }
+        });
+
+
+        binding.liTop3.setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onNoDoubleClick(View v) {
+                if(getIntTag(binding.liTop3.getTag().toString()) != NO_USERID){
+                    UserHomeActivity.action(activity,getIntTag(binding.liTop3.getTag().toString()));
+                }
+            }
+        });
+
     }
 
     @Override
@@ -89,34 +129,58 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
     }
 
     @Override
-    public void showAdapterView(List<RankListBean.DataBean> dataBean) {
+    public void showAdapterView(List<RankListBean> dataBean) {
         rankAdapter.getItems().clear();
         binding.refreshLayout.finishRefresh();
         rankAdapter.getItems().addAll(dataBean);
     }
 
     @Override
-    public void showTop3Views(List<RankListBean.DataBean> dataBean) {
+    public void showTop3Views(List<RankListBean> dataBean) {
+        binding.refreshLayout.finishRefresh();
         if(dataBean.size() == 1){
-            ImageLoadUtil.displayCircle(binding.ivTop1, dataBean.get(0).getPhoto(), TextUtils.equals("1",dataBean.get(0).getSex())?4:3);
+            ImageLoadUtil.displayCircle(binding.ivTop1, dataBean.get(0).getHeadPhotoUrl(), dataBean.get(0).getUserSex() == 1?3:4);
             binding.tvTop1.setText(dataBean.get(0).getNickName());
+            binding.liTop1.setTag(dataBean.get(0).getUserId());
+
+            binding.liTop2.setTag(NO_USERID);
+            binding.liTop3.setTag(NO_USERID);
+            binding.ivTop2.setImageResource(0);
+            binding.ivTop3.setImageResource(0);
+            binding.tvTop2.setText("");
+            binding.tvTop3.setText("");
+
         }else if(dataBean.size() == 2){
-            ImageLoadUtil.displayCircle(binding.ivTop1, dataBean.get(0).getPhoto(), TextUtils.equals("1",dataBean.get(0).getSex())?4:3);
+            ImageLoadUtil.displayCircle(binding.ivTop1, dataBean.get(0).getHeadPhotoUrl(), dataBean.get(0).getUserSex() == 1?3:4);
+            binding.liTop1.setTag(dataBean.get(0).getUserId());
             binding.tvTop1.setText(dataBean.get(0).getNickName());
 
-            ImageLoadUtil.displayCircle(binding.ivTop2, dataBean.get(1).getPhoto(), TextUtils.equals("1",dataBean.get(1).getSex())?4:3);
+            ImageLoadUtil.displayCircle(binding.ivTop2, dataBean.get(1).getHeadPhotoUrl(), dataBean.get(1).getUserSex() == 1?3:4);
+            binding.liTop2.setTag(dataBean.get(1).getUserId());
             binding.tvTop2.setText(dataBean.get(1).getNickName());
+
+            binding.liTop3.setTag(NO_USERID);
+            binding.ivTop3.setImageResource(0);
+            binding.tvTop3.setText("");
         }else if(dataBean.size() == 3){
-            ImageLoadUtil.displayCircle(binding.ivTop1, dataBean.get(0).getPhoto(), TextUtils.equals("1",dataBean.get(0).getSex())?4:3);
+            ImageLoadUtil.displayCircle(binding.ivTop1, dataBean.get(0).getHeadPhotoUrl(), dataBean.get(0).getUserSex() == 1?3:4);
             binding.tvTop1.setText(dataBean.get(0).getNickName());
+            binding.liTop1.setTag(dataBean.get(0).getUserId());
 
-            ImageLoadUtil.displayCircle(binding.ivTop2, dataBean.get(1).getPhoto(), TextUtils.equals("1",dataBean.get(1).getSex())?4:3);
+            ImageLoadUtil.displayCircle(binding.ivTop2, dataBean.get(1).getHeadPhotoUrl(), dataBean.get(1).getUserSex() == 1?3:4);
             binding.tvTop2.setText(dataBean.get(1).getNickName());
+            binding.liTop2.setTag(dataBean.get(1).getUserId());
 
-            ImageLoadUtil.displayCircle(binding.ivTop3, dataBean.get(2).getPhoto(), TextUtils.equals("1",dataBean.get(2).getSex())?4:3);
+            ImageLoadUtil.displayCircle(binding.ivTop3, dataBean.get(2).getHeadPhotoUrl(), dataBean.get(2).getUserSex() == 1?3:4);
             binding.tvTop3.setText(dataBean.get(2).getNickName());
+            binding.liTop3.setTag(dataBean.get(2).getUserId());
         }
 
+    }
+
+    @Override
+    public void clearList() {
+        rankAdapter.getItems().clear();
     }
 
     @Override
@@ -134,7 +198,15 @@ public class RankListFragment extends BaseFragment<FragmentRankListBinding> impl
 
     @Override
     protected void onRefresh() {
-        //                present.setPage(1);
         present.loadRankData(tabType, radioType);
+    }
+
+    private int getIntTag(String tag){
+        try {
+            return Integer.parseInt(tag);
+        }catch (Exception e){
+
+        }
+        return NO_USERID;
     }
 }

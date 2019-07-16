@@ -23,12 +23,17 @@ public interface RankNavigator {
     /**
      * 显示adapter数据
      */
-    void showAdapterView(List<RankListBean.DataBean> dataBean);
+    void showAdapterView(List<RankListBean> dataBean);
 
     /**
      * 显示列表没有更多数据布局
      */
-    void showTop3Views(List<RankListBean.DataBean> dataBean);
+    void showTop3Views(List<RankListBean> dataBean);
+
+    /**
+     * 清空列表
+     */
+    void clearList();
 
     /**
      * 无数据或请求失败

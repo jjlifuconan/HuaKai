@@ -12,7 +12,7 @@ import com.social.happychat.ui.rank.bean.RankListBean;
  * @date 2019/6/27 0027
  * @description:
  */
-public class RankAdapter extends BaseBindingAdapter<RankListBean.DataBean, ItemRankBinding> {
+public class RankAdapter extends BaseBindingAdapter<RankListBean, ItemRankBinding> {
 
     public RankAdapter(Context context) {
         super(context);
@@ -24,7 +24,7 @@ public class RankAdapter extends BaseBindingAdapter<RankListBean.DataBean, ItemR
     }
 
     @Override
-    protected void onBindItem(ItemRankBinding binding, RankListBean.DataBean item) {
+    protected void onBindItem(ItemRankBinding binding, RankListBean item) {
         binding.setBean(item);
     }
 }

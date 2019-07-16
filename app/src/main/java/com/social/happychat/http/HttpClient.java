@@ -15,6 +15,7 @@ import com.social.happychat.ui.home.bean.PraiseListBean;
 import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.login.bean.UserBean;
 import com.social.happychat.ui.mine.bean.TagListBean;
+import com.social.happychat.ui.rank.bean.RankListBean;
 
 
 import java.util.Map;
@@ -203,5 +204,10 @@ public interface HttpClient {
      */
     @POST("dynamic/private/doComment.do")
     Observable<BaseBean> doComment(@Body JSONObject parmas);
+    /**
+     * 排行榜列表
+     */
+    @POST("gift/private/giftStatistic.do")
+    Observable<RankListBean> rankList(@Body JSONObject parmas);
 
 }

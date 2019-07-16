@@ -7,6 +7,8 @@ import com.social.happychat.ui.rank.bean.RankListBean;
 import com.social.happychat.ui.rank.interfaces.RankNavigator;
 import com.social.happychat.ui.rank.model.RankViewModel;
 
+import java.util.List;
+
 import rx.Subscription;
 
 /**
@@ -26,18 +28,20 @@ public class RankPresent {
     public void loadRankData(String tabType, String radioType) {
         Log.e("FLJ","tabType-->"+tabType+",radioType-->"+radioType);
         mModel.setData(tabType , radioType);
-        mModel.getGankIoData(new RequestImpl() {
+        mModel.getRankData(new RequestImpl() {
             @Override
             public void loadSuccess(Object object) {
                 navigator.showLoadSuccessView();
                 RankListBean rankListBean = (RankListBean) object;
                 if(rankListBean.getData()!=null && rankListBean.getData().size() > 0){
                     if(rankListBean.getData().size() > 3){
-                        navigator.showTop3Views(rankListBean.getData().subList(0,3));
-                        rankListBean.getData().subList(0,3).clear();
-                        navigator.showAdapterView(rankListBean.getData());
+                        List<RankListBean> rankListBeanList = rankListBean.getData();
+                        navigator.showTop3Views(rankListBeanList.subList(0,3));
+                        rankListBeanList.subList(0,3).clear();
+                        navigator.showAdapterView(rankListBeanList);
                     }else{
                         navigator.showTop3Views(rankListBean.getData());
+                        navigator.clearList();
                     }
                 }else{
                     navigator.showLoadFailedView();
