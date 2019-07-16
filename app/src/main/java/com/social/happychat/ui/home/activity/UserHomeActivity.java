@@ -17,17 +17,22 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.social.basecommon.util.DensityUtil;
 import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.PerfectClickListener;
+import com.social.basecommon.util.SPUtils;
+import com.social.basecommon.util.ToastUtil;
 import com.social.basecommon.viewbigimage.ViewBigImageActivity;
 import com.social.happychat.R;
 import com.social.happychat.base.BaseCookieActivity;
+import com.social.happychat.bean.BaseBean;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.ActivityUserHomeBinding;
+import com.social.happychat.event.RefreshCommentNumEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.im.SessionHelper;
 import com.social.happychat.ui.compose.bean.ImageBean;
 import com.social.happychat.ui.home.fragment.TrendFragment;
 import com.social.happychat.ui.home.fragment.UserInfoShowFragment;
 import com.social.happychat.ui.login.bean.UserBean;
+import com.social.happychat.util.RequestBody;
 import com.social.happychat.widget.ScaleTransitionPagerTitleView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -42,8 +47,12 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import rx.Observer;
 import rx.Subscription;
@@ -73,6 +82,31 @@ public class UserHomeActivity extends BaseCookieActivity {
         initView();
         setListener();
         getUserData();
+        addVistorRecord();
+    }
+
+    private void addVistorRecord(){
+        Subscription subscription = HttpClient.Builder.getRealServer().addVistor(userId)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseBean>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(BaseBean baseBean) {
+//                        if(baseBean.isValid()){
+//                        }else{
+//                            ToastUtil.show(activity, userBean.getMsg());
+//                        }
+
+                    }
+                });
+        addSubscription(subscription);
     }
 
     private void getUserData() {

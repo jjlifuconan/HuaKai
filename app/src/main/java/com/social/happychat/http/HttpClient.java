@@ -200,6 +200,12 @@ public interface HttpClient {
     Observable<BaseBean> doPraise(@Body JSONObject parmas);
 
     /**
+     * 添加浏览记录
+     */
+    @GET("user/private/user/browseUser.htm")
+    Observable<BaseBean> addVistor(@Query("browseUserId") int browseUserId);
+
+    /**
      * 评论动态
      */
     @POST("dynamic/private/doComment.do")
