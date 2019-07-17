@@ -46,6 +46,7 @@ import rx.schedulers.Schedulers;
 public class RegisterActivity extends BaseActivity {
     ActivityRegisterBinding binding;
     private AbortableFuture<LoginInfo> loginRequest;
+    private boolean isToast = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +73,10 @@ public class RegisterActivity extends BaseActivity {
         binding.sex.setListener(new SexBox.OnChooseListener() {
             @Override
             public void onChoose() {
+                if(!isToast){
+                    ToastUtil.show(activity,"注册成功后性别将无法更改");
+                    isToast = true;
+                }
                 if(!TextUtils.isEmpty(binding.edtPhone.getText().toString()) && !TextUtils.isEmpty(binding.edtPassword.getText().toString())
                         && !TextUtils.isEmpty(binding.edtYzCode.getText().toString()) && binding.edtPassword.getText().toString().length() >= 6
                         && binding.sex.getstatu() != 0){
