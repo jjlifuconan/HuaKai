@@ -205,6 +205,7 @@ public class TrendDetailActivity extends BaseCookieActivity implements DialogFra
             }
         }
         binding.layoutHeader.nineimage.setImagesData(strList);
+        binding.layoutHeader.nineimage.setSingleImgSize((int) (DensityUtil.getWidth(activity)*0.4));
 
         final String[] titles = getResources().getStringArray(R.array.trendDetailTabTitle);
 

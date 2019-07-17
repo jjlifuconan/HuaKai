@@ -127,6 +127,7 @@ public class UserHomeActivity extends BaseCookieActivity {
                         if(baseBean.getData() != null){
                             userBean = baseBean.getData();
                             updateIndicatorTitle();
+                            upBottomVisibility();
                             setData(userBean);
                         }
                     }
@@ -239,6 +240,21 @@ public class UserHomeActivity extends BaseCookieActivity {
                 binding.indicator.onPageScrollStateChanged(state);
             }
         });
+    }
+
+    /**
+     * 更新底部按钮可见性
+     */
+    private void upBottomVisibility(){
+        UserBean localUser = SPUtils.getObject(activity, Constant.SP_HAPPY_CHAT, Constant.PLATFORM_HAPPYCHAT_USER_INFO, UserBean.class);
+        if(userBean.getId() == localUser.getId()){
+            binding.vpChat.setVisibility(View.GONE);
+            binding.vpSendGift.setVisibility(View.GONE);
+        }else{
+            binding.vpChat.setVisibility(View.VISIBLE);
+            binding.vpSendGift.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void updateIndicatorTitle(){

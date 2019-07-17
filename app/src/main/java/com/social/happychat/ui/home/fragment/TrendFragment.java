@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.social.basecommon.adapter.OnItemClickListener;
@@ -33,6 +35,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import rx.Subscription;
+
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 /**
  * @author Administrator
@@ -76,6 +80,31 @@ public class TrendFragment extends BaseFragment<FragmentRefreshListBinding> impl
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         present = new TrendPresent(this);
+//        binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                switch (newState){
+//                    case RecyclerView.SCROLL_STATE_IDLE:
+//                        //滑动停止
+//                        try {
+//                            if(getContext() != null) Glide.with(getContext()).resumeRequests();
+//                        }
+//                        catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        break;
+//                    case RecyclerView.SCROLL_STATE_SETTLING:
+//                        //正在滚动
+//                        try {
+//                            if(getContext() != null) Glide.with(getContext()).pauseRequests();
+//                        }
+//                        catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        break;
+//
+//            }
+//        }});
         binding.refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout showAdapterView) {

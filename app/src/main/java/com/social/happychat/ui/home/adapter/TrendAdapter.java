@@ -98,7 +98,7 @@ public class TrendAdapter extends BaseBindingAdapter<TrendListBean.ListBean, Ite
             }
         }
         binding.nineimage.setImagesData(strList);
-
+        binding.nineimage.setSingleImgSize((int) (DensityUtil.getWidth(context)*0.4));
     }
 
     public class TrendHolder extends BaseBindingViewHolder{

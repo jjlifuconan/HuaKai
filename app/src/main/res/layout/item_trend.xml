@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:imgGap="3dp"
-            app:showStyle="fill"
+            app:showStyle="grid"
             android:layout_marginTop="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
