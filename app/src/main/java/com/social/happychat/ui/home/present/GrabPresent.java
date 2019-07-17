@@ -4,6 +4,7 @@ package com.social.happychat.ui.home.present;
 import com.example.http.HttpUtils;
 import com.social.happychat.http.RequestImpl;
 import com.social.happychat.ui.home.bean.GrabListBean;
+import com.social.happychat.ui.home.bean.TrendListBean;
 import com.social.happychat.ui.home.interfaces.GrabNavigator;
 import com.social.happychat.ui.home.model.GrabViewModel;
 
@@ -30,19 +31,25 @@ public class GrabPresent {
             @Override
             public void loadSuccess(Object object) {
                 navigator.showLoadSuccessView();
+
                 GrabListBean grabListBean = (GrabListBean) object;
                 if (mPage == 1) {
-                    if (grabListBean == null || grabListBean.getData() == null || grabListBean.getData().size() <= 0) {
+                    if (grabListBean == null || !grabListBean.isValid() ||  grabListBean.getData() == null
+                            || grabListBean.getData().getList() == null || grabListBean.getData().getList().size() <= 0) {
                         navigator.showLoadFailedView();
                         return;
                     }
                 } else {
-                    if (grabListBean == null || grabListBean.getData() == null || grabListBean.getData().size() <= 0) {
+                    if (grabListBean == null || !grabListBean.isValid() ||  grabListBean.getData() == null
+                            || grabListBean.getData().getList() == null || grabListBean.getData().getList().size() <= 0) {
                         navigator.showListNoMoreLoading();
                         return;
                     }
                 }
-                navigator.showAdapterView(grabListBean.getData());
+                if(grabListBean != null && !grabListBean.isHasNextPage()){
+                    navigator.showListNoMoreLoading();
+                }
+                navigator.showAdapterView(grabListBean.getData().getList());
             }
 
             @Override

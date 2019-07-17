@@ -6,7 +6,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="bean"
-            type="com.social.happychat.ui.home.bean.GrabListBean.DataBean"/>
+            type="com.social.happychat.ui.home.bean.GrabListBean.ListBean"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,8 +19,8 @@
             android:id="@+id/imageView5"
             android:layout_width="@dimen/dp60"
             android:layout_height="@dimen/dp60"
-            android:defaultPicType="@{TextUtils.equals(bean.sex,`1`)?4:3}"
-            android:displayCircle="@{bean.photo}"
+            android:defaultPicType="@{bean.userSex==1?3:4}"
+            android:displayCircle="@{bean.headPhotoUrl}"
             app:layout_constraintBottom_toBottomOf="@+id/textView17"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView15" />
@@ -44,14 +44,14 @@
             android:layout_marginTop="@dimen/dp5"
             app:layout_constraintStart_toStartOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/textView15"
-            android:src="@{TextUtils.equals(bean.sex,`1`)?@drawable/ic_mine_female:@drawable/ic_mine_male}" />
+            android:src="@{bean.userSex==2?@drawable/ic_mine_female:@drawable/ic_mine_male}" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp5"
-            android:text="@{bean.age+`岁`}"
+            android:text="@{bean.userAge+`岁`}"
             android:textColor="@color/normal_txt_black"
             android:textSize="@dimen/sp13"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp5"
-            android:text="@{bean.signature}"
+            android:text="@{bean.userSign}"
             android:textColor="@color/normal_txt_black"
             android:ellipsize="end"
             android:maxEms="14"
@@ -83,7 +83,7 @@
             android:includeFontPadding="false"
             android:paddingHorizontal="@dimen/dp14"
             android:paddingVertical="@dimen/dp7"
-            android:text="@{TextUtils.equals(bean.sex,`1`)?`抢她`:`抢他`}"
+            android:text="@{bean.userSex==2?`抢她`:`抢他`}"
             android:textColor="#fff"
             android:textSize="@dimen/sp13"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -63,10 +63,10 @@ public class FemaleGrabChatFragment extends BaseFragment<FragmentRefreshListBind
 
 
         grabAdapter = new GrabAdapter(activity);
-        grabAdapter.setOnItemClickListener(new OnItemClickListener<GrabListBean.DataBean>() {
+        grabAdapter.setOnItemClickListener(new OnItemClickListener<GrabListBean.ListBean>() {
             @Override
-            public void onClick(GrabListBean.DataBean item) {
-                UserHomeActivity.action(activity,9999);
+            public void onClick(GrabListBean.ListBean item) {
+                UserHomeActivity.action(activity,item.getUserId());
             }
         });
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -83,7 +83,7 @@ public class FemaleGrabChatFragment extends BaseFragment<FragmentRefreshListBind
     }
 
     @Override
-    public void showAdapterView(List<GrabListBean.DataBean> dataBeans) {
+    public void showAdapterView(List<GrabListBean.ListBean> dataBeans) {
         binding.refreshLayout.setNoMoreData(false);
 
         if (present.getPage() == 1) {

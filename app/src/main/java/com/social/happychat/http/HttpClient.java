@@ -10,6 +10,7 @@ import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.home.bean.CommentListBean;
 import com.social.happychat.ui.home.bean.GiftRecordBean;
 import com.social.happychat.ui.home.bean.GiftShopBean;
+import com.social.happychat.ui.home.bean.GrabListBean;
 import com.social.happychat.ui.home.bean.NeteaseList;
 import com.social.happychat.ui.home.bean.PraiseListBean;
 import com.social.happychat.ui.home.bean.TrendListBean;
@@ -162,6 +163,12 @@ public interface HttpClient {
      */
     @POST("dynamic/private/dynamicList.do")
     Observable<TrendListBean> dynamicList(@Body JSONObject parmas);
+
+    /**
+     * 女性抢聊列表
+     */
+    @POST("chat/private/chatApplyList.do")
+    Observable<GrabListBean> chatApplyList(@Body JSONObject parmas);
 
     /**
      * 评论列表

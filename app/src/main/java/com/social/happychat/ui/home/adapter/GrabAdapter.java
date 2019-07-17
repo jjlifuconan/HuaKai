@@ -3,7 +3,6 @@ package com.social.happychat.ui.home.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.noober.background.drawable.DrawableCreator;
@@ -20,7 +19,7 @@ import com.social.happychat.ui.home.bean.GrabListBean;
  * @date 2019/6/27 0027
  * @description:
  */
-public class GrabAdapter extends BaseBindingAdapter<GrabListBean.DataBean, ItemGrabBinding> {
+public class GrabAdapter extends BaseBindingAdapter<GrabListBean.ListBean, ItemGrabBinding> {
 
     public GrabAdapter(Context context) {
         super(context);
@@ -32,9 +31,9 @@ public class GrabAdapter extends BaseBindingAdapter<GrabListBean.DataBean, ItemG
     }
 
     @Override
-    protected void onBindItem(ItemGrabBinding binding, GrabListBean.DataBean item) {
+    protected void onBindItem(ItemGrabBinding binding, GrabListBean.ListBean item) {
         binding.setBean(item);
-        if(TextUtils.equals("1",item.getSex())){
+        if(item.getUserSex() == 2){
             Drawable drawable4 = new DrawableCreator.Builder().setCornersRadius(DensityUtil.dip2px(context,3))
                     .setSolidColor(ContextCompat.getColor(context,R.color.age_girl_tv))
                     .build();
