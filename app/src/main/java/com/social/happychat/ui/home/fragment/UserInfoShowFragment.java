@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.basecommon.util.ImageLoadUtil;
+import com.social.basecommon.util.PerfectClickListener;
 import com.social.happychat.R;
 import com.social.happychat.databinding.FragmentUserinfoShowBinding;
 import com.social.happychat.ui.home.activity.GiftShopActivity;
@@ -69,9 +70,9 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
                 }
             }
         }
-        binding.liReceive.setOnClickListener(new View.OnClickListener() {
+        binding.liReceive.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onNoDoubleClick(View view) {
                 if(bean.getReceiveGiftList()!=null && !bean.getReceiveGiftList().isEmpty()){
                     GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_RECEIVE, (ArrayList<UserBean.GiftListBean>) bean.getReceiveGiftList());
                 }
@@ -91,9 +92,9 @@ public class UserInfoShowFragment extends BaseFragment<FragmentUserinfoShowBindi
                 }
             }
         }
-        binding.liSend.setOnClickListener(new View.OnClickListener() {
+        binding.liSend.setOnClickListener(new PerfectClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onNoDoubleClick(View view) {
                 if(bean.getGiveGiftList()!=null && !bean.getGiveGiftList().isEmpty()){
                     GiftShopActivity.action(view.getContext(), GiftShopActivity.TYPE_SEND, (ArrayList<UserBean.GiftListBean>) bean.getGiveGiftList());
                 }

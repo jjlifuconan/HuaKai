@@ -7,13 +7,14 @@ import com.social.happychat.R;
 import com.social.happychat.databinding.ItemGiftSendreceiveBinding;
 import com.social.happychat.databinding.ItemGiftShopBinding;
 import com.social.happychat.ui.home.bean.GiftShopBean;
+import com.social.happychat.ui.login.bean.UserBean;
 
 /**
  * @author Administrator
  * @date 2019/6/27 0027
  * @description:
  */
-public class GiftSendReceiveAdapter extends BaseBindingAdapter<GiftShopBean, ItemGiftSendreceiveBinding> {
+public class GiftSendReceiveAdapter extends BaseBindingAdapter<UserBean.GiftListBean, ItemGiftSendreceiveBinding> {
 
     public GiftSendReceiveAdapter(Context context) {
         super(context);
@@ -25,7 +26,7 @@ public class GiftSendReceiveAdapter extends BaseBindingAdapter<GiftShopBean, Ite
     }
 
     @Override
-    protected void onBindItem(ItemGiftSendreceiveBinding binding, GiftShopBean item) {
+    protected void onBindItem(ItemGiftSendreceiveBinding binding, UserBean.GiftListBean item) {
         binding.setBean(item);
     }
 }
