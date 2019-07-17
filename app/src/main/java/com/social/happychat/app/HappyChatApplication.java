@@ -1,6 +1,8 @@
 package com.social.happychat.app;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
@@ -55,6 +57,22 @@ public class HappyChatApplication extends MultiDexApplication {
 
     public static HappyChatApplication getInstance(){
         return application;
+    }
+
+    /**
+     * 获取当前版本code
+     * @return
+     */
+    public int getClientVersion() {
+        int versionCode;
+        try {
+            PackageManager pm = getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(getPackageName(), 0);
+            versionCode = pi.versionCode;// 获取在AndroidManifest.xml中配置的版本号
+        } catch (PackageManager.NameNotFoundException e) {
+            versionCode = 0;
+        }
+        return versionCode;
     }
 
     @Override

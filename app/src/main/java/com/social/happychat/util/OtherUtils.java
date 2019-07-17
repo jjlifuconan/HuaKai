@@ -2,6 +2,8 @@ package com.social.happychat.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.text.Editable;
@@ -422,4 +424,5 @@ public class OtherUtils {
         String s = String.format("%02d", origin);
         return s;
     }
+
 }

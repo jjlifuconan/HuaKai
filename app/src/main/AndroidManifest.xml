@@ -52,6 +52,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
+        <provider
+            android:name=".util.MyFileprovider"
+            android:authorities="com.social.happychat.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <!-- 元数据 -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+
         <!--全面屏immersion-->
         <meta-data
             android:name="android.max_aspect"

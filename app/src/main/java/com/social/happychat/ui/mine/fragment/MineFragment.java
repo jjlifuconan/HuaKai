@@ -2,6 +2,7 @@ package com.social.happychat.ui.mine.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,24 +10,22 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.social.basecommon.fragment.BaseFragment;
-import com.social.basecommon.util.GlideApp;
-import com.social.basecommon.util.ImageLoadUtil;
 import com.social.basecommon.util.PerfectClickListener;
 import com.social.basecommon.util.SPUtils;
 import com.social.basecommon.util.ToastUtil;
 import com.social.happychat.R;
+import com.social.happychat.app.HappyChatApplication;
 import com.social.happychat.constant.Constant;
 import com.social.happychat.databinding.FragmentMineBinding;
 import com.social.happychat.event.RefreshMineEvent;
-import com.social.happychat.event.RefreshTrendListEvent;
 import com.social.happychat.http.HttpClient;
 import com.social.happychat.ui.login.LoginActivity;
 import com.social.happychat.ui.login.bean.UserBean;
-import com.social.happychat.ui.login.bean.WechatUserBean;
 import com.social.happychat.ui.login.cookie.LoginCookie;
 import com.social.happychat.ui.mine.activity.IDCardActivity;
 import com.social.happychat.ui.mine.activity.ModifyUserInfoActivity;
 import com.social.happychat.ui.mine.activity.MyTrendActiviy;
+import com.social.happychat.util.CheckUpdateUtils;
 import com.social.happychat.util.RequestBody;
 
 import org.greenrobot.eventbus.EventBus;
@@ -107,7 +106,7 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         binding.liCheckupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(activity,"当前已是最新版本");
+                checkUpdate();
             }
         });
         binding.ivHead.setOnClickListener(new PerfectClickListener() {
@@ -175,5 +174,25 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
         if(userBean != null){
             binding.setBean(userBean);
         }
+    }
+
+    private void checkUpdate(){
+        if(12 > HappyChatApplication.getInstance().getClientVersion()){
+            new MaterialDialog.Builder(activity).positiveText("确定").negativeText("取消").cancelable(true)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/happychat/";
+                            String name = "happychat.apk";
+                            String url = "http://acj3.pc6.com/pc6_soure/2019-5/YgXAYQrY1mH3v4vq_YUKBgnpoN8RXb2SogtXdo6-AI16j3yT9O6v-RxvEX0rcyQLUZDK3PuO0c9yTVjn3HwEFA2.apk";
+                            new CheckUpdateUtils().getFile(activity, url,filePath,name);
+                        }
+                    }).content("更新内容如下，加字段")
+                    .title("更新标题如下，加字段")
+                    .show();
+        }else{
+            ToastUtil.show(activity,"当前已是最新版本");
+        }
+
     }
 }
