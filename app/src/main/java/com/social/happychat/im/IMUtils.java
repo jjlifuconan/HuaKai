@@ -57,7 +57,7 @@ public class IMUtils {
             return;
         }
         String curTime = String.valueOf((new Date()).getTime() / 1000L);
-        String appSecret = "1c0ebc97514d";
+        String appSecret = "bb64e9ca4fa3";
         String nonce = "12345";
         String contentType = "application/x-www-form-urlencoded;charset=utf-8";
         String checkSum = CheckSumBuilder.getCheckSum(appSecret, nonce ,curTime);//参考 计算CheckSum的java代码
