@@ -24,7 +24,8 @@
     <string name="user_info_send">送出的礼物  %1$s</string>
     <string name="visitor_of_his">谁看过他</string>
     <string name="visitor_of_her">谁看过她</string>
-
+    <string name="send_him">送给他</string>
+    <string name="send_her">送给她</string>
 
     <string name="social_id">社交号：%1$s</string>
     <string name="registerTime">注册日期：%1$s</string>

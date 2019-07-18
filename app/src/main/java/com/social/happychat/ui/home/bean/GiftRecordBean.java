@@ -126,9 +126,36 @@ public class GiftRecordBean extends BaseBean<GiftRecordBean> {
         private String giftName;
         private int giftPrice;
         private int id;
+        private int rewardUserSex;
+        private String rewardNickName;
         private String rewardUserHeadPhotoUrl;
+        private String rewardGiftTime;
         private int rewardUserId;
         private int userId;
+
+        public String getRewardNickName() {
+            return rewardNickName;
+        }
+
+        public void setRewardNickName(String rewardNickName) {
+            this.rewardNickName = rewardNickName;
+        }
+
+        public int getRewardUserSex() {
+            return rewardUserSex;
+        }
+
+        public void setRewardUserSex(int rewardUserSex) {
+            this.rewardUserSex = rewardUserSex;
+        }
+
+        public String getRewardGiftTime() {
+            return rewardGiftTime;
+        }
+
+        public void setRewardGiftTime(String rewardGiftTime) {
+            this.rewardGiftTime = rewardGiftTime;
+        }
 
         public int getChannel() {
             return channel;

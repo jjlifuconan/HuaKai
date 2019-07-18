@@ -187,8 +187,8 @@ public class MineFragment extends BaseFragment<FragmentMineBinding> {
                             String url = "http://acj3.pc6.com/pc6_soure/2019-5/YgXAYQrY1mH3v4vq_YUKBgnpoN8RXb2SogtXdo6-AI16j3yT9O6v-RxvEX0rcyQLUZDK3PuO0c9yTVjn3HwEFA2.apk";
                             new CheckUpdateUtils().getFile(activity, url,filePath,name);
                         }
-                    }).content("更新内容如下，加字段")
-                    .title("更新标题如下，加字段")
+                    }).content("乐聊更新啦！更新内容如下%…………")
+                    .title("新版本")
                     .show();
         }else{
             ToastUtil.show(activity,"当前已是最新版本");
