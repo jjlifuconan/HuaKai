@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.social.basecommon.adapter.OnItemClickListener;
 import com.social.basecommon.databinding.FragmentRefreshListBinding;
 import com.social.basecommon.fragment.BaseFragment;
 import com.social.happychat.R;
@@ -15,6 +16,8 @@ import com.social.happychat.ui.find.adapter.FindAdapter;
 import com.social.happychat.ui.find.bean.GankIoDataBean;
 import com.social.happychat.ui.find.interfaces.FindNavigator;
 import com.social.happychat.ui.find.present.FindPresent;
+import com.social.happychat.ui.home.activity.UserHomeActivity;
+import com.social.happychat.ui.home.bean.GrabListBean;
 import com.social.happychat.widget.DividerGridItemDecoration;
 
 import rx.Subscription;
@@ -59,6 +62,12 @@ public class FindChildFragment extends BaseFragment<FragmentRefreshListBinding> 
 
 
         findAdapter = new FindAdapter(activity);
+        findAdapter.setOnItemClickListener(new OnItemClickListener<GankIoDataBean.ResultBean>() {
+            @Override
+            public void onClick(GankIoDataBean.ResultBean item) {
+                UserHomeActivity.action(activity,25);
+            }
+        });
         binding.recyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         DividerGridItemDecoration divider = new DividerGridItemDecoration(activity);
         divider.setDrawable(ContextCompat.getDrawable(activity, R.drawable.divider_grid_layout_manager_transparent2));

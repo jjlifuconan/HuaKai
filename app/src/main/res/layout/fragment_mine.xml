@@ -207,7 +207,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp8"
-                                android:text="小纸条"
+                                android:text="花瓣数"
                                 android:textColor="@color/color_8A8A8A"
                                 android:textSize="@dimen/sp11" />
 
